@@ -1,4 +1,4 @@
-package co.edu.udistrital.mdp.ZZZ.podam;
+package co.edu.udistrital.mdp.beautyathome.podam;
 
 import java.lang.annotation.Annotation;
 import java.util.Calendar;
