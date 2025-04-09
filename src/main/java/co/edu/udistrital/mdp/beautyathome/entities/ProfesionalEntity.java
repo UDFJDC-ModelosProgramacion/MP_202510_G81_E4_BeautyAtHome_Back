@@ -1,5 +1,7 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
+import java.sql.Date;
+
 import com.fasterxml.jackson.databind.JsonSerializable.Base;
 
 import jakarta.persistence.Entity;
@@ -11,6 +13,6 @@ import lombok.Data;
 
 public class ProfesionalEntity extends BaseEntity{
     
-    String fotografia,resumenExperencia,fechaDeNacimiento;
-
+    String fotografia,resumenExperencia;
+    Date fechaDeNacimiento;
 }
