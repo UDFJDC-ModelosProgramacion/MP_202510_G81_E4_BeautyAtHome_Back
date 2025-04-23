@@ -15,7 +15,7 @@ public interface ServicioRepository extends JpaRepository<ServicioEntity,Long>{
     
     Optional<ServicioEntity> findById(Long id);
 
-    List<ServicioEntity> findByFechaDeRealizacion(String fechaDeRealizacion);
+    List<ServicioEntity> findByFechaDeRealizacion(Date fechaDeRealizacion);
     List<ServicioEntity> findByNombre(String nombre);
     List<ServicioEntity> findByPrecio(Double precio);
 
