@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Entity
 
-public class ServicioEntity extends BaseEntity {
+public class ServiceEntity extends BaseEntity {
 
     String nombre,descripcion;
     Date fechaDeRealizacion;

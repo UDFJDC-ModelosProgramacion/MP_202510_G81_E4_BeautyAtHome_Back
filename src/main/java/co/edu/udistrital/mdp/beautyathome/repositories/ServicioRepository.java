@@ -5,20 +5,20 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.sql.Date;
 
-import co.edu.udistrital.mdp.beautyathome.entities.ServicioEntity;
+import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import java.util.List;
 import java.util.Optional;
 
 
 @Repository
 
-public interface ServicioRepository extends JpaRepository<ServicioEntity,Long>{
+public interface ServicioRepository extends JpaRepository<ServiceEntity,Long>{
     
-    Optional<ServicioEntity> findById(Long id);
+    Optional<ServiceEntity> findById(Long id);
 
-    List<ServicioEntity> findByFechaDeRealizacion(Date fechaDeRealizacion);
-    List<ServicioEntity> findByNombre(String nombre);
-    List<ServicioEntity> findByPrecio(Double precio);
+    List<ServiceEntity> findByFechaDeRealizacion(Date fechaDeRealizacion);
+    List<ServiceEntity> findByNombre(String nombre);
+    List<ServiceEntity> findByPrecio(Double precio);
 
 
 
