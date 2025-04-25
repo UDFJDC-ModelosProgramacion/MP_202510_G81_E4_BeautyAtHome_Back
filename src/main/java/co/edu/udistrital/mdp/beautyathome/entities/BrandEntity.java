@@ -33,8 +33,4 @@ public abstract class BrandEntity extends BaseEntity {
     @PodamExclude
     private List<ExclusiveProductEntity> exclusiveProducts;
 
-    @PodamExclude
-    @OneToMany(mappedBy = "brand")
-    private List<ServiceEntity> services;
-
 }
