@@ -30,8 +30,4 @@ public abstract class ReferenceImageEntity extends BaseEntity {
     @ManyToOne
     @PodamExclude
     private ExclusiveProductEntity exclusiveProduct;
-
-    @ManyToOne
-    @PodamExclude
-    private ServiceEntity service;
 }
