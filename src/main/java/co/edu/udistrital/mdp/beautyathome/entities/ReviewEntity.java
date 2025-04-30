@@ -2,6 +2,7 @@ package co.edu.udistrital.mdp.beautyathome.entities;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
