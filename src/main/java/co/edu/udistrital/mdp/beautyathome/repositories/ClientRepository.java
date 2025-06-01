@@ -10,5 +10,9 @@ import co.edu.udistrital.mdp.beautyathome.entities.ClientEntity;
 @Repository
 
 public interface ClientRepository extends JpaRepository<ClientEntity, Long>{
+
+    Optional<ClientEntity> findById(Long id);
+    Optional<ClientEntity> findByName(String name);
+    Optional<ClientEntity> findByPhoneNumber(String phoneNumber);
     Optional<ClientEntity> findByEmail(String email);
 }
