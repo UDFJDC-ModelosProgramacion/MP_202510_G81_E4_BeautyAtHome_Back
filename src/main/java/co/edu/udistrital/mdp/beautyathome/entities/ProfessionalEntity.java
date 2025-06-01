@@ -20,10 +20,10 @@ public class ProfessionalEntity extends BaseEntity{
 
     @PodamExclude
     @OneToMany(mappedBy = "professional")
-    private java.util.List<ServiceEntity> servicios = new java.util.ArrayList<>();
+    private java.util.List<ServiceEntity> services = new java.util.ArrayList<>();
 
     //@PodamExclude
     //@OneToOne(mappedBy = "profesional")
     //private AgendaEntity agenda;
-     
+ 
 }

@@ -1,7 +1,6 @@
 package co.edu.udistrital.mdp.beautyathome.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.sql.Date;
 
@@ -15,9 +14,9 @@ import java.util.Optional;
 public interface ServiceRepository extends JpaRepository<ServiceEntity,Long>{
     
     Optional<ServiceEntity> findById(Long id);
+
+    List<ServiceEntity> findByCompletionDate(Date completionDate);
     List<ServiceEntity> findByName(String name);
-    List<ServiceEntity> findByReleaseDate(Date releaseDate);
     List<ServiceEntity> findByPrice(Double price);
 
-
-}
+}   
