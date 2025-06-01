@@ -34,3 +34,5 @@ build/
 
 ### MAC OS ###
 .DS_Store
+src/main/java/co/edu/udistrital/mdp/beautyathome/repositories/ProfesionalRepository.java
+src/main/java/co/edu/udistrital/mdp/beautyathome/entities/ProfesionalEntity.java

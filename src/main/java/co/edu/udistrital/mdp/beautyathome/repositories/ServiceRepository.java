@@ -15,8 +15,10 @@ public interface ServiceRepository extends JpaRepository<ServiceEntity,Long>{
     
     Optional<ServiceEntity> findById(Long id);
 
+
     List<ServiceEntity> findByCompletionDate(Date completionDate);
     List<ServiceEntity> findByName(String name);
     List<ServiceEntity> findByPrice(Double price);
 
-}
+}   
+
