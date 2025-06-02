@@ -3,11 +3,11 @@ package co.edu.udistrital.mdp.beautyathome.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.modelmapper.spi.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.beautyathome.entities.ProfessionalEntity;
+import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.repositories.ProfessionalRepository;
@@ -23,6 +23,10 @@ public class ProfessionalService {
     
     @Autowired
     ProfessionalRepository professionalRepository;
+
+    @Autowired
+    ServiceService serviceService;
+    
     /**
      * Método que se encarga de pedirle a ProfessionalRepository que guarda un professional en la base de datos.
      * @param professional a almacenar 
@@ -52,7 +56,7 @@ public class ProfessionalService {
      * @return La lista de professionales encontrados.
      */
     @Transactional 
-    public List<ProfessionalEntity> getProfessionales() {
+    public List<ProfessionalEntity> getProfessionals() {
         log.info("Obteniendo todos los professionales");
         return professionalRepository.findAll();
     }
@@ -65,7 +69,7 @@ public class ProfessionalService {
      */
 
     @Transactional
-    public ProfessionalEntity getProfessionalById(Long professionalId) throws EntityNotFoundException{
+    public ProfessionalEntity getProfessional(Long professionalId) throws EntityNotFoundException{
         log.info("Iniciando la búsqueda del professional con id: {}", professionalId);
         Optional<ProfessionalEntity> professionalEntity = professionalRepository.findById(professionalId);
         if (professionalEntity.isEmpty())
@@ -84,7 +88,7 @@ public class ProfessionalService {
      */
 
     @Transactional
-    public ProfessionalEntity updateProfsional(Long professionalId, ProfessionalEntity professionalEntity) throws EntityNotFoundException {
+    public ProfessionalEntity updateProfssional(Long professionalId, ProfessionalEntity professionalEntity) throws EntityNotFoundException {
 
         log.info("Iniciando el proceso de actualización del professional con id: {}", professionalId);
         Optional<ProfessionalEntity> optionalProfessionalEntity = professionalRepository.findById(professionalId);
@@ -92,9 +96,9 @@ public class ProfessionalService {
             throw new EntityNotFoundException("Professional no encontrado con id: " + professionalId);
         }
         professionalEntity.setId(professionalId);
-        log.info("Termina el proceso de actualización del professional con id: {}", professionalId);
-
-        return professionalRepository.save(professionalEntity);
+        ProfessionalEntity updatedProfessional = professionalRepository.save(professionalEntity);
+        log.info("Profesional actualizado con éxito: {}", updatedProfessional);
+        return updatedProfessional;
     } 
 
     /**
@@ -113,5 +117,8 @@ public class ProfessionalService {
         if (optionalProfessionalEntity.get().getServices() != null && !optionalProfessionalEntity.get().getServices().isEmpty()) {
             throw new IllegalOperationException("El professional no puede ser eliminado porque tiene servicios asociados");
         }
+        professionalRepository.deleteById(profesioanlID);
+        log.info("Professional eliminado con éxito: {}", profesioanlID);
+
     }
 }

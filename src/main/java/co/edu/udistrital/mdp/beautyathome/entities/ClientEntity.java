@@ -11,10 +11,13 @@ import lombok.Data;
 
 public class ClientEntity extends BaseEntity {
 
-    @OneToMany(mappedBy = "client")
-    private List<ReviewEntity> reviews;
+    private String name;
     private String address;
     private String email;
     private String phoneNumber;
 
+
+    @OneToMany(mappedBy = "client")
+    private List<ReviewEntity> reviews;
+    
 }
