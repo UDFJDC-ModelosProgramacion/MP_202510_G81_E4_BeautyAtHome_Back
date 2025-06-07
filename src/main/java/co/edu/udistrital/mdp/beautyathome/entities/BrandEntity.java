@@ -12,7 +12,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class BrandEntity extends BaseEntity {
+public class BrandEntity extends BaseEntity {
 
     private String name;
     private String photograph;
