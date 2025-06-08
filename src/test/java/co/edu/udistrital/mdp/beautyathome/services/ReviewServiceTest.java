@@ -21,6 +21,7 @@ import org.springframework.context.annotation.Import;
 import co.edu.udistrital.mdp.beautyathome.entities.ClientEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ReviewEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
+import co.edu.udistrital.mdp.beautyathome.entities.ServiceRecordEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -44,7 +45,7 @@ public class ReviewServiceTest {
     // Lista de reseñas
     private List<ReviewEntity> reviews = new ArrayList<>();
     // Lista de servicios a ser reseñados
-    private List<ServiceEntity> services = new ArrayList<>();
+    private List<ServiceRecordEntity> services = new ArrayList<>();
     // Lista de clientes que hicieron las reseñas
     private List<ClientEntity> clients = new ArrayList<>();
 
@@ -65,7 +66,7 @@ public class ReviewServiceTest {
 
         // Crear servicios a reseñar
         for (int i = 0; i < 3; i++) {
-            ServiceEntity service = factory.manufacturePojo(ServiceEntity.class);
+            ServiceRecordEntity service = factory.manufacturePojo(ServiceRecordEntity.class);
             entityManager.persist(service);
             services.add(service);
         }
@@ -80,7 +81,7 @@ public class ReviewServiceTest {
         // Crear tres reseñas
         for (int i = 0; i < 3; i++) {
             ReviewEntity review = factory.manufacturePojo(ReviewEntity.class);
-            review.setService(services.get(i % services.size()));
+            review.setServiceRecord(services.get(i % services.size()));
             review.setClient(clients.get(i % clients.size()));
             review.setOpinion("Opinión de prueba " + (i + 1));
             // estrellas entre 1 y 5
@@ -94,14 +95,14 @@ public class ReviewServiceTest {
     @Test
     public void testCreateReview() throws IllegalOperationException {
         ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
-        newEntity.setService(services.get(0));
+        newEntity.setServiceRecord(services.get(0));
         newEntity.setClient(clients.get(0));
 
         ReviewEntity result = reviewService.createReview(newEntity);
         assertNotNull(result);
         ReviewEntity entity = entityManager.find(ReviewEntity.class, result.getId());
 
-        assertEquals(newEntity.getService(), entity.getService());
+        assertEquals(newEntity.getServiceRecord(), entity.getServiceRecord());
         assertEquals(newEntity.getClient(), entity.getClient());
         assertEquals(newEntity.getOpinion(), entity.getOpinion());
         assertEquals(newEntity.getStars(), entity.getStars());
@@ -113,7 +114,7 @@ public class ReviewServiceTest {
         assertThrows(IllegalOperationException.class, ()-> {
             
         ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
-        newEntity.setService(null);
+        newEntity.setServiceRecord(null);
         newEntity.setClient(clients.get(0));
         
         reviewService.createReview(newEntity);
@@ -124,7 +125,7 @@ public class ReviewServiceTest {
     public void testCreateReviewWithNullClient(){
         assertThrows(IllegalOperationException.class, ()->{
             ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
-            newEntity.setService(services.get(0));
+            newEntity.setServiceRecord(services.get(0));
             newEntity.setClient(null);
 
             reviewService.createReview(newEntity);
@@ -136,7 +137,7 @@ public class ReviewServiceTest {
         assertThrows(IllegalOperationException.class, ()->{
             ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
 
-            newEntity.setService(services.get(0));
+            newEntity.setServiceRecord(services.get(0));
             newEntity.setClient(clients.get(0));
             newEntity.setOpinion("");
 
@@ -149,7 +150,7 @@ public class ReviewServiceTest {
         assertThrows(IllegalOperationException.class, ()->{
             ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
 
-            newEntity.setService(services.get(0));
+            newEntity.setServiceRecord(services.get(0));
             newEntity.setClient(clients.get(0));
             newEntity.setOpinion(null);
 
@@ -162,7 +163,7 @@ public class ReviewServiceTest {
         assertThrows(IllegalOperationException.class, ()->{
             ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
 
-            newEntity.setService(services.get(0));
+            newEntity.setServiceRecord(services.get(0));
             newEntity.setClient(clients.get(0));
             newEntity.setStars(6);
 
@@ -175,7 +176,7 @@ public class ReviewServiceTest {
         assertThrows(IllegalOperationException.class, ()->{
             ReviewEntity newEntity = factory.manufacturePojo(ReviewEntity.class);
 
-            newEntity.setService(services.get(0));
+            newEntity.setServiceRecord(services.get(0));
             newEntity.setClient(clients.get(0));
             newEntity.setStars(-1);
 
@@ -203,7 +204,7 @@ public class ReviewServiceTest {
         ReviewEntity reviewEntity = reviews.get(0);
         ReviewEntity resulEntity = reviewService.getReview(reviewEntity.getId());
         assertEquals(reviewEntity.getId(), resulEntity.getId());
-        assertEquals(reviewEntity.getService(), resulEntity.getService());
+        assertEquals(reviewEntity.getServiceRecord(), resulEntity.getServiceRecord());
         assertEquals(reviewEntity.getClient(), resulEntity.getClient());
         assertEquals(reviewEntity.getOpinion(), resulEntity.getOpinion());
         assertEquals(reviewEntity.getStars(), resulEntity.getStars());
@@ -221,7 +222,7 @@ public class ReviewServiceTest {
         ReviewEntity reviewEntity = reviews.get(0);
         ReviewEntity updatedReviewEntity = factory.manufacturePojo(ReviewEntity.class);
         updatedReviewEntity.setClient(clients.get(1));
-        updatedReviewEntity.setService(services.get(1));
+        updatedReviewEntity.setServiceRecord(services.get(1));
 
         updatedReviewEntity.setId(reviewEntity.getId());
         reviewService.updateReview(reviewEntity.getId(), updatedReviewEntity);
@@ -229,7 +230,7 @@ public class ReviewServiceTest {
         ReviewEntity response = entityManager.find(ReviewEntity.class, reviewEntity.getId());
 
         assertEquals(updatedReviewEntity.getId(), response.getId());
-        assertEquals(updatedReviewEntity.getService(), response.getService());
+        assertEquals(updatedReviewEntity.getServiceRecord(), response.getServiceRecord());
         assertEquals(updatedReviewEntity.getClient(), response.getClient());
         assertEquals(updatedReviewEntity.getOpinion(), response.getOpinion());
         assertEquals(updatedReviewEntity.getStars(), response.getStars());
@@ -249,7 +250,7 @@ public class ReviewServiceTest {
         assertThrows(IllegalOperationException.class, ()->{
             ReviewEntity reviewEntity = reviews.get(0);
             ReviewEntity updatedReview = factory.manufacturePojo(ReviewEntity.class);
-            updatedReview.setService(null);
+            updatedReview.setServiceRecord(null);
             updatedReview.setId(reviewEntity.getId());
             reviewService.updateReview(reviewEntity.getId(), updatedReview);
         });

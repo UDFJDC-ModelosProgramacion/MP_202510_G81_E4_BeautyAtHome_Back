@@ -23,9 +23,6 @@ public class ProfessionalService {
     
     @Autowired
     ProfessionalRepository professionalRepository;
-
-    @Autowired
-    ServiceService serviceService;
     
     /**
      * Método que se encarga de pedirle a ProfessionalRepository que guarda un professional en la base de datos.
@@ -42,9 +39,9 @@ public class ProfessionalService {
 
         if (professionalEntity.getBirthDate() == null)
             throw new IllegalArgumentException("La fecha de nacimiento del professional no puede ser nula");
-        if (professionalEntity.getProfessionalSummary() == null || professionalEntity.getProfessionalSummary().isEmpty())
+        if (professionalEntity.getSummary() == null || professionalEntity.getSummary().isEmpty())
             throw new IllegalArgumentException("El resumen de la experiencia del professional no puede ser nulo o vacío");
-        if (professionalEntity.getPhoto() == null || professionalEntity.getPhoto().isEmpty())
+        if (professionalEntity.getPhotoUrl() == null || professionalEntity.getPhotoUrl().isEmpty())
             throw new IllegalArgumentException("La foto del professional no puede ser nula o vacía");
         ProfessionalEntity savedProfessional = professionalRepository.save(professionalEntity);
         log.info("Professional creado con éxito: {}", savedProfessional);
