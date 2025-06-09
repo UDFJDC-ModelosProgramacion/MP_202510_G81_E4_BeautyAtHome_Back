@@ -26,7 +26,7 @@ public class ReviewService {
      */
     @Transactional
     public ReviewEntity createReview(ReviewEntity review) throws IllegalOperationException{
-        if(review.getService() == null){
+        if(review.getServiceRecord() == null){
             throw new IllegalOperationException("The service is not valid");
         }
         if(review.getClient() == null){
@@ -77,7 +77,7 @@ public class ReviewService {
         //Si el Optional<ReviewEntity> está vacío
         optionalReviewEntity.orElseThrow(() -> new EntityNotFoundException("The review with id: " + reviewId + " was not found"));
         review.setId(reviewId);
-        if(review.getService() == null){
+        if(review.getServiceRecord() == null){
             throw new IllegalOperationException("The service is not valid");
         }
         if(review.getClient() == null){

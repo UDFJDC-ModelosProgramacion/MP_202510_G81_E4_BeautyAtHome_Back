@@ -1,9 +1,15 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
-import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -16,14 +22,19 @@ public class ServiceEntity extends BaseEntity {
 
     private String name;
     private String description;
-    private Date completionDate;
     private Double price;
 
     @PodamExclude
-    @OneToMany(mappedBy = "service")
-    private List<ReviewEntity> reviews;
+    @ElementCollection
+    @CollectionTable(name = "service_reference_images", joinColumns = @JoinColumn(name = "service_id"))
+    @Column(name = "image_url")
+    private Set<String> referenceImagesUrls;
 
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "professional_id")
     private ProfessionalEntity professional;
+
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ServiceRecordEntity> records;
 }

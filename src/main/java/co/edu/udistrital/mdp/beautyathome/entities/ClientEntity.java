@@ -1,7 +1,8 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
-import java.util.List;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
@@ -11,13 +12,12 @@ import lombok.Data;
 
 public class ClientEntity extends BaseEntity {
 
-    private String name;
+    private String fullName;
     private String address;
     private String email;
     private String phoneNumber;
 
-
-    @OneToMany(mappedBy = "client")
-    private List<ReviewEntity> reviews;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ReviewEntity> reviews;
     
 }
