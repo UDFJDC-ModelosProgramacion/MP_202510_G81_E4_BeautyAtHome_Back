@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.beautyathome.entities.ProfessionalEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
-import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.repositories.ProfessionalRepository;
 import jakarta.transaction.Transactional;
@@ -43,6 +43,18 @@ public class ProfessionalService {
             throw new IllegalArgumentException("El resumen de la experiencia del professional no puede ser nulo o vacío");
         if (professionalEntity.getPhotoUrl() == null || professionalEntity.getPhotoUrl().isEmpty())
             throw new IllegalArgumentException("La foto del professional no puede ser nula o vacía");
+        if (professionalEntity.getAgenda() == null)
+            throw new IllegalArgumentException("La agenda del professional no puede ser nula");
+        if (professionalEntity.getServices() != null && !professionalEntity.getServices().isEmpty()) {
+            for (ServiceEntity service : professionalEntity.getServices()) {
+                if (service.getId() == null || service.getId() <= 0) {
+                    throw new IllegalArgumentException("El servicio asociado al professional no es válido");
+                }
+            }
+        }
+        if (professionalEntity.getCoverageAreas() == null || professionalEntity.getCoverageAreas().isEmpty()) {
+            throw new IllegalArgumentException("Las áreas de cobertura del professional no pueden ser nulas o vacías");
+        }
         ProfessionalEntity savedProfessional = professionalRepository.save(professionalEntity);
         log.info("Professional creado con éxito: {}", savedProfessional);
         return savedProfessional;
@@ -104,15 +116,15 @@ public class ProfessionalService {
      * @throws EntityNotFoundException si no se encuentra el professional a eliminar.
      */
     @Transactional
-    public void deleteProfessional(Long profesioanlID) throws EntityNotFoundException, IllegalOperationException{
+    public void deleteProfessional(Long profesioanlID) throws EntityNotFoundException{
 
         log.info("Iniciando el proceso de eliminación del professional con id: {}", profesioanlID);
         Optional<ProfessionalEntity> optionalProfessionalEntity = professionalRepository.findById(profesioanlID);
         if (optionalProfessionalEntity.isEmpty()) {
             throw new EntityNotFoundException("Professional no encontrado con id: " + profesioanlID);
         }
-        if (optionalProfessionalEntity.get().getServices() != null && !optionalProfessionalEntity.get().getServices().isEmpty()) {
-            throw new IllegalOperationException("El professional no puede ser eliminado porque tiene servicios asociados");
+        if (optionalProfessionalEntity.get().getServices() != null ) {
+            throw new EntityNotFoundException("El professional no puede ser eliminado porque tiene servicios asociados");
         }
         professionalRepository.deleteById(profesioanlID);
         log.info("Professional eliminado con éxito: {}", profesioanlID);

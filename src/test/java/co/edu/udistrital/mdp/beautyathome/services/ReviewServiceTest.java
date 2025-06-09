@@ -226,7 +226,7 @@ public class ReviewServiceTest {
 
         updatedReviewEntity.setId(reviewEntity.getId());
         reviewService.updateReview(reviewEntity.getId(), updatedReviewEntity);
-
+        
         ReviewEntity response = entityManager.find(ReviewEntity.class, reviewEntity.getId());
 
         assertEquals(updatedReviewEntity.getId(), response.getId());

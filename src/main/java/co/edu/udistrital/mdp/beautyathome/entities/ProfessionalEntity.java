@@ -1,6 +1,8 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -39,12 +41,12 @@ public class ProfessionalEntity extends BaseEntity{
         joinColumns = @JoinColumn(name = "professional_id"),
         inverseJoinColumns = @JoinColumn(name = "area_id")
     )
-    //Set evita duplicados de áreas de covertura
+
     private Set<CoverageAreaEntity> coverageAreas;
 
     @PodamExclude
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ServiceEntity> services;
+    @OneToMany(mappedBy = "professional")
+    private List<ServiceEntity> services = new ArrayList<>();
 
     @PodamExclude
     @OneToOne(mappedBy = "professional", cascade = CascadeType.ALL, orphanRemoval = true)
