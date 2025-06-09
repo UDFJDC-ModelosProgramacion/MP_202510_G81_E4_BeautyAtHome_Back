@@ -4,6 +4,9 @@ import java.sql.Date;
 
 import lombok.Data;
 
+/**
+ * Clase DTO que representa un servicio
+ */
 @Data
 public class ServiceDTO {
     private String name;

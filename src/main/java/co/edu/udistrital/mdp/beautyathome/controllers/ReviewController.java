@@ -23,6 +23,9 @@ import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.ReviewService;
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * Controlador que expone endpoints para las reviews
+ */
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {
