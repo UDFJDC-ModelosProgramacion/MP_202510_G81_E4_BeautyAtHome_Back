@@ -1,7 +1,10 @@
+// Paquete donde se encuentra la clase de prueba
 package co.edu.udistrital.mdp.beautyathome.services;
 
+// Importaciones estáticas para aserciones de JUnit
 import static org.junit.jupiter.api.Assertions.*;
 
+// Importaciones de clases necesarias
 import java.util.ArrayList;
 import java.util.List;
 
@@ -204,7 +207,7 @@ public class ExclusiveProductServiceTest {
         upd.setPhoto("updatedphoto.jpg");
         upd.setBrand(brand);
 
-        ExclusiveProductEntity out = service.updateExclusiveProduct(p.getId(), upd);
+        service.updateExclusiveProduct(p.getId(), upd);
 
         // Verifica cambios en BD
         ExclusiveProductEntity ver = em.find(ExclusiveProductEntity.class, p.getId());
