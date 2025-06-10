@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.beautyathome.entities.ClientEntity;
-import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import co.edu.udistrital.mdp.beautyathome.repositories.ClientRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -22,9 +21,6 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
-
-    @Autowired
-    private ReviewService reviewService;
 
     /**
      * Crea un nuevo cliente en la base de datos.
@@ -96,7 +92,6 @@ public class ClientService {
     }
     /**
      * Elimina un cliente por su ID.
-     * 
      * @param clientId El ID del cliente a eliminar.
      * @throws EntityNotFoundException Si el cliente no existe.
      */
@@ -107,11 +102,6 @@ public class ClientService {
         if (optionalClientEntity.isEmpty()) {
             throw new EntityNotFoundException("Cliente no encontrado con id: " + clientId);
         }
-        /**  Eliminar las reseñas asociadas al cliente
-        *reviewService.deleteReviewsByClientId(clientId);
-        *clientRepository.deleteById(clientId);
-        *log.info("Cliente eliminado con éxito");
-        */
         clientRepository.deleteById(clientId);
         log.info("Cliente eliminado con éxito");
     }

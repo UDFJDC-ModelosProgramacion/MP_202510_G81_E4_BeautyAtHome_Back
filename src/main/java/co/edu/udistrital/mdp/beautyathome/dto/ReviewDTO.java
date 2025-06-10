@@ -2,6 +2,9 @@ package co.edu.udistrital.mdp.beautyathome.dto;
 
 import lombok.Data;
 
+/**
+ * Clase DTO que representa una review
+ */
 @Data
 public class ReviewDTO {
     private Long id;

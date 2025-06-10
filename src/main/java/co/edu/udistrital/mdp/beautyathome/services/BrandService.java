@@ -1,7 +1,5 @@
-// Paquete donde se encuentra la clase
 package co.edu.udistrital.mdp.beautyathome.services;
 
-// Importaciones necesarias
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +13,7 @@ import jakarta.persistence.EntityNotFoundException;
  * Esta clase actúa como intermediario entre los controladores y los repositorios,
  * aplicando validaciones y reglas de negocio.
  */
-@Service // Indica que esta clase es un componente de servicio de Spring
+@Service 
 public class BrandService {
 
     // Mensajes constantes para errores
