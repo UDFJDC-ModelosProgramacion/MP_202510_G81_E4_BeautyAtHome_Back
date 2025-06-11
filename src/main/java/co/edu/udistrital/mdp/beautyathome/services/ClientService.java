@@ -31,7 +31,7 @@ public class ClientService {
      */
     public ClientEntity createClient(ClientEntity client) {
         log.info("Iniciando el proceso de creación de un cliente");
-        if (client.getFullName() == null || client.getFullName().isEmpty()) 
+        if (client.getName() == null || client.getName().isEmpty()) 
             throw new IllegalArgumentException("El nombre del cliente no puede ser nulo o vacío");
         if (client.getEmail() == null || client.getEmail().isEmpty())
             throw new IllegalArgumentException("El email del cliente no puede ser nulo o vacío");
