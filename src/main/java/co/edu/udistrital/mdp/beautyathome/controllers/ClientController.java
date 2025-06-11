@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,7 +22,9 @@ import co.edu.udistrital.mdp.beautyathome.dto.ClientDetailDTO;
 import co.edu.udistrital.mdp.beautyathome.entities.ClientEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.ClientService;
-import jakarta.persistence.EntityNotFoundException;
+import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
+
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Controlador que expone endpoints para los clientes
@@ -35,70 +38,63 @@ public class ClientController {
 
     @Autowired
     private ModelMapper modelMapper;
-
+    
     /**
-     * Método que utiliza ClientService para crear una review
-     * @param clientDTO review a crear
-     * @return una instancia de ClientDTO
-     * @throws IllegalOperationException
-     */
+    *Metodo que utiliza ClientService para crear un client
+    * @param clientDTO client a crear
+    * @return una instancia de ClientDTO
+    * @throws EntityNotFoundException
+    */
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ClientDTO create(@RequestBody ClientDTO clientDTO) throws IllegalOperationException{
+    public ClientDTO create(ClientDTO clientDTO) throws EntityNotFoundException {
         ClientEntity clientEntity = clientService.createClient(modelMapper.map(clientDTO, ClientEntity.class));
-        return modelMapper.map(clientEntity, ClientDTO .class);
+        return modelMapper.map(clientEntity, ClientDTO.class);
     }
-
+    
     /**
-     * Método que utiliza ClientService para obtener todas las reviews
-     * @return Lista con todos los ClientDTO
-     */
+    * Metodo que utiliza ClientService para obtener todas los clients
+    * @return Lista con todas los clientsDTO
+    */
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     public List<ClientDTO> findAll() {
-	    List<ClientEntity> clients = clientService.getClients();
-	    return modelMapper.map(clients, new TypeToken<List<ClientDTO>>() {
-	    }.getType());
+        List<ClientEntity> clients = clientService.getClients();
+        return modelMapper.map(clients, new TypeToken<List<ClientDTO>>() {}.getType());
     }
-
     /**
-     * Método que utiliza ClientService para obtener una review
-     * @param id del client a obtener
+     * Metodo que utiliza ClientService para obtener un cliente
+     * @param id identificador del cliente
      * @return una instancia de ClientDTO
      * @throws EntityNotFoundException
-     * @throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException 
      */
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ClientDTO findOne(@PathVariable Long id) throws EntityNotFoundException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
+    public ClientDTO findById(Long id) throws EntityNotFoundException {
         ClientEntity clientEntity = clientService.getCLient(id);
         return modelMapper.map(clientEntity, ClientDTO.class);
     }
-
     /**
-     * Método que utiliza ClientService para actualizar una review
-     * @param id del client a actualizar
-     * @param reviewDTO entidad ClientDTO actualizada
-     * @return entidad ClientDTO actualizada
-     * @throws IllegalOperationException
-     * @throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException 
+     * Metodo que utiliza ClientService para actualizar un cliente
+     * @param id identificador del cliente
+     * @param clientDTO cliente a actualizado
+     * @return una instancia de ClientDTO
+     * @throws EntityNotFoundException
      */
     @PutMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ClientDTO update(@PathVariable Long id, @RequestBody ClientDTO clientDTO) throws IllegalOperationException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
+    public ClientDTO update(@PathVariable Long id, @RequestBody ClientDTO clientDTO) throws EntityNotFoundException {
         ClientEntity clientEntity = clientService.updateClient(id, modelMapper.map(clientDTO, ClientEntity.class));
         return modelMapper.map(clientEntity, ClientDTO.class);
     }
-
     /**
-     * Método que utiliza ClientService para eliminar un client
-     * @param id del client a eliminar
+     * Metodo que utiliza ClientService para eliminar un cliente
+     * @param id identificador del cliente
      * @throws EntityNotFoundException
-     * @throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException 
      */
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) throws EntityNotFoundException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
+    public void delete(@PathVariable Long id) throws EntityNotFoundException {
         clientService.deleteClient(id);
     }
 }

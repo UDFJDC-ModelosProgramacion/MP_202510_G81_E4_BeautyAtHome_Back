@@ -67,12 +67,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/reviews",
+							"raw": "{{baseURL}}/clients",
 							"host": [
-								"{{baseUrl}}"
+								"{{baseURL}}"
 							],
 							"path": [
-								"reviews"
+								"clients"
 							]
 						}
 					},
@@ -216,7 +216,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"clients\": [\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"Felipe Cardenas\",\r\n            \"address\": \"carrera 1, calle 1\",\r\n            \"email\": \"cliente1@dirección.com\",\r\n            \"phoneNuber\": \"3171234565\"\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Felipe Cardenas\",\r\n            \"address\": \"carrera 2, calle 2\",\r\n            \"email\": \"cliente2@dirección.com\",\r\n            \"phoneNuber\": \"3171234566\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"clients\": [\r\n        {\r\n            \"id\": 1,\r\n            \"fullName\": \"Felipe Cardenas\",\r\n            \"address\": \"carrera 1, calle 1\",\r\n            \"email\": \"cliente1@dirección.com\",\r\n            \"phoneNuber\": \"3171234565\"\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"name\": \"Felipe Cardenas\",\r\n            \"address\": \"carrera 2, calle 2\",\r\n            \"email\": \"cliente2@dirección.com\",\r\n            \"phoneNuber\": \"3171234566\"\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -288,7 +288,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"Felipe Cardenas\",\r\n  \"address\": \"carrera 1, calle 1\",\r\n  \"email\": \"cliente1@dirección.com\",\r\n  \"phoneNumber\": \"3171234565\"\r\n}",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"fullName\": \"Felipe Cardenas\",\r\n  \"address\": \"carrera 1, calle 1\",\r\n  \"email\": \"cliente1@dirección.com\",\r\n  \"phoneNumber\": \"3171234565\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -530,7 +530,6 @@
 					"code": 404,
 					"_postman_previewlanguage": "Text",
 					"header": [],
-					"cookie": [],
 					"body": ""
 				}
 			]

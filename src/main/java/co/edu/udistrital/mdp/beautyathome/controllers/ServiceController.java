@@ -21,7 +21,7 @@ import co.edu.udistrital.mdp.beautyathome.dto.ServiceDetailDTO;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.ServiceService;
-import jakarta.persistence.EntityNotFoundException;
+import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/services")
@@ -34,21 +34,21 @@ public class ServiceController {
     private ModelMapper modelMapper;
 
     /**
-     * Método que utiliza ServiceService para crear un service
-     * @param serviceDTO service a crear
+     * Método que utiliza ServiceService para crear un servicio
+     * @param serviceDTO servicio a crear
      * @return una instancia de ServiceDTO
      * @throws IllegalOperationException
+     * @throws EntityNotFoundException
      */
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ServiceDTO create(@RequestBody ServiceDTO serviceDTO) throws IllegalOperationException{
+    public ServiceDTO create(@RequestBody ServiceDTO serviceDTO) throws IllegalOperationException, EntityNotFoundException {
         ServiceEntity serviceEntity = serviceService.createService(modelMapper.map(serviceDTO, ServiceEntity.class));
         return modelMapper.map(serviceEntity, ServiceDTO.class);
     }
-
     /**
-     * Método que utiliza ServiceService para obtener todos los services
-     * @return Lista con todos los serviceDTO
+     * Método que utiliza ServiceService para obtener todos los servicios
+     * @return Lista con todos los serviciosDTO
      */
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
@@ -59,43 +59,40 @@ public class ServiceController {
     }
 
     /**
-     * Método que utiliza ServiceService para obtener un service
-     * @param id del service a obtener
+     * Metodo que utiliza ServiceService para obtener un servicio
+     * @param id identificador del servicio
      * @return una instancia de ServiceDTO
      * @throws EntityNotFoundException
-     * @throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException 
+     * @throws IllegalOperationException
      */
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ServiceDTO findOne(@PathVariable Long id) throws EntityNotFoundException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
+    public ServiceDTO findById(@PathVariable("id") Long id) throws EntityNotFoundException, IllegalOperationException {
         ServiceEntity serviceEntity = serviceService.getService(id);
         return modelMapper.map(serviceEntity, ServiceDTO.class);
     }
-
     /**
-     * Método que utiliza ServiceService para actualizar un service
-     * @param id del service a actualizar
-     * @param serviceDTO entidad ServiceDTO actualizada
-     * @return entidad ServiceDTO actualizada
+     * Método que utiliza ServiceService para actualizar un servicio
+     * @param id identificador del servicio a actualizar
+     * @param serviceDTO datos del servicio a actualizar
+     * @return una instancia de ServiceDTO
+     * @throws EntityNotFoundException
      * @throws IllegalOperationException
-     * @throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException 
      */
-    @PutMapping(value = "/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ServiceDTO update(@PathVariable Long id, @RequestBody ServiceDTO serviceDTO) throws IllegalOperationException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
+    public ServiceDTO update(@PathVariable("id") Long id, @RequestBody ServiceDTO serviceDTO) throws EntityNotFoundException, IllegalOperationException {
         ServiceEntity serviceEntity = serviceService.updateService(id, modelMapper.map(serviceDTO, ServiceEntity.class));
         return modelMapper.map(serviceEntity, ServiceDTO.class);
     }
-
     /**
-     * Método que utiliza ServiceService para eliminar un service
-     * @param id del service a eliminar
+     * Método que utiliza ServiceService para eliminar un servicio
+     * @param id identificador del servicio a eliminar
      * @throws EntityNotFoundException
-     * @throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException 
      */
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) throws EntityNotFoundException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
-       serviceService.deleteService(id);
+    public void delete(@PathVariable("id") Long id) throws EntityNotFoundException {
+        serviceService.deleteService(id);
     }
 }
