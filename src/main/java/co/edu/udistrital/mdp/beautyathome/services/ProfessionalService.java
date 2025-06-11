@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import co.edu.udistrital.mdp.beautyathome.entities.ProfessionalEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import jakarta.persistence.EntityNotFoundException;
-import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.repositories.ProfessionalRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -97,7 +96,7 @@ public class ProfessionalService {
      */
 
     @Transactional
-    public ProfessionalEntity updateProfssional(Long professionalId, ProfessionalEntity professionalEntity) throws EntityNotFoundException {
+    public ProfessionalEntity updateProfessional(Long professionalId, ProfessionalEntity professionalEntity) throws EntityNotFoundException {
 
         log.info("Iniciando el proceso de actualización del professional con id: {}", professionalId);
         Optional<ProfessionalEntity> optionalProfessionalEntity = professionalRepository.findById(professionalId);

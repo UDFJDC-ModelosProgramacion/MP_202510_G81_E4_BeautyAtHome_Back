@@ -244,7 +244,7 @@ public class ProfessionalServiceTest {
         updatedEntity.setServices(serviceList);
         updatedEntity.setAgenda(agendaList.get(0));
 
-        professionalService.updateProfssional((entity.getId()), updatedEntity);
+        professionalService.updateProfessional((entity.getId()), updatedEntity);
 
         ProfessionalEntity response = entityManager.find(ProfessionalEntity.class,entity.getId());
 

@@ -12,7 +12,7 @@ import lombok.Data;
 
 public class ClientEntity extends BaseEntity {
 
-    private String fullName;
+    private String name;
     private String address;
     private String email;
     private String phoneNumber;

@@ -9,7 +9,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
-import uk.co.jemos.podam.common.PodamExclude;
+
 
 
 /**
