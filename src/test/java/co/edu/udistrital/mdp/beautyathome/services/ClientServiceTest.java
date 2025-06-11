@@ -30,6 +30,7 @@ public class ClientServiceTest {
 
     @Autowired
     private ClientService clientService;
+    @Autowired
     private TestEntityManager entityManager;
 
     private PodamFactory factory = new PodamFactoryImpl();
