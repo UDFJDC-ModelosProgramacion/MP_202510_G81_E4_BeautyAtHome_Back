@@ -17,17 +17,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.udistrital.mdp.beautyathome.dto.ServiceDTO;
+import co.edu.udistrital.mdp.beautyathome.dto.ServiceDetailDTO;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
-import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.ServiceService;
+import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 
 @RestController
-
 @RequestMapping("/services")
-
 public class ServiceController {
-    
+
     @Autowired
     private ServiceService serviceService;
 
@@ -54,9 +53,11 @@ public class ServiceController {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     public List<ServiceDTO> findAll() {
-        List<ServiceEntity> services = serviceService.getServices();
-        return modelMapper.map(services, new TypeToken<List<ServiceDTO>>() {}.getType());
+	    List<ServiceEntity> services = serviceService.getServices();
+	    return modelMapper.map(services, new TypeToken<List<ServiceDTO>>() {
+	    }.getType());
     }
+
     /**
      * Metodo que utiliza ServiceService para obtener un servicio
      * @param id identificador del servicio
@@ -94,5 +95,4 @@ public class ServiceController {
     public void delete(@PathVariable("id") Long id) throws EntityNotFoundException {
         serviceService.deleteService(id);
     }
-    
 }

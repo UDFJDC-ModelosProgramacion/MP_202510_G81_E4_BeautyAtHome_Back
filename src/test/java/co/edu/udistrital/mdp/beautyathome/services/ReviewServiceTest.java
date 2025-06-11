@@ -200,7 +200,7 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void testGetValidReview(){
+    public void testGetValidReview() throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
         ReviewEntity reviewEntity = reviews.get(0);
         ReviewEntity resulEntity = reviewService.getReview(reviewEntity.getId());
         assertEquals(reviewEntity.getId(), resulEntity.getId());
@@ -218,7 +218,7 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void testUpdateValidReview() throws IllegalOperationException{
+    public void testUpdateValidReview() throws IllegalOperationException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
         ReviewEntity reviewEntity = reviews.get(0);
         ReviewEntity updatedReviewEntity = factory.manufacturePojo(ReviewEntity.class);
         updatedReviewEntity.setClient(clients.get(1));
@@ -312,7 +312,7 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void testDeleteValidReview(){
+    public void testDeleteValidReview() throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
         ReviewEntity reviewEntity = reviews.get(0);
         reviewService.deleteReview(reviewEntity.getId());
         ReviewEntity deletedReview = entityManager.find(ReviewEntity.class, reviewEntity.getId());

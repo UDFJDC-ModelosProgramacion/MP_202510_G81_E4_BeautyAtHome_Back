@@ -6,6 +6,8 @@ import javax.validation.constraints.Min;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -17,7 +19,8 @@ import uk.co.jemos.podam.common.PodamIntValue;
 
 public class ReviewEntity extends BaseEntity{
     @PodamExclude
-    @OneToOne(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, optional = false) 
+    @JoinColumn(name = "service_record_id", nullable = false, unique = true)
     private ServiceRecordEntity serviceRecord;
 
     @PodamExclude

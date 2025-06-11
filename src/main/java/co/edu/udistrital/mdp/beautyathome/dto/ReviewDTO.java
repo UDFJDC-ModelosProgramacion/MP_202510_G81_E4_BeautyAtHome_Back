@@ -11,6 +11,6 @@ public class ReviewDTO {
     private String opinion;
     private int stars;
 
-    private Long serviceId;
+    private Long serviceRecordId;
     private Long clientId;
 }

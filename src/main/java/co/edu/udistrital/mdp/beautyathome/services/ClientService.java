@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.beautyathome.entities.ClientEntity;
+import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.repositories.ClientRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +40,7 @@ public class ClientService {
         ClientEntity savedClient = clientRepository.save(client);
         log.info("Cliente creado con éxito: {}", savedClient);
         return savedClient;
-    
+
     }
     /**
      * Obtiene todos los clientes de la base de datos.
@@ -65,7 +65,7 @@ public class ClientService {
         log.info("iniciado la busqueda del cliente con id: {}", clientID);
         Optional<ClientEntity> clientEntity = clientRepository.findById(clientID);
         if (clientEntity.isEmpty()) 
-            throw new EntityNotFoundException("cliente no encontrado con id: " + clientID);
+            throw new EntityNotFoundException("The client with the given id was not found: " + clientID);
         log.info("terminando el proceso de buscar el servicio por ID", clientEntity);
         return clientEntity.get();
     }
@@ -83,7 +83,7 @@ public class ClientService {
         log.info("Iniciando el proceso de actualización del cliente con id: {}", clientId);
         Optional<ClientEntity> optionalClientEntity = clientRepository.findById(clientId);
         if (optionalClientEntity.isEmpty()) {
-            throw new EntityNotFoundException("Cliente no encontrado con id: " + clientId);
+            throw new EntityNotFoundException("The client with the given id was not found: " + clientId);
         }
         client.setId(clientId);
         ClientEntity updatedClient = clientRepository.save(client);
@@ -100,7 +100,7 @@ public class ClientService {
         log.info("Iniciando el proceso de eliminación del cliente con id: {}", clientId);
         Optional<ClientEntity> optionalClientEntity = clientRepository.findById(clientId);
         if (optionalClientEntity.isEmpty()) {
-            throw new EntityNotFoundException("Cliente no encontrado con id: " + clientId);
+            throw new EntityNotFoundException("The client with the given id was not found: " + clientId);
         }
         clientRepository.deleteById(clientId);
         log.info("Cliente eliminado con éxito");

@@ -196,7 +196,7 @@ public class ServiceServiceTest {
     }
 
     @Test
-    public void testGetValidService() {
+    public void testGetValidService() throws EntityNotFoundException {
         ServiceEntity entity = serviceList.get(0);
         ServiceEntity result = serviceService.getService(entity.getId());
         assertNotNull(result);
@@ -215,9 +215,10 @@ public class ServiceServiceTest {
 
     /**
      * Verifica que se pueda actualizar un servicio correctamente.
+     * @throws EntityNotFoundException 
      */
     @Test
-    public void testUpdateService(){
+    public void testUpdateService() throws EntityNotFoundException{
         ServiceEntity serviceEntity = serviceList.get(0);
         ServiceEntity updatedServiceEntity = factory.manufacturePojo(ServiceEntity.class);
         updatedServiceEntity.setId(serviceEntity.getId());
@@ -341,9 +342,10 @@ public class ServiceServiceTest {
 
     /**
      * Verifica que se pueda eliminar un servicio correctamente.
+     * @throws EntityNotFoundException 
      */
     @Test
-    public void testDeleteValidService() {
+    public void testDeleteValidService() throws EntityNotFoundException {
         ServiceEntity serviceEntity = serviceList.get(0);
         serviceService.deleteService(serviceEntity.getId());
         ServiceEntity deleted = entityManager.find(ServiceEntity.class, serviceEntity.getId());

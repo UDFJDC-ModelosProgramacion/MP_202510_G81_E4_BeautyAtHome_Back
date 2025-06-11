@@ -8,5 +8,4 @@ import lombok.Data;
 
 public class ClientDetailDTO extends ClientDTO{
     List<ReviewDetailDTO> reviews = new java.util.ArrayList<>();
-    
 }

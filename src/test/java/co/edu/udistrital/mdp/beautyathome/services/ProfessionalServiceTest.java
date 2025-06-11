@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -84,7 +85,7 @@ public class ProfessionalServiceTest {
       
         newEntity.setServices(serviceList);
         newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(Date.valueOf("1990-01-01"));
+        newEntity.setBirthDate(LocalDate.of(1990,01,01));
         newEntity.setCoverageAreas(coverageAreaList);
         newEntity.setName("Test Professional");
         newEntity.setPhotoUrl("http://example.com/photo.jpg");
@@ -108,7 +109,7 @@ public class ProfessionalServiceTest {
         ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
         newEntity.setServices(null);
         newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(Date.valueOf("1990-01-01"));
+        newEntity.setBirthDate(LocalDate.of(1990,01,01));
         newEntity.setCoverageAreas(coverageAreaList);
         newEntity.setName("Test Professional");
         newEntity.setPhotoUrl("http://example.com/photo.jpg");
@@ -121,7 +122,7 @@ public class ProfessionalServiceTest {
         ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
         newEntity.setServices(serviceList);
         newEntity.setAgenda(null);
-        newEntity.setBirthDate(Date.valueOf("1990-01-01"));
+        newEntity.setBirthDate(LocalDate.of(1990,01,01));
         newEntity.setCoverageAreas(coverageAreaList);
         newEntity.setName("Test Professional");
         newEntity.setPhotoUrl("http://example.com/photo.jpg");
@@ -134,7 +135,7 @@ public class ProfessionalServiceTest {
         ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
         newEntity.setServices(serviceList);
         newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(Date.valueOf("1990-01-01"));
+        newEntity.setBirthDate(LocalDate.of(1990,01,01));
         newEntity.setCoverageAreas(null);
         newEntity.setName("Test Professional");
         newEntity.setPhotoUrl("http://example.com/photo.jpg");
@@ -148,7 +149,7 @@ public class ProfessionalServiceTest {
         newEntity.setName(null);
         newEntity.setServices(serviceList);
         newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(Date.valueOf("1990-01-01"));
+        newEntity.setBirthDate(LocalDate.of(1990,01,01));
         newEntity.setCoverageAreas(coverageAreaList);
         newEntity.setPhotoUrl("http://example.com/photo.jpg");
         newEntity.setSummary("Test summary of professional experience");
@@ -162,7 +163,7 @@ public class ProfessionalServiceTest {
         newEntity.setPhotoUrl(null);
         newEntity.setServices(serviceList);
         newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(Date.valueOf("1990-01-01"));
+        newEntity.setBirthDate(LocalDate.of(1990,01,01));
         newEntity.setCoverageAreas(coverageAreaList);
         newEntity.setSummary("Test summary of professional experience");
 
@@ -176,7 +177,7 @@ public class ProfessionalServiceTest {
         newEntity.setSummary(null);
         newEntity.setServices(serviceList);
         newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(Date.valueOf("1990-01-01"));
+        newEntity.setBirthDate(LocalDate.of(1990,01,01));
         newEntity.setCoverageAreas(coverageAreaList);
 
         professionalService.createProfessional(newEntity);
@@ -239,7 +240,7 @@ public class ProfessionalServiceTest {
         updatedEntity.setName("Updated Professional");
         updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
         updatedEntity.setSummary("Updated summary of professional experience");
-        updatedEntity.setBirthDate(Date.valueOf("1990-01-01"));
+        updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
         updatedEntity.setCoverageAreas(coverageAreaList);
         updatedEntity.setServices(serviceList);
         updatedEntity.setAgenda(agendaList.get(0));
