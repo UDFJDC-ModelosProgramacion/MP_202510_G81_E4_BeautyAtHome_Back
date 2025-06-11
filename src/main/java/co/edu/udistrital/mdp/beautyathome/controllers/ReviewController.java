@@ -66,10 +66,11 @@ public class ReviewController {
      * @param id de la review a obtener
      * @return una instancia de ReviewDetailDTO
      * @throws EntityNotFoundException
+     * @throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException 
      */
     @GetMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ReviewDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException{
+    public ReviewDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
         ReviewEntity reviewEntity = reviewService.getReview(id);
         return modelMapper.map(reviewEntity, ReviewDetailDTO.class);
     }
@@ -80,10 +81,11 @@ public class ReviewController {
      * @param reviewDTO entidad ReviewDTO actualizada
      * @return entidad ReviewDTO actualizada
      * @throws IllegalOperationException
+     * @throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException 
      */
     @PutMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ReviewDTO update(@PathVariable Long id, @RequestBody ReviewDTO reviewDTO) throws IllegalOperationException{
+    public ReviewDTO update(@PathVariable Long id, @RequestBody ReviewDTO reviewDTO) throws IllegalOperationException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
         ReviewEntity reviewEntity = reviewService.updateReview(id, modelMapper.map(reviewDTO, ReviewEntity.class));
         return modelMapper.map(reviewEntity, ReviewDTO.class);
     }
@@ -92,10 +94,11 @@ public class ReviewController {
      * Método que utiliza ReviewService para eliminar una review
      * @param id de la review a eliminar
      * @throws EntityNotFoundException
+     * @throws co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException 
      */
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) throws EntityNotFoundException{
+    public void delete(@PathVariable Long id) throws EntityNotFoundException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
         reviewService.deleteReview(id);
     }
 }

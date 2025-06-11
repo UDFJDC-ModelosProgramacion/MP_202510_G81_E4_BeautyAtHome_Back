@@ -1,6 +1,6 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +26,7 @@ public class ProfessionalEntity extends BaseEntity{
     private String photoUrl;
     private String summary;
     private boolean sponsored;
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @PodamExclude
     // Marca patrocinadora, solo si sponsored == true
@@ -41,7 +41,6 @@ public class ProfessionalEntity extends BaseEntity{
         joinColumns = @JoinColumn(name = "professional_id"),
         inverseJoinColumns = @JoinColumn(name = "area_id")
     )
-
     private Set<CoverageAreaEntity> coverageAreas;
 
     @PodamExclude

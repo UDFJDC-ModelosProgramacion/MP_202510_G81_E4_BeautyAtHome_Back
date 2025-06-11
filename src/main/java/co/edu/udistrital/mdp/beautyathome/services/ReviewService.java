@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.udistrital.mdp.beautyathome.entities.ReviewEntity;
+import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.repositories.ReviewRepository;
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ReviewService {
@@ -57,9 +57,9 @@ public class ReviewService {
      * @throws EntityNotFoundException en caso de no encontrar la reseña.
      */
     @Transactional
-    public ReviewEntity getReview(Long reviewId){
+    public ReviewEntity getReview(Long reviewId) throws EntityNotFoundException{
         Optional<ReviewEntity> reviewEntity = reviewRepository.findById(reviewId);
-        return reviewEntity.orElseThrow(()-> new EntityNotFoundException());
+        return reviewEntity.orElseThrow(()-> new EntityNotFoundException("The review with the given id was not found: " + reviewId));
     }
 
     /**
@@ -71,11 +71,11 @@ public class ReviewService {
      * @throws EntityNotFoundException si no se encuentra la reseña a actualizar.
      */
     @Transactional
-    public ReviewEntity updateReview(Long reviewId, ReviewEntity review) throws IllegalOperationException {
+    public ReviewEntity updateReview(Long reviewId, ReviewEntity review) throws IllegalOperationException, EntityNotFoundException {
         //Busca la ReviewEntity a modificar
         Optional<ReviewEntity> optionalReviewEntity = reviewRepository.findById(reviewId);
         //Si el Optional<ReviewEntity> está vacío
-        optionalReviewEntity.orElseThrow(() -> new EntityNotFoundException("The review with id: " + reviewId + " was not found"));
+        optionalReviewEntity.orElseThrow(() -> new EntityNotFoundException("The client with given id was not found: "));
         review.setId(reviewId);
         if(review.getServiceRecord() == null){
             throw new IllegalOperationException("The service is not valid");
@@ -98,10 +98,9 @@ public class ReviewService {
      * @throws EntityNotFoundException si no se encuentra la reseña.
      */
     @Transactional
-    public void deleteReview(Long reviewId) {
+    public void deleteReview(Long reviewId) throws EntityNotFoundException {
         Optional<ReviewEntity> optionalReviewEntity = reviewRepository.findById(reviewId);
-        optionalReviewEntity.orElseThrow(()-> new EntityNotFoundException("The review with id: "
-        + reviewId + " couldn't be removed because it wasn't found."));
+        optionalReviewEntity.orElseThrow(()-> new EntityNotFoundException("The review with given id was not found: " + reviewId));
         reviewRepository.deleteById(reviewId);
     }
 

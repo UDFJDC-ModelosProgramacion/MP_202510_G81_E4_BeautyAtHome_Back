@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
+import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.repositories.ProfessionalRepository;
 import co.edu.udistrital.mdp.beautyathome.repositories.ServiceRepository;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
@@ -75,7 +75,7 @@ public class ServiceService {
         log.info("iniciado la busqueda del servicio con id: {}", serviceID);
         Optional<ServiceEntity> serviceEntity = serviceRepository.findById(serviceID);
         if (serviceEntity.isEmpty()) 
-            throw new EntityNotFoundException("Servicio no encontrado con id: " + serviceID);
+            throw new EntityNotFoundException("The client with the given id was not found: " + serviceID);
         log.info("terminando el proceso de buscar el servicio por ID", serviceEntity);
         return serviceEntity.get();
     }
@@ -92,7 +92,7 @@ public class ServiceService {
         log.info("Iniciando el proceso de actualización del servicio con id: {}", serviceId);
         Optional<ServiceEntity> optionalServiceEntity = serviceRepository.findById(serviceId);
         if (optionalServiceEntity.isEmpty()) {
-            throw new EntityNotFoundException("Servicio no encontrado con id: " + serviceId);
+            throw new EntityNotFoundException("The client with the given id was not found: " + serviceId);
         }
         service.setId(serviceId);
         ServiceEntity updatedService = serviceRepository.save(service);
@@ -111,7 +111,7 @@ public class ServiceService {
         log.info("Iniciando el proceso de eliminación del servicio con id: {}", serviceId);
         Optional<ServiceEntity> optionalServiceEntity = serviceRepository.findById(serviceId);
         if (optionalServiceEntity.isEmpty()) {
-            throw new EntityNotFoundException("Servicio no encontrado con id: " + serviceId);
+            throw new EntityNotFoundException("The service with the given id was not found: " + serviceId);
         }
         serviceRepository.deleteById(serviceId);
         log.info("Servicio eliminado con éxito");

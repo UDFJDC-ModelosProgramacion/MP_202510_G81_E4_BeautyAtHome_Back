@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 public class ReviewDetailDTO extends ReviewDTO{
     private Long id;
-    private ServiceDTO service;
+    private ServiceRecordDetailDTO serviceRecordDetail;
     private ClientDTO client;
 }
