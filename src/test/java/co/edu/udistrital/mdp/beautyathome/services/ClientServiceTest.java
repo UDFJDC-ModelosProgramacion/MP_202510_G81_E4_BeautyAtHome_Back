@@ -73,7 +73,7 @@ public class ClientServiceTest {
         newEntity.setAddress("example address");
         newEntity.setEmail("example email");
         newEntity.setPhoneNumber("1234567890");
-        newEntity.setName("example name");
+        newEntity.setFullName("example name");
         newEntity.setReviews(reviewList);
         
         ClientEntity result = clientService.createClient(newEntity);
@@ -83,7 +83,7 @@ public class ClientServiceTest {
         assertEquals(newEntity.getAddress(), entity.getAddress());
         assertEquals(newEntity.getEmail(), entity.getEmail());
         assertEquals(newEntity.getPhoneNumber(), entity.getPhoneNumber());
-        assertEquals(newEntity.getName(), entity.getName());
+        assertEquals(newEntity.getFullName(), entity.getFullName());
         assertEquals(newEntity.getReviews().size(), entity.getReviews().size());
     }
 
@@ -94,7 +94,7 @@ public class ClientServiceTest {
         newEntity.setEmail("example email");
         newEntity.setPhoneNumber("1234567890");
         newEntity.setReviews(reviewList);
-        newEntity.setName(null);
+        newEntity.setFullName(null);
 
         clientService.createClient(newEntity);
     }
@@ -102,7 +102,7 @@ public class ClientServiceTest {
     @Test
     public void testCreateClientWithNullAddress() {
         ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setName("example name");
+        newEntity.setFullName("example name");
         newEntity.setEmail("example email");
         newEntity.setPhoneNumber("1234567890");
         newEntity.setReviews(reviewList);
@@ -113,7 +113,7 @@ public class ClientServiceTest {
     @Test
     public void testCreateClientWithNullEmail() {
         ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setName("example name");
+        newEntity.setFullName("example name");
         newEntity.setAddress("example address");
         newEntity.setPhoneNumber("1234567890");
         newEntity.setReviews(reviewList);
@@ -124,7 +124,7 @@ public class ClientServiceTest {
     @Test
     public void testCreateClientWithNullPhoneNumber() {
         ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setName("example name");
+        newEntity.setFullName("example name");
         newEntity.setAddress("example address");
         newEntity.setEmail("example email");
         newEntity.setReviews(reviewList);
@@ -139,14 +139,14 @@ public class ClientServiceTest {
         newEntity.setEmail("example email");
         newEntity.setPhoneNumber("1234567890");
         newEntity.setReviews(reviewList);
-        newEntity.setName("");
+        newEntity.setFullName("");
 
         clientService.createClient(newEntity);
     }
     @Test
     public void testCreateClientWithEmptyAddress() {
         ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setName("example name");
+        newEntity.setFullName("example name");
         newEntity.setEmail("example email");
         newEntity.setPhoneNumber("1234567890");
         newEntity.setReviews(reviewList);
@@ -157,7 +157,7 @@ public class ClientServiceTest {
     @Test
     public void testCreateClientWithEmptyEmail() {
         ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setName("example name");
+        newEntity.setFullName("example name");
         newEntity.setAddress("example address");
         newEntity.setPhoneNumber("1234567890");
         newEntity.setReviews(reviewList);
@@ -168,7 +168,7 @@ public class ClientServiceTest {
     @Test
     public void testCreateClientWithEmptyPhoneNumber() {
         ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setName("example name");
+        newEntity.setFullName("example name");
         newEntity.setAddress("example address");
         newEntity.setEmail("example email");
         newEntity.setReviews(reviewList);
@@ -179,7 +179,7 @@ public class ClientServiceTest {
     @Test
     public void testCreateClientWithNullReviews() {
         ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setName("example name");
+        newEntity.setFullName("example name");
         newEntity.setAddress("example address");
         newEntity.setEmail("example email");
         newEntity.setPhoneNumber("1234567890");
@@ -205,11 +205,11 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void testGetValidClient(){
+    public void testGetValidClient() throws EntityNotFoundException{
         ClientEntity client = clientList.get(0);
         ClientEntity entity = clientService.getCLient(client.getId());
         assertEquals(client.getId(), entity.getId());
-        assertEquals(client.getName(), entity.getName());
+        assertEquals(client.getFullName(), entity.getFullName());
         assertEquals(client.getAddress(), entity.getAddress());
         assertEquals(client.getEmail(), entity.getEmail());
         assertEquals(client.getPhoneNumber(), entity.getPhoneNumber());
@@ -222,11 +222,11 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void testUpdateClient() {
+    public void testUpdateClient() throws EntityNotFoundException {
         ClientEntity entity = clientList.get(0);
         ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
         updatedEntity.setId(entity.getId());
-        updatedEntity.setName("Updated Name");
+        updatedEntity.setFullName("Updated Name");
         updatedEntity.setAddress("Updated Address");
         updatedEntity.setEmail("Updated Email");
         updatedEntity.setPhoneNumber("Updated Phone Number");
@@ -236,7 +236,7 @@ public class ClientServiceTest {
         ClientEntity response = entityManager.find(ClientEntity.class, entity.getId());
 
         assertEquals(updatedEntity.getId(), response.getId());
-        assertEquals(updatedEntity.getName(), response.getName());
+        assertEquals(updatedEntity.getFullName(), response.getFullName());
         assertEquals(updatedEntity.getAddress(), response.getAddress());
         assertEquals(updatedEntity.getEmail(), response.getEmail());
         assertEquals(updatedEntity.getPhoneNumber(), response.getPhoneNumber());
@@ -245,7 +245,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void testDeleteValidClient() {
+    public void testDeleteValidClient() throws EntityNotFoundException {
         ClientEntity entity = clientList.get(0);
         clientService.deleteClient(entity.getId());
         ClientEntity deletedEntity = entityManager.find(ClientEntity.class, entity.getId());
