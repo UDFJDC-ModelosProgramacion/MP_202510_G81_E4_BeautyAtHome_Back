@@ -39,6 +39,7 @@ public class ServiceEntity extends BaseEntity {
     @JoinColumn(name = "professional_id")
     private ProfessionalEntity professional;
 
+    @PodamExclude
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<ServiceRecordEntity> records = new HashSet<>();
 

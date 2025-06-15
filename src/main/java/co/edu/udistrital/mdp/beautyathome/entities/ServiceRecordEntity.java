@@ -16,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
+import uk.co.jemos.podam.common.PodamExclude;
 
 @Data
 @Entity
@@ -30,10 +31,12 @@ public class ServiceRecordEntity extends BaseEntity{
     private Set<String> resultImageUrls = new HashSet<>();
     */
 
+    @PodamExclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id")
     private ServiceEntity service;
 
+    @PodamExclude
     @OneToOne(mappedBy = "serviceRecord", 
     fetch = FetchType.LAZY, 
     optional = true, 
