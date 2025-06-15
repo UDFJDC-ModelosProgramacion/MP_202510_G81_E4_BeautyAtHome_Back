@@ -61,16 +61,7 @@ public class ServiceServiceTest {
 
     }
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            ServiceEntity ServiceEntity = factory.manufacturePojo(ServiceEntity.class);
-            entityManager.persist(ServiceEntity);
-            serviceList.add(ServiceEntity);
-        }
-        for (int i = 0; i < 3; i++) {
-            ServiceEntity serviceEntity = factory.manufacturePojo(ServiceEntity.class);
-            entityManager.persist(serviceEntity);
-            serviceList.add(serviceEntity);
-        }
+    
         for (int i = 0; i < 3; i++){
             BrandEntity brandEntity = factory.manufacturePojo(BrandEntity.class);
             entityManager.persist(brandEntity);
@@ -81,10 +72,19 @@ public class ServiceServiceTest {
             entityManager.persist(serviceRecordEntity);
             serviceRecordList.add(serviceRecordEntity);
         }
-        ProfessionalEntity professionalEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        entityManager.persist(professionalEntity);
-        professionalEntity.getServices().addAll(serviceList);
-        professionalList.add(professionalEntity);
+       for (int i = 0; i < 3; i++) {
+            ProfessionalEntity professionalEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            entityManager.persist(professionalEntity);
+            professionalList.add(professionalEntity);
+       }
+        for (int i = 0; i < 3; i++) {
+            ServiceEntity serviceEntity = factory.manufacturePojo(ServiceEntity.class);
+            serviceEntity.setProfessional(professionalList.get(i));
+            serviceEntity.setBrand(brandList.get(i));
+            serviceEntity.setRecords(serviceRecordList);
+            entityManager.persist(serviceEntity);
+            serviceList.add(serviceEntity);
+        }
     }
 
 
