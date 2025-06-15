@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
+import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.repositories.ProfessionalRepository;
 import co.edu.udistrital.mdp.beautyathome.repositories.ServiceRepository;
 import jakarta.transaction.Transactional;
@@ -32,23 +33,23 @@ public class ServiceService {
      * 
      * @param service El servicio a crear.
      * @return El servicio creado.
-     * @throws IllegalArgumentException Si el servicio no es válido.
+     * @throws IllegalOperationException Si el servicio no es válido.
      */
     @Transactional
-    public ServiceEntity createService(ServiceEntity service) {
+    public ServiceEntity createService(ServiceEntity service) throws IllegalOperationException {
         log.info("Inciando el proceso de creacion de un servicio");
-        if (service.getName() == null || service.getName().isEmpty()) 
-            throw new IllegalArgumentException("El nombre del servicio no puede ser nulo o vacío");
-        if (service.getDescription() == null || service.getDescription().isEmpty())
-            throw new IllegalArgumentException("La descripción del servicio no puede ser nula o vacía");
+        if (service.getName() == null )
+            throw new IllegalOperationException("El nombre del servicio no puede ser nulo");
+        if (service.getDescription() == null )
+            throw new IllegalOperationException("La descripción del servicio no puede ser nula");
         if (service.getPrice() <= 0)
-            throw new IllegalArgumentException("El precio del servicio debe ser mayor a cero");
-        if (service.getProfessional() == null || !professionalRepository.existsById(service.getProfessional().getId()))
-            throw new IllegalArgumentException("El profesional del servicio no es válido o no existe");
-        if (service.getBrand() == null || service.getBrand().getId() == null || !service.getBrand().getId().equals(0L)) 
-            throw new IllegalArgumentException("La marca del servicio no es válida o no existe");
-        if (service.getRecords() == null || service.getRecords().isEmpty()) 
-            throw new IllegalArgumentException("El servicio debe tener al menos un registro asociado");
+            throw new IllegalOperationException("El precio del servicio debe ser mayor a cero");
+        if (service.getProfessional() == null )
+            throw new IllegalOperationException("El profesional del servicio no es válido o no existe");
+        if (service.getBrand() == null )
+            throw new IllegalOperationException("La marca del servicio no es válida o no existe");
+        if (service.getRecords() == null)
+            throw new IllegalOperationException("El servicio debe tener al menos un registro asociado");
         ServiceEntity savedService = serviceRepository.save(service);
         log.info("Servicio creado con éxito: {}", savedService);
         return savedService;
@@ -87,15 +88,33 @@ public class ServiceService {
      * @param service El servicio con los datos actualizados.
      * @return El servicio actualizado.
      * @throws EntityNotFoundException Si el servicio no existe.
+     * @throws IllegalOperationException Si el servicio no es válido.
      */
     @Transactional
-    public ServiceEntity updateService(Long serviceId, ServiceEntity service) throws EntityNotFoundException {
-        log.info("Iniciando el proceso de actualización del servicio con id: {}", serviceId);
-        Optional<ServiceEntity> optionalServiceEntity = serviceRepository.findById(serviceId);
-        if (optionalServiceEntity.isEmpty()) {
-            throw new EntityNotFoundException("The client with the given id was not found: " + serviceId);
-        }
+    public ServiceEntity updateService(Long serviceId, ServiceEntity service) throws EntityNotFoundException, IllegalOperationException {
+        Optional <ServiceEntity> optionalServiceEntity = serviceRepository.findById(serviceId);
+        optionalServiceEntity.orElseThrow(() -> new EntityNotFoundException("The service with the given id was not found: " + serviceId));
         service.setId(serviceId);
+
+        if (service.getName() == null ) {
+            throw new IllegalOperationException("El nombre del servicio no puede ser nulo o vacío");
+        }
+        if (service.getDescription() == null ) {
+            throw new IllegalOperationException("La descripción del servicio no puede ser nula o vacía");
+        }
+        if (service.getPrice() <= 0) {
+            throw new IllegalOperationException("El precio del servicio debe ser mayor a cero");
+        }
+        if (service.getProfessional() == null ) {
+            throw new IllegalOperationException("El profesional del servicio no es válido o no existe");
+        }
+        if (service.getBrand() == null ) {
+            throw new IllegalOperationException("La marca del servicio no es válida o no existe");
+        }
+        if (service.getRecords() == null ) {
+            throw new IllegalOperationException("El servicio debe tener al menos un registro asociado");
+        }
+        log.info("Iniciando el proceso de actualización del servicio con id: {}", serviceId);
         ServiceEntity updatedService = serviceRepository.save(service);
         log.info("Servicio actualizado con éxito: {}", updatedService);
         return updatedService;

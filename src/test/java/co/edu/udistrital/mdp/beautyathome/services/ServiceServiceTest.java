@@ -23,8 +23,9 @@ import co.edu.udistrital.mdp.beautyathome.entities.ProfessionalEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceRecordEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
-
+import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import jakarta.transaction.Transactional;
+import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -92,7 +93,7 @@ public class ServiceServiceTest {
      * Verifica que se pueda crear un servicio correctamente.
      */
     @Test
-    public void testCreateService() throws EntityNotFoundException, IllegalArgumentException {
+    public void testCreateService() throws IllegalOperationException {
         ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
         
         newEntity.setProfessional(professionalList.get(0));
@@ -116,93 +117,107 @@ public class ServiceServiceTest {
 
     @Test
     public void testCreateServiceWithNullProfessional() {
-        ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
-        newEntity.setProfessional(null);
-        newEntity.setDescription("Test Description");
-        newEntity.setName("Test Service");
-        newEntity.setPrice(100.0);
-        newEntity.setBrand(brandList.get(0));
-        newEntity.setRecords(serviceRecordList);
+        assertThrows(IllegalOperationException.class, () -> {
+            ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
+            newEntity.setProfessional(null);
+            newEntity.setDescription("Test Description");
+            newEntity.setName("Test Service");
+            newEntity.setPrice(100.0);
+            newEntity.setBrand(brandList.get(0));
+            newEntity.setRecords(serviceRecordList);
 
-        
-        serviceService.createService(newEntity);
+            serviceService.createService(newEntity);
+        });
     }
 
     @Test
     public void testCreateServiceWithNullBrand() {
-        ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
-        newEntity.setProfessional(professionalList.get(0));
-        newEntity.setDescription("Test Description");
-        newEntity.setName("Test Service");
-        newEntity.setPrice(100.0);
-        newEntity.setBrand(null);
-        newEntity.setRecords(serviceRecordList);
+        assertThrows(IllegalOperationException.class, () -> {
+            ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
+            newEntity.setProfessional(professionalList.get(0));
+            newEntity.setDescription("Test Description");
+            newEntity.setName("Test Service");
+            newEntity.setPrice(100.0);
+            newEntity.setBrand(null);
+            newEntity.setRecords(serviceRecordList);
 
-        serviceService.createService(newEntity);
+            serviceService.createService(newEntity);
+        });
     }
 
     @Test
     public void testCreateServiceWithEmptyName() {
-        ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
-        newEntity.setProfessional(professionalList.get(0));
-        newEntity.setDescription("Test Description");
-        newEntity.setName("");
-        newEntity.setPrice(100.0);
-        newEntity.setBrand(brandList.get(0));
-        newEntity.setRecords(serviceRecordList);
-        
-        serviceService.createService(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
+            newEntity.setProfessional(professionalList.get(0));
+            newEntity.setDescription("Test Description");
+            newEntity.setName("");
+            newEntity.setPrice(100.0);
+            newEntity.setBrand(brandList.get(0));
+            newEntity.setRecords(serviceRecordList);
+
+            serviceService.createService(newEntity);
+        });
     }
 
     @Test
     public void testCreateServiceWithEmptyDescription() {
-        ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
-        newEntity.setProfessional(professionalList.get(0));
-        newEntity.setDescription("");
-        newEntity.setName("Test Service");
-        newEntity.setPrice(100.0);
-        newEntity.setBrand(brandList.get(0));
-        newEntity.setRecords(serviceRecordList);
-        
-        serviceService.createService(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
+            newEntity.setProfessional(professionalList.get(0));
+            newEntity.setDescription("");
+            newEntity.setName("Test Service");
+            newEntity.setPrice(100.0);
+            newEntity.setBrand(brandList.get(0));
+            newEntity.setRecords(serviceRecordList);
+
+            serviceService.createService(newEntity);
+        });
     }
 
     @Test
     public void testCreateServiceWithNullName() {
-        ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
-        newEntity.setProfessional(professionalList.get(0));
-        newEntity.setDescription("Test Description");
-        newEntity.setName(null);
-        newEntity.setPrice(100.0);
-        newEntity.setBrand(brandList.get(0));
-        newEntity.setRecords(serviceRecordList);
-        serviceService.createService(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
+            newEntity.setProfessional(professionalList.get(0));
+            newEntity.setDescription("Test Description");
+            newEntity.setName(null);
+            newEntity.setPrice(100.0);
+            newEntity.setBrand(brandList.get(0));
+            newEntity.setRecords(serviceRecordList);
+
+            serviceService.createService(newEntity);
+        });
     }
     @Test
     public void testCreateServiceWithNullDescription() {
-        ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
-        newEntity.setProfessional(professionalList.get(0));
-        newEntity.setDescription(null);
-        newEntity.setName("Test Service");
-        newEntity.setPrice(100.0);
-        newEntity.setBrand(brandList.get(0));
-        
-        serviceService.createService(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
+            newEntity.setProfessional(professionalList.get(0));
+            newEntity.setDescription(null);
+            newEntity.setName("Test Service");
+            newEntity.setPrice(100.0);
+            newEntity.setBrand(brandList.get(0));
+
+            serviceService.createService(newEntity);
+        });
     }
     /**
      * Verifica que se obtenga una lista vacía si no hay servicios.
      */
     @Test
     public void testCreateServiceWithNullRecords() {
-        ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
-        newEntity.setProfessional(professionalList.get(0));
-        newEntity.setDescription("Test Description");
-        newEntity.setName("Test Service");
-        newEntity.setPrice(100.0);
-        newEntity.setBrand(brandList.get(0));
-        newEntity.setRecords(null);
+        assertThrows(IllegalOperationException.class, () -> {
+            ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
+            newEntity.setProfessional(professionalList.get(0));
+            newEntity.setDescription("Test Description");
+            newEntity.setName("Test Service");
+            newEntity.setPrice(100.0);
+            newEntity.setBrand(brandList.get(0));
+            newEntity.setRecords(null);
 
-        serviceService.createService(newEntity);
+            serviceService.createService(newEntity);
+        });
     }
 
     /**
@@ -250,7 +265,7 @@ public class ServiceServiceTest {
      * @throws EntityNotFoundException 
      */
     @Test
-    public void testUpdateService() throws EntityNotFoundException{
+    public void testUpdateService() throws IllegalOperationException, EntityNotFoundException {
         ServiceEntity serviceEntity = serviceList.get(0);
         ServiceEntity updatedServiceEntity = factory.manufacturePojo(ServiceEntity.class);
         updatedServiceEntity.setId(serviceEntity.getId());
