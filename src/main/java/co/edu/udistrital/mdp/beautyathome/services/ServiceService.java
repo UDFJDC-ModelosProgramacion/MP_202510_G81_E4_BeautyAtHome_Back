@@ -45,9 +45,10 @@ public class ServiceService {
             throw new IllegalArgumentException("El precio del servicio debe ser mayor a cero");
         if (service.getProfessional() == null || !professionalRepository.existsById(service.getProfessional().getId()))
             throw new IllegalArgumentException("El profesional del servicio no es válido o no existe");
-        if (service.getBrand() == null || service.getBrand().getId() == null || !service.getBrand().getId().equals(0L)) {
+        if (service.getBrand() == null || service.getBrand().getId() == null || !service.getBrand().getId().equals(0L)) 
             throw new IllegalArgumentException("La marca del servicio no es válida o no existe");
-        }
+        if (service.getRecords() == null || service.getRecords().isEmpty()) 
+            throw new IllegalArgumentException("El servicio debe tener al menos un registro asociado");
         ServiceEntity savedService = serviceRepository.save(service);
         log.info("Servicio creado con éxito: {}", savedService);
         return savedService;

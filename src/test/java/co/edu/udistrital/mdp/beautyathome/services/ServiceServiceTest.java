@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,7 @@ import org.springframework.context.annotation.Import;
 import co.edu.udistrital.mdp.beautyathome.entities.BrandEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ProfessionalEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
-
+import co.edu.udistrital.mdp.beautyathome.entities.ServiceRecordEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 
 import jakarta.transaction.Transactional;
@@ -39,6 +41,7 @@ public class ServiceServiceTest {
     private List<ServiceEntity> serviceList = new ArrayList<>();
     private List<ProfessionalEntity> professionalList = new ArrayList<>();
     private List<BrandEntity> brandList = new ArrayList<>();
+    private Set<ServiceRecordEntity> serviceRecordList = new HashSet<>();
   
     /*
      * Configuración inicial de la prueba.
@@ -54,6 +57,7 @@ public class ServiceServiceTest {
         entityManager.getEntityManager().createQuery("delete from ServiceEntity");
         entityManager.getEntityManager().createQuery("delete from ProfessionalEntity");
         entityManager.getEntityManager().createQuery("delete from BrandEntity");
+        entityManager.getEntityManager().createQuery("delete from ServiceRecordEntity");
 
     }
     private void insertData() {
@@ -71,6 +75,11 @@ public class ServiceServiceTest {
             BrandEntity brandEntity = factory.manufacturePojo(BrandEntity.class);
             entityManager.persist(brandEntity);
             brandList.add(brandEntity);
+        }
+        for (int i = 0; i < 3; i++) {
+            ServiceRecordEntity serviceRecordEntity = factory.manufacturePojo(ServiceRecordEntity.class);
+            entityManager.persist(serviceRecordEntity);
+            serviceRecordList.add(serviceRecordEntity);
         }
         ProfessionalEntity professionalEntity = factory.manufacturePojo(ProfessionalEntity.class);
         entityManager.persist(professionalEntity);
@@ -92,6 +101,7 @@ public class ServiceServiceTest {
         newEntity.setName("Test Service");
         newEntity.setPrice(100.0);
         newEntity.setBrand(brandList.get(0));
+        newEntity.setRecords(serviceRecordList);
 
         ServiceEntity result = serviceService.createService(newEntity);
         assertNotNull(result);
@@ -112,6 +122,7 @@ public class ServiceServiceTest {
         newEntity.setName("Test Service");
         newEntity.setPrice(100.0);
         newEntity.setBrand(brandList.get(0));
+        newEntity.setRecords(serviceRecordList);
 
         
         serviceService.createService(newEntity);
@@ -125,6 +136,7 @@ public class ServiceServiceTest {
         newEntity.setName("Test Service");
         newEntity.setPrice(100.0);
         newEntity.setBrand(null);
+        newEntity.setRecords(serviceRecordList);
 
         serviceService.createService(newEntity);
     }
@@ -137,6 +149,7 @@ public class ServiceServiceTest {
         newEntity.setName("");
         newEntity.setPrice(100.0);
         newEntity.setBrand(brandList.get(0));
+        newEntity.setRecords(serviceRecordList);
         
         serviceService.createService(newEntity);
     }
@@ -149,6 +162,7 @@ public class ServiceServiceTest {
         newEntity.setName("Test Service");
         newEntity.setPrice(100.0);
         newEntity.setBrand(brandList.get(0));
+        newEntity.setRecords(serviceRecordList);
         
         serviceService.createService(newEntity);
     }
@@ -161,6 +175,7 @@ public class ServiceServiceTest {
         newEntity.setName(null);
         newEntity.setPrice(100.0);
         newEntity.setBrand(brandList.get(0));
+        newEntity.setRecords(serviceRecordList);
         serviceService.createService(newEntity);
     }
     @Test
@@ -174,7 +189,21 @@ public class ServiceServiceTest {
         
         serviceService.createService(newEntity);
     }
+    /**
+     * Verifica que se obtenga una lista vacía si no hay servicios.
+     */
+    @Test
+    public void testCreateServiceWithNullRecords() {
+        ServiceEntity newEntity = factory.manufacturePojo(ServiceEntity.class);
+        newEntity.setProfessional(professionalList.get(0));
+        newEntity.setDescription("Test Description");
+        newEntity.setName("Test Service");
+        newEntity.setPrice(100.0);
+        newEntity.setBrand(brandList.get(0));
+        newEntity.setRecords(null);
 
+        serviceService.createService(newEntity);
+    }
 
     /**
      * Verifica que se obtengan todos los servicios correctamente.
@@ -204,6 +233,9 @@ public class ServiceServiceTest {
         assertEquals(entity.getName(), result.getName());
         assertEquals(entity.getDescription(), result.getDescription());
         assertEquals(entity.getPrice(), result.getPrice());
+        assertEquals(entity.getProfessional().getId(), result.getProfessional().getId());
+        assertEquals(entity.getBrand().getId(), result.getBrand().getId());
+        assertEquals(entity.getRecords().size(), result.getRecords().size());
     }
 
     @Test
@@ -227,6 +259,7 @@ public class ServiceServiceTest {
         updatedServiceEntity.setName("Updated Service");
         updatedServiceEntity.setPrice(150.0);
         updatedServiceEntity.setBrand(brandList.get(0));
+        updatedServiceEntity.setRecords(serviceRecordList);
 
 
         serviceService.updateService(serviceEntity.getId(),updatedServiceEntity);
@@ -239,6 +272,7 @@ public class ServiceServiceTest {
         assertEquals(updatedServiceEntity.getName(), response.getName());
         assertEquals(updatedServiceEntity.getDescription(), response.getDescription());
         assertEquals(updatedServiceEntity.getPrice(),  response.getPrice());
+        assertEquals(updatedServiceEntity.getRecords().size(), response.getRecords().size());
     }
 
     @Test
@@ -261,6 +295,7 @@ public class ServiceServiceTest {
             updatedService.setPrice(150.0);
             updatedService.setBrand(brandList.get(0));
             updatedService.setId(serviceEntity.getId());
+            updatedService.setRecords(serviceRecordList);
             serviceService.updateService(serviceEntity.getId(), updatedService);
         });
     }
@@ -274,7 +309,7 @@ public class ServiceServiceTest {
             updatedService.setDescription("Updated Description");
             updatedService.setName("Updated Service");
             updatedService.setPrice(150.0);
-
+            updatedService.setRecords(serviceRecordList);
             updatedService.setBrand(null);
             updatedService.setId(serviceEntity.getId());
             serviceService.updateService(serviceEntity.getId(), updatedService);
@@ -291,6 +326,7 @@ public class ServiceServiceTest {
             updatedService.setPrice(150.0);
             updatedService.setBrand(brandList.get(0));
             updatedService.setId(serviceEntity.getId());
+            updatedService.setRecords(serviceRecordList);
             serviceService.updateService(serviceEntity.getId(), updatedService);
         });
     }
@@ -306,6 +342,7 @@ public class ServiceServiceTest {
             updatedService.setPrice(150.0);
             updatedService.setBrand(brandList.get(0));
             updatedService.setId(serviceEntity.getId());
+            updatedService.setRecords(serviceRecordList);
             serviceService.updateService(serviceEntity.getId(), updatedService);
         });
     }
@@ -321,6 +358,7 @@ public class ServiceServiceTest {
             updatedService.setPrice(150.0);
             updatedService.setBrand(brandList.get(0));
             updatedService.setId(serviceEntity.getId());
+            updatedService.setRecords(serviceRecordList);
             serviceService.updateService(serviceEntity.getId(), updatedService);
         });
     }
@@ -336,6 +374,23 @@ public class ServiceServiceTest {
             updatedService.setPrice(150.0);
             updatedService.setBrand(brandList.get(0));
             updatedService.setId(serviceEntity.getId());
+            updatedService.setRecords(serviceRecordList);
+            serviceService.updateService(serviceEntity.getId(), updatedService);
+        });
+    }
+
+    @Test
+    public void testUpdateInvalidServiceWithNullRecords() {
+        assertThrows(EntityNotFoundException.class, () -> {
+            ServiceEntity serviceEntity = serviceList.get(0);
+            ServiceEntity updatedService = factory.manufacturePojo(ServiceEntity.class);
+            updatedService.setProfessional(professionalList.get(0));
+            updatedService.setDescription("Updated Description");
+            updatedService.setName("Updated Service");
+            updatedService.setPrice(150.0);
+            updatedService.setBrand(brandList.get(0));
+            updatedService.setId(serviceEntity.getId());
+            updatedService.setRecords(null);
             serviceService.updateService(serviceEntity.getId(), updatedService);
         });
     }
