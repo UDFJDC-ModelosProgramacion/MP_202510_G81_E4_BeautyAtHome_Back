@@ -301,7 +301,7 @@ public class ServiceServiceTest {
 
     @Test
     public void testUpdateInvalidServiceWithNullProfessional(){
-        assertThrows(EntityNotFoundException.class, ()->{
+        assertThrows(IllegalOperationException.class, ()->{
             ServiceEntity serviceEntity = serviceList.get(0);
             ServiceEntity updatedService = factory.manufacturePojo(ServiceEntity.class);
             updatedService.setProfessional(null);
@@ -317,7 +317,7 @@ public class ServiceServiceTest {
 
     @Test
     public void testUpdateInvalidServiceWithNullBrand() {
-        assertThrows(EntityNotFoundException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
             ServiceEntity serviceEntity = serviceList.get(0);
             ServiceEntity updatedService = factory.manufacturePojo(ServiceEntity.class);
             updatedService.setProfessional(professionalList.get(0));
@@ -332,7 +332,7 @@ public class ServiceServiceTest {
     }
     @Test
     public void testUpdateInvalidServiceWithEmptyName() {
-        assertThrows(EntityNotFoundException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
             ServiceEntity serviceEntity = serviceList.get(0);
             ServiceEntity updatedService = factory.manufacturePojo(ServiceEntity.class);
             updatedService.setProfessional(professionalList.get(0));
@@ -348,7 +348,7 @@ public class ServiceServiceTest {
 
     @Test
     public void testUpdateInvalidServiceWithEmptyDescription() {
-        assertThrows(EntityNotFoundException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
             ServiceEntity serviceEntity = serviceList.get(0);
             ServiceEntity updatedService = factory.manufacturePojo(ServiceEntity.class);
             updatedService.setProfessional(professionalList.get(0));
@@ -364,7 +364,7 @@ public class ServiceServiceTest {
     
     @Test
     public void testUpdateInvalidServiceWithNullName() {
-        assertThrows(EntityNotFoundException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
             ServiceEntity serviceEntity = serviceList.get(0);
             ServiceEntity updatedService = factory.manufacturePojo(ServiceEntity.class);
             updatedService.setProfessional(professionalList.get(0));
@@ -380,7 +380,7 @@ public class ServiceServiceTest {
 
     @Test
     public void testUpdateInvalidServiceWithNullDescription() {
-        assertThrows(EntityNotFoundException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
             ServiceEntity serviceEntity = serviceList.get(0);
             ServiceEntity updatedService = factory.manufacturePojo(ServiceEntity.class);
             updatedService.setProfessional(professionalList.get(0));
@@ -396,7 +396,7 @@ public class ServiceServiceTest {
 
     @Test
     public void testUpdateInvalidServiceWithNullRecords() {
-        assertThrows(EntityNotFoundException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
             ServiceEntity serviceEntity = serviceList.get(0);
             ServiceEntity updatedService = factory.manufacturePojo(ServiceEntity.class);
             updatedService.setProfessional(professionalList.get(0));
@@ -415,7 +415,7 @@ public class ServiceServiceTest {
      * @throws EntityNotFoundException 
      */
     @Test
-    public void testDeleteValidService() throws EntityNotFoundException {
+    public void testDeleteValidService() throws EntityNotFoundException, IllegalOperationException {
         ServiceEntity serviceEntity = serviceList.get(0);
         serviceService.deleteService(serviceEntity.getId());
         ServiceEntity deleted = entityManager.find(ServiceEntity.class, serviceEntity.getId());

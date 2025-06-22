@@ -23,6 +23,7 @@ import co.edu.udistrital.mdp.beautyathome.entities.CoverageAreaEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ProfessionalEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
+import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import jakarta.transaction.Transactional;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -80,7 +81,7 @@ public class ProfessionalServiceTest {
      * Verifica que se pueda crear un profesional con éxito.
      */
     @Test
-    public void testCreateProfessional() {
+    public void testCreateProfessional() throws IllegalOperationException {
         ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
       
         newEntity.setServices(serviceList);
@@ -106,95 +107,166 @@ public class ProfessionalServiceTest {
 
     @Test
     public void testCreateProfessionalWithNullServices() {
-        ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        newEntity.setServices(null);
-        newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(LocalDate.of(1990,01,01));
-        newEntity.setCoverageAreas(coverageAreaList);
-        newEntity.setName("Test Professional");
-        newEntity.setPhotoUrl("http://example.com/photo.jpg");
-        newEntity.setSummary("Test summary of professional experience");
-
-        professionalService.createProfessional(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setServices(null);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setBirthDate(LocalDate.of(1990,01,01));
+            newEntity.setCoverageAreas(coverageAreaList);
+            
+            professionalService.createProfessional(newEntity);
+        });
     }
     @Test
     public void testCreateProfessionalWithNullAgenda() {
-        ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        newEntity.setServices(serviceList);
-        newEntity.setAgenda(null);
-        newEntity.setBirthDate(LocalDate.of(1990,01,01));
-        newEntity.setCoverageAreas(coverageAreaList);
-        newEntity.setName("Test Professional");
-        newEntity.setPhotoUrl("http://example.com/photo.jpg");
-        newEntity.setSummary("Test summary of professional experience");
-
-        professionalService.createProfessional(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(null);
+            newEntity.setBirthDate(LocalDate.of(1990,01,01));
+            newEntity.setCoverageAreas(coverageAreaList);
+            
+            professionalService.createProfessional(newEntity);
+        });
     }
     @Test
     public void testCreateProfessionalWithNullCoverageAreas() {
-        ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        newEntity.setServices(serviceList);
-        newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(LocalDate.of(1990,01,01));
-        newEntity.setCoverageAreas(null);
-        newEntity.setName("Test Professional");
-        newEntity.setPhotoUrl("http://example.com/photo.jpg");
-        newEntity.setSummary("Test summary of professional experience");
-
-        professionalService.createProfessional(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setBirthDate(LocalDate.of(1990,01,01));
+            newEntity.setCoverageAreas(null);
+            
+            professionalService.createProfessional(newEntity);
+        });
     }
     @Test
     public void testCreateProfessionalWithNullName() {
-        ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        newEntity.setName(null);
-        newEntity.setServices(serviceList);
-        newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(LocalDate.of(1990,01,01));
-        newEntity.setCoverageAreas(coverageAreaList);
-        newEntity.setPhotoUrl("http://example.com/photo.jpg");
-        newEntity.setSummary("Test summary of professional experience");
-
-        professionalService.createProfessional(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setName(null);
+            newEntity.setPhotoUrl("http://example.com/photo.jpg");
+            newEntity.setSummary("Test summary of professional experience");
+            newEntity.setBirthDate(LocalDate.of(1990,01,01));
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setCoverageAreas(coverageAreaList);
+            
+            professionalService.createProfessional(newEntity);
+        });
     }
     @Test
     public void testCreateProfessionalWithNullPhotoUrl() {
-        ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        newEntity.setName("Test Professional");
-        newEntity.setPhotoUrl(null);
-        newEntity.setServices(serviceList);
-        newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(LocalDate.of(1990,01,01));
-        newEntity.setCoverageAreas(coverageAreaList);
-        newEntity.setSummary("Test summary of professional experience");
-
-        professionalService.createProfessional(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setName("Test Professional");
+            newEntity.setPhotoUrl(null);
+            newEntity.setSummary("Test summary of professional experience");
+            newEntity.setBirthDate(LocalDate.of(1990,01,01));
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setCoverageAreas(coverageAreaList);
+            
+            professionalService.createProfessional(newEntity);
+        });
     }
     @Test
     public void testCreateProfessionalWithNullSummary() {
-        ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        newEntity.setName("Test Professional");
-        newEntity.setPhotoUrl("http://example.com/photo.jpg");
-        newEntity.setSummary(null);
-        newEntity.setServices(serviceList);
-        newEntity.setAgenda(agendaList.get(0));
-        newEntity.setBirthDate(LocalDate.of(1990,01,01));
-        newEntity.setCoverageAreas(coverageAreaList);
-
-        professionalService.createProfessional(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setName("Test Professional");
+            newEntity.setPhotoUrl("http://example.com/photo.jpg");
+            newEntity.setSummary(null);
+            newEntity.setBirthDate(LocalDate.of(1990,01,01));
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setCoverageAreas(coverageAreaList);
+            
+            professionalService.createProfessional(newEntity);
+        });
     }
     @Test
     public void testCreateProfessionalWithNullBirthDate() {
-        ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        newEntity.setName("Test Professional");
-        newEntity.setPhotoUrl("http://example.com/photo.jpg");
-        newEntity.setSummary("Test summary of professional experience");
-        newEntity.setBirthDate(null);
-        newEntity.setServices(serviceList);
-        newEntity.setAgenda(agendaList.get(0));
-        newEntity.setCoverageAreas(coverageAreaList);
-
-        professionalService.createProfessional(newEntity);
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setName("Test Professional");
+            newEntity.setPhotoUrl("http://example.com/photo.jpg");
+            newEntity.setSummary("Test summary of professional experience");
+            newEntity.setBirthDate(null);
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setCoverageAreas(coverageAreaList);
+            
+            professionalService.createProfessional(newEntity);
+        });
     }
+
+    @Test
+    public void testCreateProfessionalWithEmptyName() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setName("");
+            newEntity.setPhotoUrl("http://example.com/photo.jpg");
+            newEntity.setSummary("Test summary of professional experience");
+            newEntity.setBirthDate(LocalDate.of(1990,01,01));
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setCoverageAreas(coverageAreaList);
+            professionalService.createProfessional(newEntity);
+        });
+    }
+
+    @Test
+    public void testCreateProfessionalWithEmptyPhotoUrl() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setName("Test Professional");
+            newEntity.setPhotoUrl("");
+            newEntity.setSummary("Test summary of professional experience");
+            newEntity.setBirthDate(LocalDate.of(1990,01,01));
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setCoverageAreas(coverageAreaList);
+            professionalService.createProfessional(newEntity);
+        });
+    }
+
+    @Test
+    public void testCreateProfessionalWithEmptySummary() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setName("Test Professional");
+            newEntity.setPhotoUrl("http://example.com/photo.jpg");
+            newEntity.setSummary("");
+
+            newEntity.setBirthDate(LocalDate.of(1990,01,01));
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setCoverageAreas(coverageAreaList);
+            professionalService.createProfessional(newEntity);
+        });
+    }
+
+    @Test
+    public void testCreateProfessionalWithEmptyBirthDate() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity newEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            newEntity.setName("Test Professional");
+            newEntity.setPhotoUrl("http://example.com/photo.jpg");
+            newEntity.setSummary("Test summary of professional experience");
+            newEntity.setBirthDate(null);
+            newEntity.setServices(serviceList);
+            newEntity.setAgenda(agendaList.get(0));
+            newEntity.setCoverageAreas(coverageAreaList);
+            professionalService.createProfessional(newEntity);
+        });
+    }
+
+
+
+
+
     @Test
     public void testGetProfessionals(){
         List<ProfessionalEntity> professionalsFromDataBase = professionalService.getProfessionals();
@@ -211,7 +283,7 @@ public class ProfessionalServiceTest {
         }
     }
     @Test
-    public void testGetValidProfessional() {
+    public void testGetValidProfessional() throws EntityNotFoundException {
         ProfessionalEntity entity = professionalList.get(0);
         ProfessionalEntity result = professionalService.getProfessional(entity.getId());
         assertEquals(entity.getId(), result.getId());
@@ -233,7 +305,7 @@ public class ProfessionalServiceTest {
     }
 
     @Test
-    public void testUpdateProfessional(){
+    public void testUpdateProfessional() throws EntityNotFoundException, IllegalOperationException {
         ProfessionalEntity entity = professionalList.get(0);
         ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
         updatedEntity.setId(entity.getId());
@@ -271,125 +343,129 @@ public class ProfessionalServiceTest {
 
     @Test
     public void testUpdateInvalidProfessionalWithNullName() {
-        ProfessionalEntity entity = professionalList.get(0);
-        ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        updatedEntity.setId(entity.getId());
-        updatedEntity.setName(null);
-        updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
-        updatedEntity.setSummary("Updated summary of professional experience");
-        updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
-        updatedEntity.setCoverageAreas(coverageAreaList);
-        updatedEntity.setServices(serviceList);
-        updatedEntity.setAgenda(agendaList.get(0));
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity entity = professionalList.get(0);
+            ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setName(null);
+            updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
+            updatedEntity.setSummary("Updated summary of professional experience");
+            updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
+            updatedEntity.setCoverageAreas(coverageAreaList);
+            updatedEntity.setServices(serviceList);
+            updatedEntity.setAgenda(agendaList.get(0));
             professionalService.updateProfessional(entity.getId(), updatedEntity);
         });
     }
 
     @Test
     public void testUpdateInvalidProfessionalWithNullPhotoUrl() {
-        ProfessionalEntity entity = professionalList.get(0);
-        ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        updatedEntity.setId(entity.getId());
-        updatedEntity.setName("Updated Professional");
-        updatedEntity.setPhotoUrl(null);
-        updatedEntity.setSummary("Updated summary of professional experience");
-        updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
-        updatedEntity.setCoverageAreas(coverageAreaList);
-        updatedEntity.setServices(serviceList);
-        updatedEntity.setAgenda(agendaList.get(0));
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity entity = professionalList.get(0);
+            ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setName("Updated Professional");
+            updatedEntity.setPhotoUrl(null);
+            updatedEntity.setSummary("Updated summary of professional experience");
+            updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
+            updatedEntity.setCoverageAreas(coverageAreaList);
+            updatedEntity.setServices(serviceList);
+            updatedEntity.setAgenda(agendaList.get(0));
             professionalService.updateProfessional(entity.getId(), updatedEntity);
         });
     }
 
     @Test
     public void testUpdateInvalidProfessionalWithNullSummary() {
-        ProfessionalEntity entity = professionalList.get(0);
-        ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        updatedEntity.setId(entity.getId());
-        updatedEntity.setName("Updated Professional");
-        updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
-        updatedEntity.setSummary(null);
-        updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
-        updatedEntity.setCoverageAreas(coverageAreaList);
-        updatedEntity.setServices(serviceList);
-        updatedEntity.setAgenda(agendaList.get(0));
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity entity = professionalList.get(0);
+            ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setName("Updated Professional");
+            updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
+            updatedEntity.setSummary(null);
+            updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
+            updatedEntity.setCoverageAreas(coverageAreaList);
+            updatedEntity.setServices(serviceList);
+            updatedEntity.setAgenda(agendaList.get(0));
+
             professionalService.updateProfessional(entity.getId(), updatedEntity);
         });
     }
 
     @Test
     public void testUpdateInvalidProfessionalWithNullBirthDate() {
-        ProfessionalEntity entity = professionalList.get(0);
-        ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        updatedEntity.setId(entity.getId());
-        updatedEntity.setName("Updated Professional");
-        updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
-        updatedEntity.setSummary("Updated summary of professional experience");
-        updatedEntity.setBirthDate(null);
-        updatedEntity.setCoverageAreas(coverageAreaList);
-        updatedEntity.setServices(serviceList);
-        updatedEntity.setAgenda(agendaList.get(0));
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity entity = professionalList.get(0);
+            ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setName("Updated Professional");
+            updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
+            updatedEntity.setSummary("Updated summary of professional experience");
+            updatedEntity.setBirthDate(null);
+            updatedEntity.setCoverageAreas(coverageAreaList);
+            updatedEntity.setServices(serviceList);
+            updatedEntity.setAgenda(agendaList.get(0));
+
             professionalService.updateProfessional(entity.getId(), updatedEntity);
         });
     }
 
     @Test
     public void testUpdateInvalidProfessionalWithNullCoverageAreas() {
-        ProfessionalEntity entity = professionalList.get(0);
-        ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        updatedEntity.setId(entity.getId());
-        updatedEntity.setName("Updated Professional");
-        updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
-        updatedEntity.setSummary("Updated summary of professional experience");
-        updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
-        updatedEntity.setCoverageAreas(null);
-        updatedEntity.setServices(serviceList);
-        updatedEntity.setAgenda(agendaList.get(0));
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity entity = professionalList.get(0);
+            ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setName("Updated Professional");
+            updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
+            updatedEntity.setSummary("Updated summary of professional experience");
+            updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
+            updatedEntity.setCoverageAreas(null);
+            updatedEntity.setServices(serviceList);
+            updatedEntity.setAgenda(agendaList.get(0));
+
             professionalService.updateProfessional(entity.getId(), updatedEntity);
         });
     }
 
     @Test
     public void testUpdateInvalidProfessionalWithNullServices() {
-        ProfessionalEntity entity = professionalList.get(0);
-        ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        updatedEntity.setId(entity.getId());
-        updatedEntity.setName("Updated Professional");
-        updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
-        updatedEntity.setSummary("Updated summary of professional experience");
-        updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
-        updatedEntity.setCoverageAreas(coverageAreaList);
-        updatedEntity.setServices(null);
-        updatedEntity.setAgenda(agendaList.get(0));
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity entity = professionalList.get(0);
+            ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setName("Updated Professional");
+            updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
+            updatedEntity.setSummary("Updated summary of professional experience");
+            updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
+            updatedEntity.setCoverageAreas(coverageAreaList);
+            updatedEntity.setServices(null);
+            updatedEntity.setAgenda(agendaList.get(0));
+
             professionalService.updateProfessional(entity.getId(), updatedEntity);
         });
     }
 
     @Test
     public void testUpdateInvalidProfessionalWithNullAgenda() {
-        ProfessionalEntity entity = professionalList.get(0);
-        ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
-        updatedEntity.setId(entity.getId());
-        updatedEntity.setName("Updated Professional");
-        updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
-        updatedEntity.setSummary("Updated summary of professional experience");
-        updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
-        updatedEntity.setCoverageAreas(coverageAreaList);
-        updatedEntity.setServices(serviceList);
-        updatedEntity.setAgenda(null);
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalOperationException.class, () -> {
+            ProfessionalEntity entity = professionalList.get(0);
+            ProfessionalEntity updatedEntity = factory.manufacturePojo(ProfessionalEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setName("Updated Professional");
+            updatedEntity.setPhotoUrl("http://example.com/updated_photo.jpg");
+            updatedEntity.setSummary("Updated summary of professional experience");
+            updatedEntity.setBirthDate(LocalDate.of(1990,01,01));
+            updatedEntity.setCoverageAreas(coverageAreaList);
+            updatedEntity.setServices(serviceList);
+            updatedEntity.setAgenda(null);
             professionalService.updateProfessional(entity.getId(), updatedEntity);
         });
     }
 
     @Test
-    public void testDeleteValidProfessional() {
+    public void testDeleteValidProfessional() throws EntityNotFoundException {
         ProfessionalEntity entity = professionalList.get(0);
         professionalService.deleteProfessional(entity.getId());
         ProfessionalEntity deletedEntity = entityManager.find(ProfessionalEntity.class, entity.getId());

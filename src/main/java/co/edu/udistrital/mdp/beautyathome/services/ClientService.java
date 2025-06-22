@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.beautyathome.entities.ClientEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
+import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.repositories.ClientRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -29,18 +30,20 @@ public class ClientService {
      * @return El cliente creado.
      * @throws IllegalArgumentException Si el cliente no es válido.
      */
-    public ClientEntity createClient(ClientEntity client) {
+    public ClientEntity createClient(ClientEntity client) throws IllegalOperationException {
         log.info("Iniciando el proceso de creación de un cliente");
-        if (client.getFullName() == null || client.getFullName().isEmpty()) 
-            throw new IllegalArgumentException("El nombre del cliente no puede ser nulo o vacío");
-        if (client.getEmail() == null || client.getEmail().isEmpty())
-            throw new IllegalArgumentException("El email del cliente no puede ser nulo o vacío");
-        if (client.getPhoneNumber() == null || client.getPhoneNumber().isEmpty())
-            throw new IllegalArgumentException("El número de teléfono del cliente no puede ser nulo o vacío");
+        if (client.getFullName() == null || client.getFullName().isEmpty()) {
+            throw new IllegalOperationException("El nombre del cliente no puede ser nulo o vacío");
+        }
+        if (client.getEmail() == null || client.getEmail().isEmpty()) {
+            throw new IllegalOperationException("El correo electrónico del cliente no puede ser nulo o vacío");
+        }
+        if (client.getPhoneNumber() == null || client.getPhoneNumber().isEmpty()) {
+            throw new IllegalOperationException("El número de teléfono del cliente no puede ser nulo o vacío");
+        }
         ClientEntity savedClient = clientRepository.save(client);
         log.info("Cliente creado con éxito: {}", savedClient);
         return savedClient;
-
     }
     /**
      * Obtiene todos los clientes de la base de datos.
@@ -62,12 +65,8 @@ public class ClientService {
      */
     @Transactional
     public ClientEntity getCLient(Long clientID) throws EntityNotFoundException{
-        log.info("iniciado la busqueda del cliente con id: {}", clientID);
         Optional<ClientEntity> clientEntity = clientRepository.findById(clientID);
-        if (clientEntity.isEmpty()) 
-            throw new EntityNotFoundException("The client with the given id was not found: " + clientID);
-        log.info("terminando el proceso de buscar el servicio por ID", clientEntity);
-        return clientEntity.get();
+        return clientEntity.orElseThrow(() -> new EntityNotFoundException("The client with the given id was not found: " + clientID));
     }
 
     /**
@@ -77,15 +76,30 @@ public class ClientService {
      * @param client El cliente con los datos actualizados.
      * @return El cliente actualizado.
      * @throws EntityNotFoundException Si el cliente no existe.
+     * @throws IllegalOperationException Si el cliente no es válido.
      */
     @Transactional
-    public ClientEntity updateClient(Long clientId, ClientEntity client) throws EntityNotFoundException {
+    public ClientEntity updateClient(Long clientId, ClientEntity client) throws IllegalOperationException,EntityNotFoundException {
         log.info("Iniciando el proceso de actualización del cliente con id: {}", clientId);
         Optional<ClientEntity> optionalClientEntity = clientRepository.findById(clientId);
-        if (optionalClientEntity.isEmpty()) {
-            throw new EntityNotFoundException("The client with the given id was not found: " + clientId);
-        }
+        optionalClientEntity.orElseThrow(() -> new EntityNotFoundException("The client with the given id was not found: " + clientId));
         client.setId(clientId);
+
+        if (client.getFullName() == null || client.getFullName().isEmpty()) {
+            throw new IllegalOperationException("El nombre del cliente no puede ser nulo o vacío");
+        }
+        if (client.getEmail() == null || client.getEmail().isEmpty()) {
+            throw new IllegalOperationException("El correo electrónico del cliente no puede ser nulo o vacío");
+        }
+        if (client.getPhoneNumber() == null || client.getPhoneNumber().isEmpty()) {
+            throw new IllegalOperationException("El número de teléfono del cliente no puede ser nulo o vacío");
+        }
+        if (client.getAddress() == null || client.getAddress().isEmpty()) {
+            throw new IllegalOperationException("La dirección del cliente no puede ser nula o vacía");
+        }
+        if (client.getReviews() != null && client.getReviews().isEmpty()) {
+            throw new IllegalOperationException("La lista de reseñas del cliente no puede ser nula o vacía");
+        }
         ClientEntity updatedClient = clientRepository.save(client);
         log.info("Cliente actualizado con éxito: {}", updatedClient);
         return updatedClient;
@@ -97,12 +111,9 @@ public class ClientService {
      */
     @Transactional
     public void deleteClient(Long clientId) throws EntityNotFoundException {
-        log.info("Iniciando el proceso de eliminación del cliente con id: {}", clientId);
         Optional<ClientEntity> optionalClientEntity = clientRepository.findById(clientId);
-        if (optionalClientEntity.isEmpty()) {
-            throw new EntityNotFoundException("The client with the given id was not found: " + clientId);
-        }
+        optionalClientEntity.orElseThrow(() -> new EntityNotFoundException("The client with the given id was not found: " + clientId));
+        log.info("Iniciando el proceso de eliminación del cliente con id: {}", clientId);
         clientRepository.deleteById(clientId);
-        log.info("Cliente eliminado con éxito");
     }
 }

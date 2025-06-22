@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Import;
 import co.edu.udistrital.mdp.beautyathome.entities.ClientEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.ReviewEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
+import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import jakarta.transaction.Transactional;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -68,7 +69,7 @@ public class ClientServiceTest {
      * verifica que se pueda crear un cliente con éxito.
      */
     @Test
-    public void testCreateClient(){
+    public void testCreateClient()throws IllegalOperationException{
         ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
 
         newEntity.setAddress("example address");
@@ -90,103 +91,121 @@ public class ClientServiceTest {
 
     @Test
     public void testCreateClientWithNullName() {
-        ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setAddress("example address");
-        newEntity.setEmail("example email");
-        newEntity.setPhoneNumber("1234567890");
-        newEntity.setReviews(reviewList);
-        newEntity.setFullName(null);
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
+            newEntity.setAddress("example address");
+            newEntity.setEmail("example email");
+            newEntity.setPhoneNumber("1234567890");
+            newEntity.setReviews(reviewList);
+            newEntity.setFullName(null);
 
-        clientService.createClient(newEntity);
+            clientService.createClient(newEntity);
+        });
     }
 
     @Test
     public void testCreateClientWithNullAddress() {
-        ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setFullName("example name");
-        newEntity.setEmail("example email");
-        newEntity.setPhoneNumber("1234567890");
-        newEntity.setReviews(reviewList);
-        newEntity.setAddress(null);
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
+            newEntity.setFullName("example name");
+            newEntity.setEmail("example email");
+            newEntity.setPhoneNumber("1234567890");
+            newEntity.setReviews(reviewList);
+            newEntity.setAddress(null);
 
-        clientService.createClient(newEntity);
+            clientService.createClient(newEntity);
+        });
     }
     @Test
     public void testCreateClientWithNullEmail() {
-        ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setFullName("example name");
-        newEntity.setAddress("example address");
-        newEntity.setPhoneNumber("1234567890");
-        newEntity.setReviews(reviewList);
-        newEntity.setEmail(null);
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
+            newEntity.setFullName("example name");
+            newEntity.setAddress("example address");
+            newEntity.setPhoneNumber("1234567890");
+            newEntity.setReviews(reviewList);
+            newEntity.setEmail(null);
 
-        clientService.createClient(newEntity);
+            clientService.createClient(newEntity);
+        });
     }
     @Test
     public void testCreateClientWithNullPhoneNumber() {
-        ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setFullName("example name");
-        newEntity.setAddress("example address");
-        newEntity.setEmail("example email");
-        newEntity.setReviews(reviewList);
-        newEntity.setPhoneNumber(null);
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
+            newEntity.setFullName("example name");
+            newEntity.setAddress("example address");
+            newEntity.setEmail("example email");
+            newEntity.setReviews(reviewList);
+            newEntity.setPhoneNumber(null);
 
-        clientService.createClient(newEntity);
+            clientService.createClient(newEntity);
+        });
     }
     @Test
     public void testCreateClientWithEmptyName() {
-        ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setAddress("example address");
-        newEntity.setEmail("example email");
-        newEntity.setPhoneNumber("1234567890");
-        newEntity.setReviews(reviewList);
-        newEntity.setFullName("");
+       assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
+            newEntity.setAddress("example address");
+            newEntity.setEmail("example email");
+            newEntity.setPhoneNumber("1234567890");
+            newEntity.setReviews(reviewList);
+            newEntity.setFullName("");
 
-        clientService.createClient(newEntity);
+            clientService.createClient(newEntity);
+        });
     }
     @Test
     public void testCreateClientWithEmptyAddress() {
-        ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setFullName("example name");
-        newEntity.setEmail("example email");
-        newEntity.setPhoneNumber("1234567890");
-        newEntity.setReviews(reviewList);
-        newEntity.setAddress("");
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
+            newEntity.setFullName("example name");
+            newEntity.setEmail("example email");
+            newEntity.setPhoneNumber("1234567890");
+            newEntity.setReviews(reviewList);
+            newEntity.setAddress("");
 
-        clientService.createClient(newEntity);
+            clientService.createClient(newEntity);
+        });
     }
     @Test
     public void testCreateClientWithEmptyEmail() {
-        ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setFullName("example name");
-        newEntity.setAddress("example address");
-        newEntity.setPhoneNumber("1234567890");
-        newEntity.setReviews(reviewList);
-        newEntity.setEmail("");
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
+            newEntity.setFullName("example name");
+            newEntity.setAddress("example address");
+            newEntity.setPhoneNumber("1234567890");
+            newEntity.setReviews(reviewList);
+            newEntity.setEmail("");
 
-        clientService.createClient(newEntity);
+            clientService.createClient(newEntity);
+        });
     }
     @Test
     public void testCreateClientWithEmptyPhoneNumber() {
-        ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setFullName("example name");
-        newEntity.setAddress("example address");
-        newEntity.setEmail("example email");
-        newEntity.setReviews(reviewList);
-        newEntity.setPhoneNumber("");
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
+            newEntity.setFullName("example name");
+            newEntity.setAddress("example address");
+            newEntity.setEmail("example email");
+            newEntity.setReviews(reviewList);
+            newEntity.setPhoneNumber("");
 
-        clientService.createClient(newEntity);
+            clientService.createClient(newEntity);
+        });
     }
     @Test
     public void testCreateClientWithNullReviews() {
-        ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
-        newEntity.setFullName("example name");
-        newEntity.setAddress("example address");
-        newEntity.setEmail("example email");
-        newEntity.setPhoneNumber("1234567890");
-        newEntity.setReviews(null);
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity newEntity = factory.manufacturePojo(ClientEntity.class);
+            newEntity.setFullName("example name");
+            newEntity.setAddress("example address");
+            newEntity.setEmail("example email");
+            newEntity.setPhoneNumber("1234567890");
+            newEntity.setReviews(null);
 
-        clientService.createClient(newEntity);
+            clientService.createClient(newEntity);
+        });
     }
 
     @Test
@@ -223,7 +242,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void testUpdateClient() throws EntityNotFoundException {
+    public void testUpdateValidClient() throws IllegalOperationException,EntityNotFoundException {
         ClientEntity entity = clientList.get(0);
         ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
         updatedEntity.setId(entity.getId());
@@ -244,6 +263,152 @@ public class ClientServiceTest {
         assertEquals(updatedEntity.getReviews().size(), response.getReviews().size());
 
     }
+
+    @Test
+    public void testUpdateInvalidClient() {
+        assertThrows(EntityNotFoundException.class, () -> {
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(0L);
+            clientService.updateClient(0L, updatedEntity);
+        });
+    }
+
+    @Test
+    public void testUpdateClientWithNullName() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity entity = clientList.get(0);
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setFullName(null);
+            updatedEntity.setAddress("Updated Address");
+            updatedEntity.setEmail("Updated Email");
+            updatedEntity.setPhoneNumber("Updated Phone Number");
+            updatedEntity.setReviews(reviewList);
+            clientService.updateClient(entity.getId(), updatedEntity);
+        });
+    }
+
+    @Test
+    public void testUpdateClientWithNullAddress() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity entity = clientList.get(0);
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setFullName("Updated Name");
+            updatedEntity.setAddress(null);
+            updatedEntity.setEmail("Updated Email");
+            updatedEntity.setPhoneNumber("Updated Phone Number");
+            updatedEntity.setReviews(reviewList);
+            clientService.updateClient(entity.getId(), updatedEntity);
+        });
+    }
+
+    @Test
+    public void testUpdateClientWithNullEmail() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity entity = clientList.get(0);
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setFullName("Updated Name");
+            updatedEntity.setAddress("Updated Address");
+            updatedEntity.setEmail(null);
+            updatedEntity.setPhoneNumber("Updated Phone Number");
+            updatedEntity.setReviews(reviewList);
+            clientService.updateClient(entity.getId(), updatedEntity);
+        });
+    }
+
+    @Test
+    public void testUpdateClientWithNullPhoneNumber() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity entity = clientList.get(0);
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setFullName("Updated Name");
+            updatedEntity.setAddress("Updated Address");
+            updatedEntity.setEmail("Updated Email");
+            updatedEntity.setPhoneNumber(null);
+            updatedEntity.setReviews(reviewList);
+            clientService.updateClient(entity.getId(), updatedEntity);
+        });
+    }
+
+    @Test
+    public void testUpdateClientWithEmptyName() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity entity = clientList.get(0);
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setFullName("");
+            updatedEntity.setAddress("Updated Address");
+            updatedEntity.setEmail("Updated Email");
+            updatedEntity.setPhoneNumber("Updated Phone Number");
+            updatedEntity.setReviews(reviewList);
+            clientService.updateClient(entity.getId(), updatedEntity);
+        });
+    }
+
+    @Test
+    public void testUpdateClientWithEmptyAddress() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity entity = clientList.get(0);
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setFullName("Updated Name");
+            updatedEntity.setAddress("");
+            updatedEntity.setEmail("Updated Email");
+            updatedEntity.setPhoneNumber("Updated Phone Number");
+            updatedEntity.setReviews(reviewList);
+            clientService.updateClient(entity.getId(), updatedEntity);
+        });
+    }
+
+    @Test
+    public void testUpdateClientWithEmptyEmail() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity entity = clientList.get(0);
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setFullName("Updated Name");
+            updatedEntity.setAddress("Updated Address");
+            updatedEntity.setEmail("");
+            updatedEntity.setPhoneNumber("Updated Phone Number");
+            updatedEntity.setReviews(reviewList);
+            clientService.updateClient(entity.getId(), updatedEntity);
+        });
+    }
+
+    @Test
+    public void testUpdateClientWithEmptyPhoneNumber() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity entity = clientList.get(0);
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setFullName("Updated Name");
+            updatedEntity.setAddress("Updated Address");
+            updatedEntity.setEmail("Updated Email");
+            updatedEntity.setPhoneNumber("");
+            updatedEntity.setReviews(reviewList);
+            clientService.updateClient(entity.getId(), updatedEntity);
+        });
+    }
+
+    @Test
+    public void testUpdateClientWithNullReviews() {
+        assertThrows(IllegalOperationException.class, () -> {
+            ClientEntity entity = clientList.get(0);
+            ClientEntity updatedEntity = factory.manufacturePojo(ClientEntity.class);
+            updatedEntity.setId(entity.getId());
+            updatedEntity.setFullName("Updated Name");
+            updatedEntity.setAddress("Updated Address");
+            updatedEntity.setEmail("Updated Email");
+            updatedEntity.setPhoneNumber("Updated Phone Number");
+            updatedEntity.setReviews(null);
+            clientService.updateClient(entity.getId(), updatedEntity);
+        });
+    }
+
+    
 
     @Test
     public void testDeleteValidClient() throws EntityNotFoundException {
