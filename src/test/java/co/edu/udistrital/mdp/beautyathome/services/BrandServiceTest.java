@@ -17,13 +17,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import co.edu.udistrital.mdp.beautyathome.entities.BrandEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
-import co.edu.udistrital.mdp.beautyathome.repositories.BrandRepository;
+import co.edu.udistrital.mdp.beautyathome.repositories.BrandRepository; // Se mantiene por si se necesita para algo, aunque no se usa en los tests directos
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  * Clase de pruebas unitarias para el servicio BrandService.
  * Prueba las operaciones CRUD y validaciones de marcas.
+ * Ajustada para los cambios en BrandEntity (sin campos de precio/disponibilidad).
  */
 @DataJpaTest // Anotación para configurar pruebas JPA
 @Transactional // Todas las pruebas se ejecutan dentro de una transacción
@@ -38,8 +39,9 @@ public class BrandServiceTest {
     @Autowired
     private TestEntityManager entityManager;
 
-    // Repositorio de marcas (aunque no se usa directamente en estas pruebas)
-    @Autowired
+    // Repositorio de marcas (se mantiene si hay alguna razón para testearlo directamente,
+    // aunque para los tests del servicio, el servicio ya usa su propio repo inyectado)
+    @Autowired(required = false) // No es estrictamente necesario para este test de servicio
     private BrandRepository brandRepository;
 
     // Factoría para generar objetos de prueba aleatorios
@@ -63,8 +65,8 @@ public class BrandServiceTest {
         for (int i = 0; i < 3; i++) {
             BrandEntity b = factory.manufacturePojo(BrandEntity.class);
             b.setName("Brand " + i); // Nombre predecible
-            b.setPrice((double) i * 10 + 1); // Precio calculado
-            b.setAvailable(true); // Disponibilidad fija
+            b.setLogoURL("http://logo.com/brand" + i + ".png"); // Añadimos logoURL ya que es un campo de BrandEntity
+            // Eliminados los campos setPrice y setAvailable ya que no son parte de BrandEntity
             entityManager.persist(b); // Persiste en la base de datos
             brands.add(b); // Guarda en la lista para referencia
         }
@@ -79,8 +81,8 @@ public class BrandServiceTest {
         // Crea una nueva marca con datos válidos
         BrandEntity b = factory.manufacturePojo(BrandEntity.class);
         b.setName("NewBrand");
-        b.setPrice(50.0);
-        b.setAvailable(false);
+        b.setLogoURL("http://newbrand.com/logo.png");
+        // Eliminados los campos setPrice y setAvailable ya que no son parte de BrandEntity
 
         // Ejecuta el metodo bajo prueba
         BrandEntity result = brandService.createBrand(b);
@@ -89,39 +91,43 @@ public class BrandServiceTest {
         assertNotNull(result.getId()); // Debe tener ID asignado
         BrandEntity found = entityManager.find(BrandEntity.class, result.getId());
         assertEquals("NewBrand", found.getName()); // Nombre correcto
-        assertEquals(50.0, found.getPrice()); // Precio correcto
-        assertFalse(found.getAvailable()); // Disponibilidad correcta
+        assertEquals("http://newbrand.com/logo.png", found.getLogoURL()); // LogoURL correcto
+        // Eliminadas las aserciones de price y available
     }
 
     /**
-     * Prueba la creación con nombre inválido (vacío).
+     * Prueba la creación con nombre inválido (vacío o nulo).
      */
     @Test
     public void testCreateInvalidName() {
-        // Prepara marca con nombre inválido
-        BrandEntity b = factory.manufacturePojo(BrandEntity.class);
-        b.setName(""); // Nombre vacío - inválido
-        b.setPrice(10.0);
-        b.setAvailable(true);
+        // Prepara marca con nombre inválido (vacío)
+        BrandEntity bEmptyName = factory.manufacturePojo(BrandEntity.class);
+        bEmptyName.setName(""); // Nombre vacío - inválido
+        bEmptyName.setLogoURL("http://test.com/logo.png");
 
-        // Verifica que se lance la excepción esperada
-        assertThrows(IllegalOperationException.class, () -> brandService.createBrand(b));
+        // Verifica que se lance la excepción esperada para nombre vacío
+        assertThrows(IllegalOperationException.class, () -> brandService.createBrand(bEmptyName),
+                "Se esperaba IllegalOperationException para nombre vacío.");
+
+        // Prepara marca con nombre inválido (nulo)
+        BrandEntity bNullName = factory.manufacturePojo(BrandEntity.class);
+        bNullName.setName(null); // Nombre nulo - inválido
+        bNullName.setLogoURL("http://test.com/logo.png");
+
+        // Verifica que se lance la excepción esperada para nombre nulo
+        assertThrows(IllegalOperationException.class, () -> brandService.createBrand(bNullName),
+                "Se esperaba IllegalOperationException para nombre nulo.");
     }
 
     /**
-     * Prueba la creación con precio inválido (negativo).
+     * **TEST ELIMINADO:**
+     * Prueba la creación con precio inválido (negativo). Este test ya no es aplicable
+     * porque BrandEntity ya no tiene el campo 'price'.
+     *
+     * Si en el futuro necesitas validar precios, esto debe hacerse en ExclusiveProductServiceTest.
      */
-    @Test
-    public void testCreateInvalidPrice() {
-        // Prepara marca con precio inválido
-        BrandEntity b = factory.manufacturePojo(BrandEntity.class);
-        b.setName("X");
-        b.setPrice(-5.0); // Precio negativo - inválido
-        b.setAvailable(true);
-
-        // Verifica que se lance la excepción esperada
-        assertThrows(IllegalOperationException.class, () -> brandService.createBrand(b));
-    }
+    // @Test
+    // public void testCreateInvalidPrice() { ... } // Comentado o eliminado
 
     /**
      * Prueba la obtención de todas las marcas.
@@ -147,7 +153,10 @@ public class BrandServiceTest {
         BrandEntity found = brandService.getBrand(b.getId());
 
         // Verifica que sea la misma marca
+        assertNotNull(found);
         assertEquals(b.getId(), found.getId());
+        assertEquals(b.getName(), found.getName());
+        assertEquals(b.getLogoURL(), found.getLogoURL());
     }
 
     /**
@@ -155,7 +164,7 @@ public class BrandServiceTest {
      */
     @Test
     public void testGetInvalid() {
-        Long invalidId = 0L; // ID que no existe
+        Long invalidId = -1L; // ID que no existe y es improbable que exista
 
         // Verifica que se lance la excepción esperada
         assertThrows(EntityNotFoundException.class, () -> brandService.getBrand(invalidId));
@@ -164,26 +173,27 @@ public class BrandServiceTest {
     /**
      * Prueba la actualización exitosa de una marca.
      * @throws IllegalOperationException Si la validación falla
+     * @throws EntityNotFoundException Si la marca a actualizar no se encuentra
      */
     @Test
-    public void testUpdateValid() throws IllegalOperationException {
+    public void testUpdateValid() throws IllegalOperationException, EntityNotFoundException {
         // Obtiene una marca existente
         BrandEntity b = brands.get(1);
 
         // Prepara datos de actualización
         BrandEntity update = factory.manufacturePojo(BrandEntity.class);
-        update.setName("Updated");
-        update.setPrice(99.0);
-        update.setAvailable(false);
+        update.setName("UpdatedBrandName");
+        update.setLogoURL("http://updated.com/logo.png");
+        // Eliminados los campos setPrice y setAvailable ya que no son parte de BrandEntity
 
         // Ejecuta la actualización
         brandService.updateBrand(b.getId(), update);
 
         // Verifica los cambios en la base de datos
         BrandEntity verified = entityManager.find(BrandEntity.class, b.getId());
-        assertEquals("Updated", verified.getName());
-        assertEquals(99.0, verified.getPrice());
-        assertFalse(verified.getAvailable());
+        assertEquals("UpdatedBrandName", verified.getName());
+        assertEquals("http://updated.com/logo.png", verified.getLogoURL());
+        // Eliminadas las aserciones de price y available
     }
 
     /**
@@ -191,8 +201,11 @@ public class BrandServiceTest {
      */
     @Test
     public void testUpdateInvalidId() {
-        Long invalidId = 0L; // ID que no existe
-        BrandEntity fake = factory.manufacturePojo(BrandEntity.class); // Datos fake
+        Long invalidId = -1L; // ID que no existe
+        BrandEntity fake = factory.manufacturePojo(BrandEntity.class); // Datos fake (el contenido no importa tanto aquí)
+        fake.setName("FakeBrand"); // Necesita un nombre válido para la validación del servicio
+        fake.setLogoURL("http://fake.com/logo.png");
+
 
         // Verifica que se lance la excepción esperada
         assertThrows(EntityNotFoundException.class, () -> brandService.updateBrand(invalidId, fake));
@@ -218,7 +231,7 @@ public class BrandServiceTest {
      */
     @Test
     public void testDeleteInvalid() {
-        Long invalidId = 0L; // ID que no existe
+        Long invalidId = -1L; // ID que no existe
 
         // Verifica que se lance la excepción esperada
         assertThrows(EntityNotFoundException.class, () -> brandService.deleteBrand(invalidId));

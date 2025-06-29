@@ -1,126 +1,113 @@
-// Paquete donde se encuentra la clase
 package co.edu.udistrital.mdp.beautyathome.controllers;
 
-// Importaciones necesarias
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired; // Nueva importación para inyección de dependencia
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.modelmapper.ModelMapper; // Importación de ModelMapper
+import org.modelmapper.TypeToken; // Importación de TypeToken
 import co.edu.udistrital.mdp.beautyathome.dto.BrandDTO;
+import co.edu.udistrital.mdp.beautyathome.dto.BrandDetailDTO; // Importación de BrandDetailDTO
 import co.edu.udistrital.mdp.beautyathome.entities.BrandEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.BrandService;
 import jakarta.persistence.EntityNotFoundException;
 
 /**
- * Controlador REST para manejar operaciones relacionadas con marcas (brands).
- * Todas las rutas comienzan con "/brands".
+ * Controlador REST para manejar operaciones relacionadas con marcas.
+ * Expone endpoints para el CRUD de marcas y manejo de excepciones.
  */
-@RestController
-@RequestMapping("/brands")
+@RestController // Indica que esta clase es un controlador REST
+@RequestMapping("/brands") // Mapea todas las rutas de este controlador a /brands
 public class BrandController {
 
-    // Servicio que contiene la lógica de negocio para las marcas
     private final BrandService brandService;
+    private final ModelMapper modelMapper; // Inyección de ModelMapper
 
     /**
-     * Constructor que realiza la inyección de dependencias del servicio.
-     * @param brandService Servicio de marcas que se inyecta automáticamente
+     * Constructor para inyección de dependencias.
+     * @param brandService Servicio de marcas.
+     * @param modelMapper Instancia de ModelMapper.
      */
-    public BrandController(BrandService brandService) {
+    @Autowired // La inyección de dependencias por constructor es la forma preferida en Spring
+    public BrandController(BrandService brandService, ModelMapper modelMapper) {
         this.brandService = brandService;
+        this.modelMapper = modelMapper;
     }
 
     /**
-     * Metodo auxiliar para convertir una entidad BrandEntity a un DTO BrandDTO.
-     * @param e Entidad BrandEntity a convertir
-     * @return DTO BrandDTO con los datos de la entidad
+     * Endpoint para crear una nueva marca.
+     * @param dto DTO con los datos de la marca a crear.
+     * @return DTO de la marca creada.
+     * @throws IllegalOperationException Si hay errores de validación.
      */
-    private BrandDTO toDTO(BrandEntity e) {
-        BrandDTO dto = new BrandDTO();
-        dto.setId(e.getId());          // Copia el ID de la entidad al DTO
-        dto.setName(e.getName());      // Copia el nombre de la entidad al DTO
-        dto.setLogoURL(e.getLogoURL());// Copia la URL del logo de la entidad al DTO
-        return dto;
-    }
-
-    /**
-     * Metodo auxiliar para convertir un DTO BrandDTO a una entidad BrandEntity.
-     * @param dto DTO BrandDTO a convertir
-     * @return Entidad BrandEntity con los datos del DTO
-     */
-    private BrandEntity toEntity(BrandDTO dto) {
-        BrandEntity e = new BrandEntity();
-        e.setName(dto.getName());      // Copia el nombre del DTO a la entidad
-        e.setLogoURL(dto.getLogoURL());// Copia la URL del logo del DTO a la entidad
-        return e;
-    }
-
-    /**
-     * Endpoint POST para crear una nueva marca.
-     * @param dto DTO con los datos de la marca a crear
-     * @return DTO de la marca creada
-     * @throws IllegalOperationException Si la operación no es válida
-     */
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED) // Retorna código 201 (CREATED) al crear exitosamente
+    @PostMapping // Mapea solicitudes POST a /brands
+    @ResponseStatus(HttpStatus.CREATED) // Retorna código 201 (CREATED)
     public BrandDTO create(@RequestBody BrandDTO dto) throws IllegalOperationException {
         // Convierte el DTO a entidad, crea la marca y convierte el resultado a DTO
-        BrandEntity created = brandService.createBrand(toEntity(dto));
-        return toDTO(created);
+        BrandEntity created = brandService.createBrand(modelMapper.map(dto, BrandEntity.class));
+        return modelMapper.map(created, BrandDTO.class);
     }
 
     /**
-     * Endpoint GET para listar todas las marcas.
-     * @return Lista de DTOs de todas las marcas
+     * Endpoint para listar todas las marcas.
+     * Retorna una lista de BrandDetailDTO.
+     * @return Lista de DTOs de marcas con detalle.
      */
-    @GetMapping
-    public List<BrandDTO> list() {
-        // Obtiene todas las marcas, las convierte a DTO y las devuelve como lista
-        return brandService.getBrands().stream()
-                .map(this::toDTO)
-                .toList();
+    @GetMapping // Mapea solicitudes GET a /brands
+    @ResponseStatus(HttpStatus.OK) // Retorna código 200 (OK)
+    public List<BrandDetailDTO> findAll() { // Renombrado de 'list' a 'findAll'
+        List<BrandEntity> brands = brandService.getBrands();
+        // Convierte la lista de entidades a lista de BrandDetailDTO
+        return modelMapper.map(brands, new TypeToken<List<BrandDetailDTO>>() {}.getType());
     }
 
     /**
-     * Endpoint GET para obtener una marca específica por su ID.
-     * @param id ID de la marca a buscar
-     * @return DTO de la marca encontrada
+     * Endpoint para obtener una marca específica por ID.
+     * Retorna un BrandDetailDTO.
+     * @param id ID de la marca a buscar.
+     * @return DTO de la marca encontrada con detalle.
+     * @throws EntityNotFoundException Si no se encuentra la marca.
      */
     @GetMapping("/{id}")
-    public BrandDTO getOne(@PathVariable Long id) {
-        // Obtiene la marca por ID y la convierte a DTO
+    @ResponseStatus(HttpStatus.OK) // Retorna código 200 (OK)
+    public BrandDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException { // Renombrado de 'getOne' a 'findOne'
         BrandEntity e = brandService.getBrand(id);
-        return toDTO(e);
+        // Convierte la entidad a BrandDetailDTO
+        return modelMapper.map(e, BrandDetailDTO.class);
     }
 
     /**
-     * Endpoint PUT para actualizar una marca existente.
-     * @param id ID de la marca a actualizar
-     * @param dto DTO con los nuevos datos de la marca
-     * @return DTO de la marca actualizada
-     * @throws IllegalOperationException Si la operación no es válida
+     * Endpoint para actualizar una marca existente.
+     * @param id ID de la marca a actualizar.
+     * @param dto DTO con los nuevos datos de la marca.
+     * @return DTO de la marca actualizada.
+     * @throws IllegalOperationException Si hay errores de validación.
+     * @throws EntityNotFoundException Si no se encuentra la marca.
      */
     @PutMapping("/{id}")
-    public BrandDTO update(@PathVariable Long id, @RequestBody BrandDTO dto) throws IllegalOperationException {
-        // Actualiza la marca con el ID proporcionado y los nuevos datos
-        BrandEntity updated = brandService.updateBrand(id, toEntity(dto));
-        return toDTO(updated);
+    @ResponseStatus(HttpStatus.OK) // Retorna código 200 (OK)
+    public BrandDTO update(@PathVariable Long id, @RequestBody BrandDTO dto) throws IllegalOperationException, EntityNotFoundException {
+        // Convierte el DTO a entidad, actualiza la marca y convierte el resultado a DTO
+        BrandEntity updated = brandService.updateBrand(id, modelMapper.map(dto, BrandEntity.class));
+        return modelMapper.map(updated, BrandDTO.class);
     }
 
     /**
-     * Endpoint DELETE para eliminar una marca por su ID.
-     * @param id ID de la marca a eliminar
+     * Endpoint para eliminar una marca.
+     * @param id ID de la marca a eliminar.
+     * @throws EntityNotFoundException Si no se encuentra la marca.
      */
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT) // Retorna código 204 (NO_CONTENT) al eliminar exitosamente
-    public void delete(@PathVariable Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT) // Retorna código 204 (NO_CONTENT)
+    public void delete(@PathVariable Long id) throws EntityNotFoundException {
         brandService.deleteBrand(id); // Elimina la marca con el ID proporcionado
     }
 
     /**
-     * Manejador de excepciones para IllegalOperationException.
-     * @param e Excepción capturada
-     * @return Mensaje de error de la excepción
+     * Manejador de excepciones para operaciones ilegales.
+     * @param e Excepción capturada.
+     * @return Mensaje de error.
      */
     @ExceptionHandler(IllegalOperationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST) // Retorna código 400 (BAD_REQUEST)
@@ -129,9 +116,9 @@ public class BrandController {
     }
 
     /**
-     * Manejador de excepciones para EntityNotFoundException.
-     * @param e Excepción capturada
-     * @return Mensaje de error de la excepción
+     * Manejador de excepciones para entidades no encontradas.
+     * @param e Excepción capturada.
+     * @return Mensaje de error.
      */
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND) // Retorna código 404 (NOT_FOUND)

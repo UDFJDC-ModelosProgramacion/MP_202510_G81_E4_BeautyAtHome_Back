@@ -1,11 +1,13 @@
-// Paquete donde se encuentra la clase
 package co.edu.udistrital.mdp.beautyathome.controllers;
 
-// Importaciones necesarias
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.modelmapper.ModelMapper; // Nueva importación para ModelMapper
+import org.modelmapper.TypeToken; // Nueva importación para TypeToken
+
 import co.edu.udistrital.mdp.beautyathome.dto.ImageDTO;
+import co.edu.udistrital.mdp.beautyathome.dto.ImageDetailDTO; // Nueva importación para ImageDetailDTO
 import co.edu.udistrital.mdp.beautyathome.entities.ImageEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.ImageService;
@@ -22,35 +24,17 @@ public class ImageController {
     // Servicio inyectado para la lógica de negocio
     private final ImageService service;
 
+    // ModelMapper inyectado para la conversión entre entidades y DTOs
+    private final ModelMapper modelMapper;
+
     /**
      * Constructor para inyección de dependencias
      * @param service Servicio de imágenes
+     * @param modelMapper Instancia de ModelMapper
      */
-    public ImageController(ImageService service) {
+    public ImageController(ImageService service, ModelMapper modelMapper) {
         this.service = service;
-    }
-
-    /**
-     * Convierte una entidad ImageEntity a un DTO ImageDTO
-     * @param e Entidad de imagen
-     * @return DTO de imagen
-     */
-    private ImageDTO toDTO(ImageEntity e) {
-        ImageDTO dto = new ImageDTO();
-        dto.setId(e.getId()); // Mapea el ID
-        dto.setUrl(e.getUrl()); // Mapea la URL
-        return dto;
-    }
-
-    /**
-     * Convierte un DTO ImageDTO a una entidad ImageEntity
-     * @param dto DTO de imagen
-     * @return Entidad de imagen
-     */
-    private ImageEntity toEntity(ImageDTO dto) {
-        ImageEntity e = new ImageEntity();
-        e.setUrl(dto.getUrl()); // Mapea la URL
-        return e;
+        this.modelMapper = modelMapper;
     }
 
     /**
@@ -62,29 +46,37 @@ public class ImageController {
     @PostMapping // Mapea solicitudes POST a /images
     @ResponseStatus(HttpStatus.CREATED) // Retorna estado 201 al crear
     public ImageDTO create(@RequestBody ImageDTO dto) throws IllegalOperationException {
-        ImageEntity created = service.createImage(toEntity(dto)); // Crea la imagen
-        return toDTO(created); // Retorna el DTO de la imagen creada
+        // Convierte el DTO a Entity antes de pasarlo al servicio
+        ImageEntity imageEntity = modelMapper.map(dto, ImageEntity.class);
+        ImageEntity created = service.createImage(imageEntity);
+        // Convierte la Entity creada a DTO para retornar
+        return modelMapper.map(created, ImageDTO.class);
     }
 
     /**
-     * Endpoint para listar todas las imágenes
-     * @return Lista de DTOs de imágenes
+     * Endpoint para listar todas las imágenes utilizando ImageDetailDTO.
+     * @return Lista de DTOs de imágenes con detalle
      */
     @GetMapping // Mapea solicitudes GET a /images
-    public List<ImageDTO> list() {
-        return service.getAll().stream() // Obtiene todas las imágenes
-                .map(this::toDTO) // Convierte cada entidad a DTO
-                .toList(); // Retorna como lista
+    @ResponseStatus(HttpStatus.OK) // Retorna estado 200
+    public List<ImageDetailDTO> findAll() {
+        List<ImageEntity> images = service.getAll();
+        // Convierte la lista de entidades a lista de ImageDetailDTO
+        return modelMapper.map(images, new TypeToken<List<ImageDetailDTO>>() {}.getType());
     }
 
     /**
-     * Endpoint para obtener una imagen específica
+     * Endpoint para obtener una imagen específica utilizando ImageDetailDTO.
      * @param id ID de la imagen a buscar
-     * @return DTO de la imagen encontrada
+     * @return DTO de la imagen encontrada con detalle
+     * @throws EntityNotFoundException Si no se encuentra la imagen
      */
     @GetMapping("/{id}")
-    public ImageDTO getOne(@PathVariable Long id) {
-        return toDTO(service.getOne(id)); // Busca y retorna la imagen
+    @ResponseStatus(HttpStatus.OK) // Retorna estado 200
+    public ImageDetailDTO findOne(@PathVariable Long id) throws EntityNotFoundException {
+        ImageEntity imageEntity = service.getOne(id);
+        // Convierte la Entity a ImageDetailDTO
+        return modelMapper.map(imageEntity, ImageDetailDTO.class);
     }
 
     /**
@@ -93,20 +85,27 @@ public class ImageController {
      * @param dto DTO con los nuevos datos de la imagen
      * @return DTO de la imagen actualizada
      * @throws IllegalOperationException Si hay errores de validación
+     * @throws EntityNotFoundException Si no se encuentra la imagen
      */
     @PutMapping("/{id}")
-    public ImageDTO update(@PathVariable Long id, @RequestBody ImageDTO dto) throws IllegalOperationException {
-        ImageEntity updated = service.updateImage(id, toEntity(dto)); // Actualiza la imagen
-        return toDTO(updated); // Retorna el DTO actualizado
+    @ResponseStatus(HttpStatus.OK) // Retorna estado 200
+    public ImageDTO update(@PathVariable Long id, @RequestBody ImageDTO dto)
+            throws IllegalOperationException, EntityNotFoundException {
+        // Convierte el DTO a Entity antes de pasarlo al servicio
+        ImageEntity imageEntity = modelMapper.map(dto, ImageEntity.class);
+        ImageEntity updated = service.updateImage(id, imageEntity);
+        // Convierte la Entity actualizada a DTO para retornar
+        return modelMapper.map(updated, ImageDTO.class);
     }
 
     /**
      * Endpoint para eliminar una imagen
      * @param id ID de la imagen a eliminar
+     * @throws EntityNotFoundException Si no se encuentra la imagen
      */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT) // Retorna estado 204 al eliminar
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws EntityNotFoundException {
         service.deleteImage(id); // Elimina la imagen
     }
 
