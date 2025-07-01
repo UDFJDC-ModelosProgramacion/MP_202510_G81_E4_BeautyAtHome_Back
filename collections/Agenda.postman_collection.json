@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "622aaa46-013a-4c84-bb20-dd177377abae",
+		"name": "Agenda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43880605",
+		"_collection_link": "https://felipecardenas-8165422.postman.co/workspace/Felipe-Cardenas's-Workspace~a23744b6-5c98-4a38-8396-ed7621720165/collection/43880605-622aaa46-013a-4c84-bb20-dd177377abae?action=share&source=collection_link&creator=43880605"
+	},
+	"item": [
+		{
+			"name": "Create an agenda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"\r",
+							"pm.globals.set(\"agenda_id_1\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(201);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"professionalId\": 1,\r\n  \"appointmentIds\": [1]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/agendas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"agendas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create an agenda",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"professionalId\": 1,\r\n  \"appointmentIds\": [1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/agendas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"agendas"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": ""
+				}
+			]
+		}
+	]
+}

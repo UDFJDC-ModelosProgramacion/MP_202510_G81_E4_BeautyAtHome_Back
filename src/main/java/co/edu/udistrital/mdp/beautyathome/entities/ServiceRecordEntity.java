@@ -1,8 +1,8 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -24,12 +24,10 @@ public class ServiceRecordEntity extends BaseEntity{
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate datePerformed;
 
-    /** 
     @ElementCollection
     @CollectionTable(name = "record_result_images", joinColumns = @JoinColumn(name = "record_id"))
     @Column(name = "image_url")
-    private Set<String> resultImageUrls = new HashSet<>();
-    */
+    private List<String> resultImageUrls = new ArrayList<>();
 
     @PodamExclude
     @ManyToOne(fetch = FetchType.LAZY)

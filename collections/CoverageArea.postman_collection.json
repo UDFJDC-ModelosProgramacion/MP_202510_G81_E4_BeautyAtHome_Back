@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "c15d6ae2-0707-4707-8c8b-ff552c1ef69c",
+		"name": "CoverageArea",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43880605",
+		"_collection_link": "https://felipecardenas-8165422.postman.co/workspace/Felipe-Cardenas's-Workspace~a23744b6-5c98-4a38-8396-ed7621720165/collection/43880605-c15d6ae2-0707-4707-8c8b-ff552c1ef69c?action=share&source=collection_link&creator=43880605"
+	},
+	"item": [
+		{
+			"name": "Create a coverage area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"\r",
+							"pm.globals.set(\"coverage_area_id_1\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"\r",
+							"   pm.response.to.have.status(201);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Chapinero\",\r\n  \"professionalIds\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/coverage-areas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coverage-areas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a coverage area",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Chapinero\",\r\n    \"professionalIds\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/coverage-areas",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"coverage-areas"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "",
+					"header": [],
+					"cookie": [
+						{
+							"expires": "Invalid Date"
+						}
+					],
+					"body": ""
+				}
+			]
+		}
+	]
+}

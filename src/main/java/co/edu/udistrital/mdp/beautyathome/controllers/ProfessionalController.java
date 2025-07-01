@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.udistrital.mdp.beautyathome.dto.ProfessionalDTO;
 import co.edu.udistrital.mdp.beautyathome.entities.ProfessionalEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
+import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.ProfessionalService;
 
 @RestController
@@ -37,10 +38,11 @@ public class ProfessionalController {
      * @param professionalDTO profesional a crear
      * @return una instancia de ProfessionalDTO
      * @throws EntityNotFoundException
+     * @throws IllegalOperationException 
      */
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ProfessionalDTO create(@RequestBody ProfessionalDTO professionalDTO) throws EntityNotFoundException {
+    public ProfessionalDTO create(@RequestBody ProfessionalDTO professionalDTO) throws EntityNotFoundException, IllegalOperationException {
         ProfessionalEntity professionalEntity = professionalService.createProfessional(modelMapper.map(professionalDTO, ProfessionalEntity.class));
         return modelMapper.map(professionalEntity, ProfessionalDTO.class);
     }
@@ -72,10 +74,12 @@ public class ProfessionalController {
      * @param id identificador del profesional
      * @return una instancia de ProfessionalDTO
      * @throws EntityNotFoundException
+     * @throws jakarta.persistence.EntityNotFoundException 
+     * @throws IllegalOperationException 
      */
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ProfessionalDTO update(@PathVariable("id") Long id, @RequestBody ProfessionalDTO professionalDTO) throws EntityNotFoundException {
+    public ProfessionalDTO update(@PathVariable("id") Long id, @RequestBody ProfessionalDTO professionalDTO) throws EntityNotFoundException, jakarta.persistence.EntityNotFoundException, IllegalOperationException {
         ProfessionalEntity professionalEntity = professionalService.updateProfessional(id, modelMapper.map(professionalDTO, ProfessionalEntity.class));
         return modelMapper.map(professionalEntity, ProfessionalDTO.class);
     }

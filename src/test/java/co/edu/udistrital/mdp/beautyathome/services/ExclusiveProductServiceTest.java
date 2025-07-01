@@ -72,11 +72,8 @@ public class ExclusiveProductServiceTest {
         for (int i = 0; i < 3; i++) {
             ExclusiveProductEntity p = new ExclusiveProductEntity();
             p.setName("Prod " + i);
-            p.setPrice(i * 5.0 + 1); // Precio incremental
-            p.setAvailable(i % 2 == 0); // Disponibilidad alternada
-            p.setCategory("Cat " + i);
             p.setDescription("Desc " + i);
-            p.setPhoto("photo" + i + ".jpg");
+            p.setPhotoUrl("photo" + i + ".jpg");
             p.setBrand(brand); // Asocia a la marca
             em.persist(p);
             products.add(p);
@@ -92,11 +89,8 @@ public class ExclusiveProductServiceTest {
     public void testCreateValid() throws IllegalOperationException {
         ExclusiveProductEntity p = new ExclusiveProductEntity();
         p.setName("NewProd");
-        p.setPrice(20.0);
-        p.setAvailable(true);
-        p.setCategory("NewCat");
         p.setDescription("NewDesc");
-        p.setPhoto("newphoto.jpg");
+        p.setPhotoUrl("newphoto.jpg");
         p.setBrand(brand);
 
         ExclusiveProductEntity out = service.createExclusiveProduct(p);
@@ -105,8 +99,6 @@ public class ExclusiveProductServiceTest {
         // Verifica persistencia en BD
         ExclusiveProductEntity found = em.find(ExclusiveProductEntity.class, out.getId());
         assertEquals("NewProd", found.getName());
-        assertEquals(20.0, found.getPrice());
-        assertTrue(found.getAvailable());
     }
 
     /**
@@ -116,11 +108,8 @@ public class ExclusiveProductServiceTest {
     public void testCreateInvalidName() {
         ExclusiveProductEntity p = new ExclusiveProductEntity();
         p.setName(""); // Nombre vacío
-        p.setPrice(5.0);
-        p.setAvailable(true);
-        p.setCategory("C");
         p.setDescription("D");
-        p.setPhoto("photo.jpg");
+        p.setPhotoUrl("photo.jpg");
         p.setBrand(brand);
 
         assertThrows(IllegalOperationException.class,
@@ -134,11 +123,8 @@ public class ExclusiveProductServiceTest {
     public void testCreateInvalidPrice() {
         ExclusiveProductEntity p = new ExclusiveProductEntity();
         p.setName("X");
-        p.setPrice(-1.0); // Precio negativo
-        p.setAvailable(true);
-        p.setCategory("C");
         p.setDescription("D");
-        p.setPhoto("photo.jpg");
+        p.setPhotoUrl("photo.jpg");
         p.setBrand(brand);
 
         assertThrows(IllegalOperationException.class,
@@ -151,12 +137,8 @@ public class ExclusiveProductServiceTest {
     @Test
     public void testCreateNullBrand() {
         ExclusiveProductEntity p = new ExclusiveProductEntity();
-        p.setName("X");
-        p.setPrice(1.0);
-        p.setAvailable(true);
-        p.setCategory("C");
         p.setDescription("D");
-        p.setPhoto("photo.jpg");
+        p.setPhotoUrl("photo.jpg");
         p.setBrand(null); // Marca nula
 
         assertThrows(IllegalOperationException.class,
@@ -200,11 +182,8 @@ public class ExclusiveProductServiceTest {
 
         ExclusiveProductEntity upd = new ExclusiveProductEntity();
         upd.setName("UpdatedName");
-        upd.setPrice(99.0);
-        upd.setAvailable(false);
-        upd.setCategory("UpdatedCat");
         upd.setDescription("UpdatedDesc");
-        upd.setPhoto("updatedphoto.jpg");
+        upd.setPhotoUrl("updatedphoto.jpg");
         upd.setBrand(brand);
 
         service.updateExclusiveProduct(p.getId(), upd);
@@ -212,8 +191,6 @@ public class ExclusiveProductServiceTest {
         // Verifica cambios en BD
         ExclusiveProductEntity ver = em.find(ExclusiveProductEntity.class, p.getId());
         assertEquals("UpdatedName", ver.getName());
-        assertEquals(99.0, ver.getPrice());
-        assertFalse(ver.getAvailable());
     }
 
     /**
@@ -223,11 +200,8 @@ public class ExclusiveProductServiceTest {
     public void testUpdateInvalidId() {
         ExclusiveProductEntity upd = new ExclusiveProductEntity();
         upd.setName("X");
-        upd.setPrice(1.0);
-        upd.setAvailable(true);
-        upd.setCategory("C");
         upd.setDescription("D");
-        upd.setPhoto("photo.jpg");
+        upd.setPhotoUrl("photo.jpg");
         upd.setBrand(brand);
 
         assertThrows(EntityNotFoundException.class,

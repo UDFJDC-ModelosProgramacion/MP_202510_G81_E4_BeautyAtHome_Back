@@ -1,11 +1,10 @@
 package co.edu.udistrital.mdp.beautyathome.dto;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode; // Necesario para evitar advertencias de Lombok al extender
+import lombok.EqualsAndHashCode; 
 
-@Data // Anotación de Lombok
-@EqualsAndHashCode(callSuper = true) // Importante para que equals y hashCode consideren los campos de la superclase
+@Data 
+@EqualsAndHashCode(callSuper = true) 
 public class ExclusiveProductDetailDTO extends ExclusiveProductDTO {
-
-    private BrandDTO brand; // DTO de la marca asociada, para mostrar detalle
+    private BrandDetailDTO brandDetail; 
 }

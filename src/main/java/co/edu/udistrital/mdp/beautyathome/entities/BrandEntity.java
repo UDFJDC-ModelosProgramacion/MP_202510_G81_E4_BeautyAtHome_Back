@@ -1,7 +1,8 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
@@ -18,5 +19,5 @@ public class BrandEntity extends BaseEntity {
     private String logoURL;
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ExclusiveProductEntity> exclusiveProducts = new HashSet<>();
+    private List<ExclusiveProductEntity> exclusiveProducts = new ArrayList<>();
 }

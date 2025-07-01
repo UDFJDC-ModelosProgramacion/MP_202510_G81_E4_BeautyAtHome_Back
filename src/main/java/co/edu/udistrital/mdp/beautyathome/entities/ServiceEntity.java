@@ -1,8 +1,7 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -26,13 +25,11 @@ public class ServiceEntity extends BaseEntity {
     private String description;
     private Double price;
 
-    /**
     @PodamExclude
     @ElementCollection
     @CollectionTable(name = "service_reference_images", joinColumns = @JoinColumn(name = "service_id"))
     @Column(name = "image_url")
-    private Set<String> referenceImagesUrls;
-    */
+    private List<String> referenceImagesUrls;
 
     @PodamExclude
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,7 +38,7 @@ public class ServiceEntity extends BaseEntity {
 
     @PodamExclude
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ServiceRecordEntity> records = new HashSet<>();
+    private List<ServiceRecordEntity> records = new ArrayList<>();
 
     @PodamExclude
     @ManyToOne

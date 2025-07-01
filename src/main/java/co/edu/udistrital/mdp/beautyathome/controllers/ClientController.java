@@ -44,10 +44,11 @@ public class ClientController {
     * @param clientDTO client a crear
     * @return una instancia de ClientDTO
     * @throws EntityNotFoundException
+     * @throws IllegalOperationException 
     */
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ClientDTO create(ClientDTO clientDTO) throws EntityNotFoundException {
+    public ClientDTO create(@RequestBody ClientDTO clientDTO) throws EntityNotFoundException, IllegalOperationException {
         ClientEntity clientEntity = clientService.createClient(modelMapper.map(clientDTO, ClientEntity.class));
         return modelMapper.map(clientEntity, ClientDTO.class);
     }
@@ -70,7 +71,7 @@ public class ClientController {
      */
     @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ClientDTO findById(Long id) throws EntityNotFoundException {
+    public ClientDTO findById(@PathVariable Long id) throws EntityNotFoundException {
         ClientEntity clientEntity = clientService.getCLient(id);
         return modelMapper.map(clientEntity, ClientDTO.class);
     }
@@ -80,10 +81,11 @@ public class ClientController {
      * @param clientDTO cliente a actualizado
      * @return una instancia de ClientDTO
      * @throws EntityNotFoundException
+     * @throws IllegalOperationException 
      */
     @PutMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ClientDTO update(@PathVariable Long id, @RequestBody ClientDTO clientDTO) throws EntityNotFoundException {
+    public ClientDTO update(@PathVariable Long id, @RequestBody ClientDTO clientDTO) throws EntityNotFoundException, IllegalOperationException {
         ClientEntity clientEntity = clientService.updateClient(id, modelMapper.map(clientDTO, ClientEntity.class));
         return modelMapper.map(clientEntity, ClientDTO.class);
     }

@@ -1,6 +1,6 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
@@ -17,5 +17,5 @@ public class CoverageAreaEntity extends BaseEntity{
     private String name;
 
     @ManyToMany(mappedBy = "coverageAreas")
-    private Set<ProfessionalEntity> professionals;
+    private List<ProfessionalEntity> professionals;
 }

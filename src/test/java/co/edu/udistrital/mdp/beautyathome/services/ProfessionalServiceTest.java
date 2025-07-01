@@ -38,9 +38,9 @@ public class ProfessionalServiceTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
     private List<ProfessionalEntity> professionalList = new ArrayList<>();
-    private List<ServiceEntity> serviceList = new ArrayList<>();
+    private ArrayList<ServiceEntity> serviceList = new ArrayList<>();
     private List<AgendaEntity> agendaList = new ArrayList<>();
-    private Set<CoverageAreaEntity> coverageAreaList;
+    private ArrayList<CoverageAreaEntity> coverageAreaList;
 
     @BeforeEach
     public void setUp(){

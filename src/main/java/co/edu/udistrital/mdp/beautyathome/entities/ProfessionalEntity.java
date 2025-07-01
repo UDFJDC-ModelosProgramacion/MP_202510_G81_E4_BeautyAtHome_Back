@@ -3,9 +3,9 @@ package co.edu.udistrital.mdp.beautyathome.entities;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -23,6 +23,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class ProfessionalEntity extends BaseEntity{
     
     private String name;
+    @Column(length = 800)
     private String photoUrl;
     private String summary;
     private boolean sponsored;
@@ -41,7 +42,7 @@ public class ProfessionalEntity extends BaseEntity{
         joinColumns = @JoinColumn(name = "professional_id"),
         inverseJoinColumns = @JoinColumn(name = "area_id")
     )
-    private Set<CoverageAreaEntity> coverageAreas;
+    private List<CoverageAreaEntity> coverageAreas;
 
     @PodamExclude
     @OneToMany(mappedBy = "professional")

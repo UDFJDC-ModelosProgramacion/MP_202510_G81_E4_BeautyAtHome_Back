@@ -9,5 +9,5 @@ import lombok.Data;
 public class ServiceDetailDTO extends ServiceDTO{
     private BrandDTO brand;
     private ProfessionalDTO professional;
-    List<ReviewDetailDTO> reviews = new java.util.ArrayList<>();
+    private List<ReviewDetailDTO> reviews = new java.util.ArrayList<>();
 }

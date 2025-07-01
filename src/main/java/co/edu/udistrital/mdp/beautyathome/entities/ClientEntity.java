@@ -1,7 +1,7 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,5 +18,5 @@ public class ClientEntity extends BaseEntity {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ReviewEntity> reviews = new HashSet<>(); 
+    private List<ReviewEntity> reviews; 
 }

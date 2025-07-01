@@ -16,9 +16,9 @@ public class ExclusiveProductService {
     private ExclusiveProductRepository repo;
 
     @Transactional
-    public ExclusiveProductEntity createExclusiveProduct(ExclusiveProductEntity e) throws IllegalOperationException {
-        validate(e);
-        return repo.save(e);
+    public ExclusiveProductEntity createExclusiveProduct(ExclusiveProductEntity exclusiveProductEntity) throws IllegalOperationException {
+        validate(exclusiveProductEntity);
+        return repo.save(exclusiveProductEntity);
     }
 
     @Transactional(readOnly = true)
@@ -34,13 +34,13 @@ public class ExclusiveProductService {
     }
 
     @Transactional
-    public ExclusiveProductEntity updateExclusiveProduct(Long id, ExclusiveProductEntity e) throws IllegalOperationException {
+    public ExclusiveProductEntity updateExclusiveProduct(Long id, ExclusiveProductEntity exclusiveProductEntity) throws IllegalOperationException {
         if (!repo.existsById(id)) {
             throw new EntityNotFoundException("ExclusiveProduct with id " + id + " not found");
         }
-        validate(e);
-        e.setId(id);
-        return repo.save(e);
+        validate(exclusiveProductEntity);
+        exclusiveProductEntity.setId(id);
+        return repo.save(exclusiveProductEntity);
     }
 
     @Transactional
@@ -51,21 +51,13 @@ public class ExclusiveProductService {
         repo.deleteById(id);
     }
 
-    private void validate(ExclusiveProductEntity e) throws IllegalOperationException {
+    private void validate(ExclusiveProductEntity exclusiveProductEntity) throws IllegalOperationException {
 
-        if (e.getName() == null || e.getName().isEmpty()) {
+        if (exclusiveProductEntity.getName() == null || exclusiveProductEntity.getName().isEmpty()) {
             throw new IllegalOperationException("El nombre del producto no es válido.");
         }
 
-        if (e.getPrice() == null || e.getPrice() < 0) {
-            throw new IllegalOperationException("El precio no es válido.");
-        }
-
-        if (e.getAvailable() == null) {
-            throw new IllegalOperationException("El indicador de disponibilidad no es válido.");
-        }
-
-        if (e.getBrand() == null) {
+        if (exclusiveProductEntity.getBrand() == null) {
             throw new IllegalOperationException("La marca del producto no es válida.");
         }
     }

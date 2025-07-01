@@ -7,9 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +23,6 @@ import co.edu.udistrital.mdp.beautyathome.entities.ServiceRecordEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import jakarta.transaction.Transactional;
-import net.bytebuddy.asm.Advice.OffsetMapping.Factory.Illegal;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -42,7 +39,7 @@ public class ServiceServiceTest {
     private List<ServiceEntity> serviceList = new ArrayList<>();
     private List<ProfessionalEntity> professionalList = new ArrayList<>();
     private List<BrandEntity> brandList = new ArrayList<>();
-    private Set<ServiceRecordEntity> serviceRecordList = new HashSet<>();
+    private ArrayList<ServiceRecordEntity> serviceRecordList = new ArrayList<>();
   
     /*
      * Configuración inicial de la prueba.

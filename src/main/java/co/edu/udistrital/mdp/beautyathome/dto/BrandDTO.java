@@ -1,12 +1,15 @@
 package co.edu.udistrital.mdp.beautyathome.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Data;
 
-@Data // Anotación de Lombok para generar getters, setters, toString, equals, hashCode
+@Data 
 public class BrandDTO {
-
     private Long id;
     private String name;
     private String logoURL;
 
+    private List<Long> exclusiveProductIds = new ArrayList<>();
 }

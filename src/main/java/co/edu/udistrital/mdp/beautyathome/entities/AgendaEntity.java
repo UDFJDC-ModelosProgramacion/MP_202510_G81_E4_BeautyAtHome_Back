@@ -1,6 +1,6 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,5 +18,5 @@ public class AgendaEntity extends BaseEntity{
     private ProfessionalEntity professional;
 
     @OneToMany(mappedBy = "agenda", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AppointmentEntity> appointments;
+    private List<AppointmentEntity> appointments;
 }

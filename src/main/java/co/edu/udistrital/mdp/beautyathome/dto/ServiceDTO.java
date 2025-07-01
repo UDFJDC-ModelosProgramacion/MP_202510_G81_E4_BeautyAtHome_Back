@@ -1,6 +1,6 @@
 package co.edu.udistrital.mdp.beautyathome.dto;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -13,6 +13,7 @@ public class ServiceDTO {
     private String name;
     private String description;
     private Double price;
+    private List<String> referenceImagesUrls;
     private Long professionalId;
     private Long brandId;
 }

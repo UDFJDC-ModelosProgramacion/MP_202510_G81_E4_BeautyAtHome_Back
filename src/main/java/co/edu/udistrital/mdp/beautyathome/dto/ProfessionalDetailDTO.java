@@ -7,5 +7,8 @@ import lombok.Data;
 @Data
 
 public class ProfessionalDetailDTO extends ProfessionalDTO{
-    private List<ServiceDTO> services = new java.util.ArrayList<>();
+    private BrandDetailDTO brandDetail;
+    private List<CoverageAreaDetailDTO> coverageAreasDetail;
+    private List<ServiceDetailDTO> servicesDetail;
+    private AgendaDetailDTO agendaDetail;
 }

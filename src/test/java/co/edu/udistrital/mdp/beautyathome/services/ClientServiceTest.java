@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +35,7 @@ public class ClientServiceTest {
 
     private PodamFactory factory = new PodamFactoryImpl();
     private List<ClientEntity> clientList = new ArrayList<>();
-    private Set<ReviewEntity> reviewList = new java.util.HashSet<>();
+    private ArrayList<ReviewEntity> reviewList = new ArrayList<>();
 
     @BeforeEach
     public void setUp(){

@@ -10,10 +10,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class ExclusiveProductEntity extends BaseEntity {
 
     private String name;
-    private String photo;
-    private Double price;
-    private Boolean available;
-    private String category;
+    private String photoUrl;
     private String description;
 
     @PodamExclude

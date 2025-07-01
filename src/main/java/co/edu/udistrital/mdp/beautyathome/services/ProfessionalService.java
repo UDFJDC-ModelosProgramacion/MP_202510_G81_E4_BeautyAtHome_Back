@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.edu.udistrital.mdp.beautyathome.entities.ProfessionalEntity;
-import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import jakarta.persistence.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.repositories.ProfessionalRepository;
@@ -45,13 +44,6 @@ public class ProfessionalService {
         if (professionalEntity.getPhotoUrl() == null || professionalEntity.getPhotoUrl().isEmpty()) {
             throw new IllegalOperationException("La foto del professional no puede ser nula o vacía");
         }
-        if (professionalEntity.getAgenda() == null) {
-            throw new IllegalOperationException("La agenda del professional no puede ser nula");
-        }
-        if (professionalEntity.getCoverageAreas() == null || professionalEntity.getCoverageAreas().isEmpty()) {
-            throw new IllegalOperationException("Las áreas de cobertura del professional no pueden ser nulas o vacías");
-        }
-
         ProfessionalEntity savedProfessional = professionalRepository.save(professionalEntity);
         log.info("Professional creado con éxito: {}", savedProfessional);
         return savedProfessional;

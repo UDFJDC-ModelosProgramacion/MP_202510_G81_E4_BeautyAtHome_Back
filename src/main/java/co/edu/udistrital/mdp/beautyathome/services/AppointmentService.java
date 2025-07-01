@@ -1,14 +1,13 @@
 package co.edu.udistrital.mdp.beautyathome.services;
 
-import co.edu.udistrital.mdp.beautyathome.dto.AppointmentRequestDTO;
-import co.edu.udistrital.mdp.beautyathome.dto.AppointmentResponseDTO;
 import co.edu.udistrital.mdp.beautyathome.entities.AppointmentEntity;
+import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AppointmentService {
@@ -16,19 +15,29 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public AppointmentResponseDTO createAppointment(AppointmentRequestDTO requestDTO) {
-        AppointmentEntity entity = new AppointmentEntity();
-        entity.setClientId(requestDTO.getClientId());
-        entity.setDate(requestDTO.getDate());
-        entity.setServiceId(requestDTO.getServiceId());
-        appointmentRepository.save(entity);
-        return new AppointmentResponseDTO(entity.getId(), entity.getClientId(), entity.getDate(), entity.getServiceId());
+    @Transactional
+    public AppointmentEntity createAppointment(AppointmentEntity appointmentEntity) throws IllegalOperationException {
+        if(appointmentEntity.getScheduledAt() == null){
+            throw new IllegalOperationException("The scheuled date is not valid");
+        }
+        if(appointmentEntity.getService() == null){
+            throw new IllegalOperationException("The client is not valid");
+        }
+        if(appointmentEntity.getProfessional() == null){
+            throw new IllegalOperationException("The professional is not valid");
+        }
+        if(appointmentEntity.getClient() == null){
+            throw new IllegalOperationException("The client is not valid");
+        }
+        if(appointmentEntity.getAgenda() == null){
+            throw new IllegalOperationException("The agenda is not valid");
+        }
+        return appointmentRepository.save(appointmentEntity);
     }
 
-    public List<AppointmentResponseDTO> getAllAppointments() {
-        return appointmentRepository.findAll().stream()
-                .map(a -> new AppointmentResponseDTO(a.getId(), a.getClientId(), a.getDate(), a.getServiceId()))
-                .collect(Collectors.toList());
+    @Transactional
+    public List<AppointmentEntity> getAppointments() {
+        return appointmentRepository.findAll();
     }
 }
 
