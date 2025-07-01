@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import co.edu.udistrital.mdp.beautyathome.entities.ServiceEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
-import co.edu.udistrital.mdp.beautyathome.repositories.ProfessionalRepository;
 import co.edu.udistrital.mdp.beautyathome.repositories.ServiceRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +22,6 @@ public class ServiceService {
     
     @Autowired  
     private ServiceRepository serviceRepository;
-
-    @Autowired
-    private ProfessionalRepository professionalRepository;
-
 
     /**
      * Crea un nuevo servicio en la base de datos.
@@ -114,7 +109,6 @@ public class ServiceService {
         if (service.getRecords() == null ) {
             throw new IllegalOperationException("El servicio debe tener al menos un registro asociado");
         }
-        log.info("Iniciando el proceso de actualización del servicio con id: {}", serviceId);
         ServiceEntity updatedService = serviceRepository.save(service);
         log.info("Servicio actualizado con éxito: {}", updatedService);
         return updatedService;
