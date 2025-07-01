@@ -114,7 +114,6 @@ public class ServiceService {
         if (service.getRecords() == null ) {
             throw new IllegalOperationException("El servicio debe tener al menos un registro asociado");
         }
-        log.info("Iniciando el proceso de actualización del servicio con id: {}", serviceId);
         ServiceEntity updatedService = serviceRepository.save(service);
         log.info("Servicio actualizado con éxito: {}", updatedService);
         return updatedService;
