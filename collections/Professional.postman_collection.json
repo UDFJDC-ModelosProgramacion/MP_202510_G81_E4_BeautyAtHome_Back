@@ -1,18 +1,10 @@
 {
 	"info": {
-<<<<<<< HEAD
-		"_postman_id": "ce16d17a-be31-426a-a298-caeb2478783f",
-		"name": "Professional",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43880605",
-		"_collection_link": "https://felipecardenas-8165422.postman.co/workspace/Felipe-Cardenas's-Workspace~a23744b6-5c98-4a38-8396-ed7621720165/collection/43880605-ce16d17a-be31-426a-a298-caeb2478783f?action=share&source=collection_link&creator=43880605"
-=======
 		"_postman_id": "c6b5b562-e208-4182-b47d-85d4e3a69581",
 		"name": "Professional",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "45781496",
 		"_collection_link": "https://felipe-7252269.postman.co/workspace/Felipe's-Workspace~c8e81a2a-0732-4194-8817-f5866ab4fbba/collection/45781496-c6b5b562-e208-4182-b47d-85d4e3a69581?action=share&source=collection_link&creator=45781496"
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 	},
 	"item": [
 		{
@@ -22,20 +14,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-<<<<<<< HEAD
-							"var data = pm.response.json()\r",
-							"\r",
-							"pm.globals.set(\"professional_id_1\", data.id);\r",
-							"\r",
-							"pm.test(\"Status code is 201\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(201);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-=======
 							"var data = pm.response.json();",
 							"pm.globals.set(\"professional_id_1\", data.id);",
 							"pm.test(\"Status code is 201\", function () {",
@@ -43,7 +21,6 @@
 							"});"
 						],
 						"type": "text/javascript"
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					}
 				}
 			],
@@ -52,11 +29,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-<<<<<<< HEAD
-					"raw": "{\r\n  \"name\": \"Ana Gómez\",\r\n  \"photoUrl\": \"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww\",\r\n  \"summary\": \"Especialista en maquillaje y peinados para eventos.\",\r\n  \"sponsored\": true,\r\n  \"birthDate\": \"1990-05-15\",\r\n  \"brandId\": 1,\r\n  \"coverageAreasIds\": [1],\r\n  \"servicesIds\": []\r\n}",
-=======
 					"raw": "{\n  \"nombre\": \"Carlos Ram\\u00edrez\",\n  \"fotografia\": \"https://miweb.com/img/carlos.jpg\",\n  \"resumenExperiencia\": \"10 a\\u00f1os en fisioterapia deportiva\",\n  \"fechaDeNacimiento\": \"1985-06-15\"\n}",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					"options": {
 						"raw": {
 							"language": "json"
@@ -73,121 +46,7 @@
 					]
 				}
 			},
-<<<<<<< HEAD
-			"response": [
-				{
-					"name": "Create a professional",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"Ana Gómez\",\r\n  \"photoUrl\": \"https://example.com/photos/anagomez.jpg\",\r\n  \"summary\": \"Especialista en maquillaje y peinados para eventos.\",\r\n  \"sponsored\": true,\r\n  \"birthDate\": \"1990-05-15\",\r\n  \"brandId\": 1,\r\n  \"coverageAreasIds\": [1],\r\n  \"servicesIds\": [2]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/professionals",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"professionals"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Create a professional Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var data = pm.response.json()\r",
-							"\r",
-							"pm.globals.set(\"professional_id_1\", data.id);\r",
-							"\r",
-							"pm.test(\"Status code is 201\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(201);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Arturo Puentes\",\r\n  \"photoUrl\": \"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\r\n  \"summary\": \"Especialista en vestuarios para eventos.\",\r\n  \"sponsored\": false,\r\n  \"birthDate\": \"1991-05-15\",\r\n  \"coverageAreasIds\": [1],\r\n  \"servicesIds\": []\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/professionals",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"professionals"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Create a professional",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"Ana Gómez\",\r\n  \"photoUrl\": \"https://example.com/photos/anagomez.jpg\",\r\n  \"summary\": \"Especialista en maquillaje y peinados para eventos.\",\r\n  \"sponsored\": true,\r\n  \"birthDate\": \"1990-05-15\",\r\n  \"brandId\": 1,\r\n  \"coverageAreasIds\": [1],\r\n  \"servicesIds\": [2]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/professionals",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"professionals"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-=======
 			"response": []
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 		},
 		{
 			"name": "Find all professionals",
@@ -196,30 +55,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-<<<<<<< HEAD
-							"pm.test('Number of reviews > ' + 0, function () {\r",
-							"\r",
-							"   var data = pm.response.json()\r",
-							"\r",
-							"   pm.expect(data.length).to.greaterThan(0)\r",
-							"\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(200);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-=======
 							"pm.test(\"Status code is 200\", function () {",
 							"   pm.response.to.have.status(200);",
 							"});"
 						],
 						"type": "text/javascript"
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					}
 				}
 			],
@@ -227,60 +67,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-<<<<<<< HEAD
-					"raw": "{{baseUrl}}/reviews",
-=======
 					"raw": "{{baseUrl}}/professionals",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-<<<<<<< HEAD
-						"reviews"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Find all professionals",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"opinion\": \"Excelente servicio, muy profesional.\",\r\n        \"stars\": 5,\r\n        \"serviceRecordId\": 1,\r\n        \"clientId\": 2,\r\n        \"serviceRecordDetail\": {\r\n            \"id\": 1,\r\n            \"datePerformed\": \"2025-06-10\",\r\n            \"service\": {\r\n                \"id\": 2,\r\n                \"name\": \"Manicure a domicilio\",\r\n                \"description\": \"Uñas acrílicas con diseño\",\r\n                \"price\": 45000.0\r\n            }\r\n        },\r\n        \"client\": {\r\n            \"id\": 2,\r\n            \"fullName\": \"Felipe Cardenas\",\r\n            \"address\": \"carrera 2, calle 2\",\r\n            \"email\": \"cliente2@dirección.com\",\r\n            \"phoneNumber\": \"3171234566\"\r\n        }\r\n    }\r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-=======
 						"professionals"
 					]
 				}
 			},
 			"response": []
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 		},
 		{
 			"name": "Find a professional",
@@ -289,22 +85,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-<<<<<<< HEAD
-							"pm.test(\"Status code is 200\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(200);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-=======
 							"pm.test(\"Status code is 200\", function () {",
 							"   pm.response.to.have.status(200);",
 							"});"
 						],
 						"type": "text/javascript"
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					}
 				}
 			],
@@ -312,62 +97,17 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-<<<<<<< HEAD
-					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
-=======
 					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-<<<<<<< HEAD
-						"reviews",
-						"{{review_id_1}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Find a professional",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"opinion\": \"Excelente servicio, muy profesional.\",\r\n        \"stars\": 5,\r\n        \"serviceRecordId\": 1,\r\n        \"clientId\": 2,\r\n        \"serviceRecordDetail\": {\r\n            \"id\": 1,\r\n            \"datePerformed\": \"2025-06-10\",\r\n            \"service\": {\r\n                \"id\": 2,\r\n                \"name\": \"Manicure a domicilio\",\r\n                \"description\": \"Uñas acrílicas con diseño\",\r\n                \"price\": 45000.0\r\n            }\r\n        },\r\n        \"client\": {\r\n            \"id\": 2,\r\n            \"fullName\": \"Felipe Cardenas\",\r\n            \"address\": \"carrera 2, calle 2\",\r\n            \"email\": \"cliente2@dirección.com\",\r\n            \"phoneNumber\": \"3171234566\"\r\n        }\r\n    }\r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-=======
 						"professionals",
 						"{{professional_id_1}}"
 					]
 				}
 			},
 			"response": []
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 		},
 		{
 			"name": "Update a professional",
@@ -376,22 +116,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-<<<<<<< HEAD
-							"pm.test(\"Status code is 200\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(200);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-=======
 							"pm.test(\"Status code is 200\", function () {",
 							"   pm.response.to.have.status(200);",
 							"});"
 						],
 						"type": "text/javascript"
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					}
 				}
 			],
@@ -400,11 +129,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-<<<<<<< HEAD
-					"raw": "{\r\n  \"id\": 1,  \r\n  \"name\": \"Ana Gómez\",\r\n  \"photoUrl\": \"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww\",\r\n  \"summary\": \"Especialista en maquillaje y peinados para eventos.\",\r\n  \"sponsored\": true,\r\n  \"birthDate\": \"1990-05-15\",\r\n  \"brandId\": 1,\r\n  \"coverageAreasIds\": [1],\r\n  \"servicesIds\": [2],\r\n  \"agendaId\": 1\r\n}",
-=======
 					"raw": "{\n  \"nombre\": \"Carlos Ram\\u00edrez Actualizado\",\n  \"resumenExperiencia\": \"12 a\\u00f1os de experiencia actualizada\"\n}",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					"options": {
 						"raw": {
 							"language": "json"
@@ -412,137 +137,17 @@
 					}
 				},
 				"url": {
-<<<<<<< HEAD
-					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
-=======
 					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-<<<<<<< HEAD
-						"reviews",
-						"{{review_id_1}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Update a professional",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"id\": 1,\r\n  \"opinion\": \"Buen servicio, aunque podría mejorar la puntualidad.\",\r\n  \"stars\": 3,\r\n  \"serviceId\": 10,\r\n  \"clientId\": 4\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Update a professional Copy",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(200);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"id\": 2,  \r\n  \"name\": \"Arturo Puentes\",\r\n  \"photoUrl\": \"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\r\n  \"summary\": \"Especialista en vestuarios para eventos.\",\r\n  \"sponsored\": false,\r\n  \"birthDate\": \"1991-05-15\",\r\n  \"coverageAreasIds\": [1],\r\n  \"servicesIds\": [1],\r\n  \"agendaId\": 2\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"reviews",
-						"{{review_id_1}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Update a professional",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"id\": 1,\r\n  \"opinion\": \"Buen servicio, aunque podría mejorar la puntualidad.\",\r\n  \"stars\": 3,\r\n  \"serviceId\": 10,\r\n  \"clientId\": 4\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-=======
 						"professionals",
 						"{{professional_id_1}}"
 					]
 				}
 			},
 			"response": []
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 		},
 		{
 			"name": "Delete a professional",
@@ -551,22 +156,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-<<<<<<< HEAD
-							"pm.test(\"Status code is 204\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(204);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-=======
 							"pm.test(\"Status code is 204\", function () {",
 							"   pm.response.to.have.status(204);",
 							"});"
 						],
 						"type": "text/javascript"
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					}
 				}
 			],
@@ -574,43 +168,11 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-<<<<<<< HEAD
-					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
-=======
 					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-<<<<<<< HEAD
-						"reviews",
-						"{{review_id_1}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Delete a professional",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "No Content",
-					"code": 204,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Update an invalid professional",
-=======
 						"professionals",
 						"{{professional_id_1}}"
 					]
@@ -620,30 +182,11 @@
 		},
 		{
 			"name": "Find an invalid professional",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-<<<<<<< HEAD
-							"pm.test(\"Status code is 404\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(404);\r",
-							"\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Get expected error message\", function () {\r",
-							"\r",
-							"   var data = pm.response.json();\r",
-							"\r",
-							"   pm.expect(data.apierror.message).to.eql(\"The review with the given id was not found: {{review_id_1}}\");\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-=======
 							"pm.test(\"Status code is 404\", function () {",
 							"   pm.response.to.have.status(404);",
 							"});",
@@ -653,18 +196,10 @@
 							"});"
 						],
 						"type": "text/javascript"
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					}
 				}
 			],
 			"request": {
-<<<<<<< HEAD
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"opinion\": \"Buen servicio, aunque podría mejorar la puntualidad.\",\r\n  \"stars\": 3,\r\n  \"serviceId\": 10,\r\n  \"clientId\": 4\r\n}",
-=======
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -701,7 +236,6 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n  \"clienteId\": \"client_id_1\",\n  \"fecha\": \"2025-07-01T10:00:00Z\",\n  \"servicioId\": \"servicio_id_1\",\n  \"areaId\": \"area_id_1\"\n}",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					"options": {
 						"raw": {
 							"language": "json"
@@ -709,65 +243,11 @@
 					}
 				},
 				"url": {
-<<<<<<< HEAD
-					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
-=======
 					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}/citas",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-<<<<<<< HEAD
-						"reviews",
-						"{{review_id_1}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Update an invalid professional",
-					"originalRequest": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"apierror\": {\r\n        \"status\": \"NOT_FOUND\",\r\n        \"timestamp\": \"01-06-2025 10:01:09\",\r\n        \"message\": \"The review with the given id was not found: {{review_id_1}}\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/reviews/{{review_id_0}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"reviews",
-								"{{review_id_0}}"
-							]
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Delete an invalid professional",
-=======
 						"professionals",
 						"{{professional_id_1}}",
 						"citas"
@@ -778,46 +258,20 @@
 		},
 		{
 			"name": "Add a review",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-<<<<<<< HEAD
-							"pm.test(\"Status code is 404\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(404);\r",
-							"\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Get expected error message\", function () {\r",
-							"\r",
-							"   var data = pm.response.json();\r",
-							"\r",
-							"   pm.expect(data.apierror.message).to.eql(\"The review with the given id was not found: {{review_id_1}}\");\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-=======
 							"pm.test(\"Status code is 201\", function () {",
 							"   pm.response.to.have.status(201);",
 							"});"
 						],
 						"type": "text/javascript"
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					}
 				}
 			],
 			"request": {
-<<<<<<< HEAD
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
-=======
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -831,51 +285,10 @@
 				},
 				"url": {
 					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}/reseñas",
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-<<<<<<< HEAD
-						"reviews",
-						"{{review_id_1}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Delete an invalid professional",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"apierror\": {\r\n        \"status\": \"NOT_FOUND\",\r\n        \"timestamp\": \"01-06-2025 10:01:09\",\r\n        \"message\": \"The review with the given id was not found: {{review_id_1}}\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "Not Found",
-					"code": 404,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-=======
 						"professionals",
 						"{{professional_id_1}}",
 						"reseñas"
@@ -1059,7 +472,6 @@
 				}
 			},
 			"response": []
->>>>>>> 169a9dc14229c79897b9afe25093a383237c909c
 		}
 	]
 }
