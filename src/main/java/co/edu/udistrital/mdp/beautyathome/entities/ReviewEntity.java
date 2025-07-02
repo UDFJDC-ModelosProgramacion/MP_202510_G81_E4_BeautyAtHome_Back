@@ -3,7 +3,6 @@ package co.edu.udistrital.mdp.beautyathome.entities;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

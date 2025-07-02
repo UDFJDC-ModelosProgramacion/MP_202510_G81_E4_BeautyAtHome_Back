@@ -1,11 +1,11 @@
 package co.edu.udistrital.mdp.beautyathome.controllers;
 
 import co.edu.udistrital.mdp.beautyathome.dto.AppointmentDTO;
-import co.edu.udistrital.mdp.beautyathome.dto.AppointmentDetailDTO;
-import co.edu.udistrital.mdp.beautyathome.dto.ReviewDetailDTO;
+import co.edu.udistrital.mdp.beautyathome.dto.AppointmentViewDTO;
 import co.edu.udistrital.mdp.beautyathome.entities.AppointmentEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.AppointmentService;
+import jakarta.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -34,10 +34,29 @@ public class AppointmentController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<AppointmentDetailDTO> findAll() {
+    public List<AppointmentViewDTO> findAll() {
         List<AppointmentEntity> appointments = appointmentService.getAppointments();
-        	    return modelMapper.map(appointments, new TypeToken<List<AppointmentDetailDTO>>() {
+        	    return modelMapper.map(appointments, new TypeToken<List<AppointmentViewDTO>>() {
 	    }.getType());
+    }
+
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public AppointmentViewDTO findOne(@PathVariable Long id) throws EntityNotFoundException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
+        return appointmentService.getAppointment(id);
+    }
+
+    @PutMapping(value = "/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public AppointmentDTO update(@PathVariable Long id, @RequestBody AppointmentDTO appointmentDTO) throws IllegalOperationException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
+        AppointmentEntity appointmentEntity = appointmentService.updateAppointment(id, modelMapper.map(appointmentDTO, AppointmentEntity.class));
+        return modelMapper.map(appointmentEntity, AppointmentDTO.class);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) throws EntityNotFoundException, co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException{
+        appointmentService.deleteAppointment(id);
     }
 }
 

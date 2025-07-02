@@ -18,13 +18,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.udistrital.mdp.beautyathome.dto.ClientDTO;
-import co.edu.udistrital.mdp.beautyathome.dto.ClientDetailDTO;
 import co.edu.udistrital.mdp.beautyathome.entities.ClientEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.ClientService;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
-
-import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * Controlador que expone endpoints para los clientes

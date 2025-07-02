@@ -2,7 +2,6 @@ package co.edu.udistrital.mdp.beautyathome.controllers;
 
 import co.edu.udistrital.mdp.beautyathome.dto.CoverageAreaDTO;
 import co.edu.udistrital.mdp.beautyathome.dto.CoverageAreaDetailDTO;
-import co.edu.udistrital.mdp.beautyathome.dto.ReviewDetailDTO;
 import co.edu.udistrital.mdp.beautyathome.entities.CoverageAreaEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.services.CoverageAreaService;

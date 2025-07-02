@@ -1,6 +1,5 @@
 package co.edu.udistrital.mdp.beautyathome.entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;

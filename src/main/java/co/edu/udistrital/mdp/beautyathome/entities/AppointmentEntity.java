@@ -12,6 +12,7 @@ import lombok.Data;
 @Entity
 public class AppointmentEntity extends BaseEntity{
 
+    private String coverageAreaName;
     private LocalDateTime scheduledAt;
 
     // Servicio agendado
@@ -26,7 +27,7 @@ public class AppointmentEntity extends BaseEntity{
 
     // Cliente que agenda el servicio
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id")   
     private ClientEntity client;
 
     @ManyToOne(fetch = FetchType.LAZY)

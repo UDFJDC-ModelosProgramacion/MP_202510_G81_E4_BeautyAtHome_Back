@@ -6,6 +6,5 @@ import lombok.Data;
 
 @Data
 public class AgendaDetailDTO extends AgendaDTO{
-    private ProfessionalDetailDTO professionalDetail;
     private List<AppointmentDetailDTO> appointments;
 }
