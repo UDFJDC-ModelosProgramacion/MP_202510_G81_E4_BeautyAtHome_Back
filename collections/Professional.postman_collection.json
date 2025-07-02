@@ -1,10 +1,18 @@
 {
 	"info": {
+<<<<<<< HEAD
 		"_postman_id": "ce16d17a-be31-426a-a298-caeb2478783f",
 		"name": "Professional",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "43880605",
 		"_collection_link": "https://felipecardenas-8165422.postman.co/workspace/Felipe-Cardenas's-Workspace~a23744b6-5c98-4a38-8396-ed7621720165/collection/43880605-ce16d17a-be31-426a-a298-caeb2478783f?action=share&source=collection_link&creator=43880605"
+=======
+		"_postman_id": "c6b5b562-e208-4182-b47d-85d4e3a69581",
+		"name": "Professional",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45781496",
+		"_collection_link": "https://felipe-7252269.postman.co/workspace/Felipe's-Workspace~c8e81a2a-0732-4194-8817-f5866ab4fbba/collection/45781496-c6b5b562-e208-4182-b47d-85d4e3a69581?action=share&source=collection_link&creator=45781496"
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 	},
 	"item": [
 		{
@@ -14,6 +22,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+<<<<<<< HEAD
 							"var data = pm.response.json()\r",
 							"\r",
 							"pm.globals.set(\"professional_id_1\", data.id);\r",
@@ -26,6 +35,15 @@
 						],
 						"type": "text/javascript",
 						"packages": {}
+=======
+							"var data = pm.response.json();",
+							"pm.globals.set(\"professional_id_1\", data.id);",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					}
 				}
 			],
@@ -34,7 +52,11 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
+<<<<<<< HEAD
 					"raw": "{\r\n  \"name\": \"Arturo Puentes\",\r\n  \"photoUrl\": \"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\",\r\n  \"summary\": \"Especialista en vestuarios para eventos.\",\r\n  \"sponsored\": false,\r\n  \"birthDate\": \"1991-05-15\",\r\n  \"coverageAreasIds\": [1],\r\n  \"servicesIds\": []\r\n}",
+=======
+					"raw": "{\n  \"nombre\": \"Carlos Ram\\u00edrez\",\n  \"fotografia\": \"https://miweb.com/img/carlos.jpg\",\n  \"resumenExperiencia\": \"10 a\\u00f1os en fisioterapia deportiva\",\n  \"fechaDeNacimiento\": \"1985-06-15\"\n}",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					"options": {
 						"raw": {
 							"language": "json"
@@ -51,6 +73,7 @@
 					]
 				}
 			},
+<<<<<<< HEAD
 			"response": [
 				{
 					"name": "Create a professional",
@@ -162,6 +185,9 @@
 					"body": ""
 				}
 			]
+=======
+			"response": []
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 		},
 		{
 			"name": "Find all professionals",
@@ -170,6 +196,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+<<<<<<< HEAD
 							"pm.test('Number of reviews > ' + 0, function () {\r",
 							"\r",
 							"   var data = pm.response.json()\r",
@@ -186,6 +213,13 @@
 						],
 						"type": "text/javascript",
 						"packages": {}
+=======
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					}
 				}
 			],
@@ -193,11 +227,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
+<<<<<<< HEAD
 					"raw": "{{baseUrl}}/reviews",
+=======
+					"raw": "{{baseUrl}}/professionals",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
+<<<<<<< HEAD
 						"reviews"
 					]
 				}
@@ -235,6 +274,13 @@
 					"body": ""
 				}
 			]
+=======
+						"professionals"
+					]
+				}
+			},
+			"response": []
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 		},
 		{
 			"name": "Find a professional",
@@ -243,6 +289,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+<<<<<<< HEAD
 							"pm.test(\"Status code is 200\", function () {\r",
 							"\r",
 							"   pm.response.to.have.status(200);\r",
@@ -251,6 +298,13 @@
 						],
 						"type": "text/javascript",
 						"packages": {}
+=======
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					}
 				}
 			],
@@ -258,11 +312,16 @@
 				"method": "GET",
 				"header": [],
 				"url": {
+<<<<<<< HEAD
 					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
+=======
+					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
+<<<<<<< HEAD
 						"reviews",
 						"{{review_id_1}}"
 					]
@@ -301,6 +360,14 @@
 					"body": ""
 				}
 			]
+=======
+						"professionals",
+						"{{professional_id_1}}"
+					]
+				}
+			},
+			"response": []
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 		},
 		{
 			"name": "Update a professional",
@@ -309,6 +376,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+<<<<<<< HEAD
 							"pm.test(\"Status code is 200\", function () {\r",
 							"\r",
 							"   pm.response.to.have.status(200);\r",
@@ -317,6 +385,13 @@
 						],
 						"type": "text/javascript",
 						"packages": {}
+=======
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					}
 				}
 			],
@@ -325,7 +400,11 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
+<<<<<<< HEAD
 					"raw": "{\r\n  \"id\": 1,  \r\n  \"name\": \"Ana Gómez\",\r\n  \"photoUrl\": \"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmVzc2lvbmFsfGVufDB8fDB8fHww\",\r\n  \"summary\": \"Especialista en maquillaje y peinados para eventos.\",\r\n  \"sponsored\": true,\r\n  \"birthDate\": \"1990-05-15\",\r\n  \"brandId\": 1,\r\n  \"coverageAreasIds\": [1],\r\n  \"servicesIds\": [1],\r\n  \"agendaId\": 1\r\n}",
+=======
+					"raw": "{\n  \"nombre\": \"Carlos Ram\\u00edrez Actualizado\",\n  \"resumenExperiencia\": \"12 a\\u00f1os de experiencia actualizada\"\n}",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					"options": {
 						"raw": {
 							"language": "json"
@@ -343,6 +422,7 @@
 					]
 				}
 			},
+<<<<<<< HEAD
 			"response": [
 				{
 					"name": "Update a professional",
@@ -451,6 +531,9 @@
 					"body": ""
 				}
 			]
+=======
+			"response": []
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 		},
 		{
 			"name": "Delete a professional",
@@ -459,6 +542,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+<<<<<<< HEAD
 							"pm.test(\"Status code is 204\", function () {\r",
 							"\r",
 							"   pm.response.to.have.status(204);\r",
@@ -467,6 +551,13 @@
 						],
 						"type": "text/javascript",
 						"packages": {}
+=======
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					}
 				}
 			],
@@ -474,11 +565,16 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
+<<<<<<< HEAD
 					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
+=======
+					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
+<<<<<<< HEAD
 						"reviews",
 						"{{review_id_1}}"
 					]
@@ -505,11 +601,23 @@
 		},
 		{
 			"name": "Update an invalid professional",
+=======
+						"professionals",
+						"{{professional_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find an invalid professional",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+<<<<<<< HEAD
 							"pm.test(\"Status code is 404\", function () {\r",
 							"\r",
 							"   pm.response.to.have.status(404);\r",
@@ -526,15 +634,65 @@
 						],
 						"type": "text/javascript",
 						"packages": {}
+=======
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The professional with the given id was not found: {{professional_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					}
 				}
 			],
 			"request": {
+<<<<<<< HEAD
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"opinion\": \"Buen servicio, aunque podría mejorar la puntualidad.\",\r\n  \"stars\": 3,\r\n  \"serviceId\": 10,\r\n  \"clientId\": 4\r\n}",
+=======
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/professionals/invalid_id_9999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"professionals",
+						"invalid_id_9999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a cita",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"clienteId\": \"client_id_1\",\n  \"fecha\": \"2025-07-01T10:00:00Z\",\n  \"servicioId\": \"servicio_id_1\",\n  \"areaId\": \"area_id_1\"\n}",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					"options": {
 						"raw": {
 							"language": "json"
@@ -542,11 +700,16 @@
 					}
 				},
 				"url": {
+<<<<<<< HEAD
 					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
+=======
+					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}/citas",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
+<<<<<<< HEAD
 						"reviews",
 						"{{review_id_1}}"
 					]
@@ -595,11 +758,24 @@
 		},
 		{
 			"name": "Delete an invalid professional",
+=======
+						"professionals",
+						"{{professional_id_1}}",
+						"citas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a review",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
+<<<<<<< HEAD
 							"pm.test(\"Status code is 404\", function () {\r",
 							"\r",
 							"   pm.response.to.have.status(404);\r",
@@ -616,18 +792,42 @@
 						],
 						"type": "text/javascript",
 						"packages": {}
+=======
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					}
 				}
 			],
 			"request": {
+<<<<<<< HEAD
 				"method": "DELETE",
 				"header": [],
 				"url": {
 					"raw": "{{baseUrl}}/reviews/{{review_id_1}}",
+=======
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"clienteId\": \"client_id_1\",\n  \"servicioId\": \"servicio_id_1\",\n  \"comentario\": \"Excelente atenci\\u00f3n\",\n  \"calificacion\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}/reseñas",
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
+<<<<<<< HEAD
 						"reviews",
 						"{{review_id_1}}"
 					]
@@ -666,6 +866,191 @@
 					"body": ""
 				}
 			]
+=======
+						"professionals",
+						"{{professional_id_1}}",
+						"reseñas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add an image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"tipo\": \"url\",\n  \"url\": \"https://miweb.com/img/carlos-trabajo1.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/professionals/{{professional_id_1}}/imagenes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"professionals",
+						"{{professional_id_1}}",
+						"imagenes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a cita (Invalid)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The resource was not found for professional: {professional_id_1}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"clienteId\": \"client_id_1\",\n  \"fecha\": \"2025-07-01T10:00:00Z\",\n  \"servicioId\": \"servicio_id_1\",\n  \"areaId\": \"area_id_1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/professionals/invalid_id_9999/citas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"professionals",
+						"invalid_id_9999",
+						"citas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a review (Invalid)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The resource was not found for professional: {professional_id_1}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"clienteId\": \"client_id_1\",\n  \"servicioId\": \"servicio_id_1\",\n  \"comentario\": \"Atenci\\u00f3n deficiente\",\n  \"calificacion\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/professionals/invalid_id_9999/reseñas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"professionals",
+						"invalid_id_9999",
+						"reseñas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add an image (Invalid)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The resource was not found for professional: {professional_id_1}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"tipo\": \"url\",\n  \"url\": \"https://miweb.com/img/error.png\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/professionals/invalid_id_9999/imagenes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"professionals",
+						"invalid_id_9999",
+						"imagenes"
+					]
+				}
+			},
+			"response": []
+>>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 		}
 	]
 }
