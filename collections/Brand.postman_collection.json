@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "907d8c55-7631-4c97-b026-d0b5b0913abc",
+		"_postman_id": "28e6665d-39e6-44ef-8928-a36722ad80cf",
 		"name": "Brand",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43880605",
-		"_collection_link": "https://felipecardenas-8165422.postman.co/workspace/Felipe-Cardenas's-Workspace~a23744b6-5c98-4a38-8396-ed7621720165/collection/43880605-907d8c55-7631-4c97-b026-d0b5b0913abc?action=share&source=collection_link&creator=43880605"
+		"_exporter_id": "45781496",
+		"_collection_link": "https://felipe-7252269.postman.co/workspace/Felipe's-Workspace~c8e81a2a-0732-4194-8817-f5866ab4fbba/collection/45781496-28e6665d-39e6-44ef-8928-a36722ad80cf?action=share&source=collection_link&creator=45781496"
 	},
 	"item": [
 		{
@@ -84,7 +84,7 @@
 					},
 					"status": "Created",
 					"code": 201,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [],
 					"cookie": [
 						{
@@ -94,6 +94,256 @@
 					"body": ""
 				}
 			]
+		},
+		{
+			"name": "Find all brands",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of brands > 0', function () {",
+							"   var data = pm.response.json()",
+							"   pm.expect(data.length).to.greaterThan(0)",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brands",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find a brand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brands/{{brand_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands",
+						"{{brand_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a brand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1,\n  \"name\": \"L'Or\\u00e9al Updated\",\n  \"logoURL\": \"https://example.com/logos/loreal_updated.png\",\n  \"exclusiveProductIds\": [\n    1,\n    2\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brands/{{brand_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands",
+						"{{brand_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a brand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brands/{{brand_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands",
+						"{{brand_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find an invalid brand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The brand with the given id was not found: {{brand_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brands/{{brand_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands",
+						"{{brand_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an invalid brand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The brand with the given id was not found: {{brand_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 999,\n  \"name\": \"Invalid Brand\",\n  \"logoURL\": \"https://example.com/logos/invalid.png\",\n  \"exclusiveProductIds\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/brands/{{brand_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands",
+						"{{brand_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an invalid brand",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The brand with the given id was not found: {{brand_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/brands/{{brand_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"brands",
+						"{{brand_id_1}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

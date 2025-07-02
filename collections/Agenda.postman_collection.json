@@ -1,225 +1,263 @@
 {
-	"info": {
-		"_postman_id": "622aaa46-013a-4c84-bb20-dd177377abae",
-		"name": "Agenda",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43880605",
-		"_collection_link": "https://felipecardenas-8165422.postman.co/workspace/Felipe-Cardenas's-Workspace~a23744b6-5c98-4a38-8396-ed7621720165/collection/43880605-622aaa46-013a-4c84-bb20-dd177377abae?action=share&source=collection_link&creator=43880605"
-	},
-	"item": [
-		{
-			"name": "Create an agenda",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var data = pm.response.json()\r",
-							"\r",
-							"pm.globals.set(\"agenda_id_1\", data.id);\r",
-							"\r",
-							"pm.test(\"Status code is 201\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(201);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"professionalId\": 1,\r\n  \"appointmentIds\": []\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/agendas",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"agendas"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Create an agenda",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"id\": 1,\r\n  \"professionalId\": 1,\r\n  \"appointmentIds\": []\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/agendas",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"agendas"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "",
-					"header": [],
-					"cookie": [
-						{
-							"expires": "Invalid Date"
-						}
-					],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Find all agendas",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('Number of agendas > ' + 0, function () {\r",
-							"\r",
-							"   var data = pm.response.json()\r",
-							"\r",
-							"   pm.expect(data.length).to.greaterThan(0)\r",
-							"\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(200);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{baseUrl}}/agendas",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"agendas"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Find all agendas",
-					"originalRequest": {
-						"method": "GET",
-						"header": []
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "",
-					"header": [],
-					"cookie": [
-						{
-							"expires": "Invalid Date"
-						}
-					],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Find an agenda",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"\r",
-							"   pm.response.to.have.status(200);\r",
-							"\r",
-							"});"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/agendas/{{agenda_id_1}}",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"agendas",
-						"{{agenda_id_1}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Find an agenda",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"id\": 1,\r\n        \"opinion\": \"Excelente servicio, muy profesional.\",\r\n        \"stars\": 5,\r\n        \"serviceRecordId\": 1,\r\n        \"clientId\": 2,\r\n        \"serviceRecordDetail\": {\r\n            \"id\": 1,\r\n            \"datePerformed\": \"2025-06-10\",\r\n            \"service\": {\r\n                \"id\": 2,\r\n                \"name\": \"Manicure a domicilio\",\r\n                \"description\": \"Uñas acrílicas con diseño\",\r\n                \"price\": 45000.0\r\n            }\r\n        },\r\n        \"client\": {\r\n            \"id\": 2,\r\n            \"fullName\": \"Felipe Cardenas\",\r\n            \"address\": \"carrera 2, calle 2\",\r\n            \"email\": \"cliente2@dirección.com\",\r\n            \"phoneNumber\": \"3171234566\"\r\n        }\r\n    }\r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": ""
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "Text",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "generated-agenda-collection",
+    "name": "Agenda (completa)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "auto-generated"
+  },
+  "item": [
+    {
+      "name": "Update an agenda",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/agendas/{{agenda_id_1}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "agendas",
+            "{{agenda_id_1}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"professionalId\": 1,\n  \"appointmentIds\": [\n    1,\n    2\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Delete an agenda",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/agendas/{{agenda_id_1}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "agendas",
+            "{{agenda_id_1}}"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {",
+              "    pm.response.to.have.status(204);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Add appointment to agenda",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/agendas/{{agenda_id_1}}/appointments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "agendas",
+            "{{agenda_id_1}}",
+            "appointments"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"professionalId\": 1,\n  \"clientId\": 2,\n  \"date\": \"2025-07-10\",\n  \"serviceId\": 3,\n  \"coverageAreaId\": 4\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cancel appointment from agenda",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/agendas/{{agenda_id_1}}/appointments/{appointment_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "agendas",
+            "{{agenda_id_1}}",
+            "appointments",
+            "{appointment_id}"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {",
+              "    pm.response.to.have.status(204);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update agenda availability",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/agendas/{{agenda_id_1}}/disponibilidad",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "agendas",
+            "{{agenda_id_1}}",
+            "disponibilidad"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"diasDisponibles\": [\n    \"LUNES\",\n    \"MIERCOLES\",\n    \"VIERNES\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Add observer to agenda",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/agendas/{{agenda_id_1}}/observers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "agendas",
+            "{{agenda_id_1}}",
+            "observers"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"observerId\": 5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Remove observer from agenda",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/agendas/{{agenda_id_1}}/observers/{observer_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "agendas",
+            "{{agenda_id_1}}",
+            "observers",
+            "{observer_id}"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 204\", function () {",
+              "    pm.response.to.have.status(204);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
 }

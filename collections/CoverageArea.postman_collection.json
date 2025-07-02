@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "c15d6ae2-0707-4707-8c8b-ff552c1ef69c",
+		"_postman_id": "aa24a96f-98d6-4387-b590-566ea698b6af",
 		"name": "CoverageArea",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43880605",
-		"_collection_link": "https://felipecardenas-8165422.postman.co/workspace/Felipe-Cardenas's-Workspace~a23744b6-5c98-4a38-8396-ed7621720165/collection/43880605-c15d6ae2-0707-4707-8c8b-ff552c1ef69c?action=share&source=collection_link&creator=43880605"
+		"_exporter_id": "45781496",
+		"_collection_link": "https://felipe-7252269.postman.co/workspace/Felipe's-Workspace~c8e81a2a-0732-4194-8817-f5866ab4fbba/collection/45781496-aa24a96f-98d6-4387-b590-566ea698b6af?action=share&source=collection_link&creator=45781496"
 	},
 	"item": [
 		{
@@ -78,7 +78,7 @@
 					},
 					"status": "Created",
 					"code": 201,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [],
 					"cookie": [
 						{
@@ -88,6 +88,256 @@
 					"body": ""
 				}
 			]
+		},
+		{
+			"name": "Find all coverage areas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of coverage areas > 0', function () {",
+							"   var data = pm.response.json()",
+							"   pm.expect(data.length).to.greaterThan(0)",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/coverage-areas",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coverage-areas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find a coverage area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/coverage-areas/{{coverage_area_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coverage-areas",
+						"{{coverage_area_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a coverage area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1,\n  \"name\": \"Chapinero Alto\",\n  \"professionalIds\": [\n    1,\n    2\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/coverage-areas/{{coverage_area_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coverage-areas",
+						"{{coverage_area_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a coverage area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/coverage-areas/{{coverage_area_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coverage-areas",
+						"{{coverage_area_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find an invalid coverage area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The coverage area with the given id was not found: {{coverage_area_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/coverage-areas/{{coverage_area_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coverage-areas",
+						"{{coverage_area_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an invalid coverage area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The coverage area with the given id was not found: {{coverage_area_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 999,\n  \"name\": \"Invalid Area\",\n  \"professionalIds\": []\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/coverage-areas/{{coverage_area_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coverage-areas",
+						"{{coverage_area_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an invalid coverage area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The coverage area with the given id was not found: {{coverage_area_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/coverage-areas/{{coverage_area_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"coverage-areas",
+						"{{coverage_area_id_1}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

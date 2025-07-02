@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "32f0019e-9375-42fe-ba57-1d76cd638fa9",
+		"_postman_id": "0ea687dc-a713-4533-b8bd-27117d08f93d",
 		"name": "Appointment",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43880605",
-		"_collection_link": "https://felipecardenas-8165422.postman.co/workspace/Felipe-Cardenas's-Workspace~a23744b6-5c98-4a38-8396-ed7621720165/collection/43880605-32f0019e-9375-42fe-ba57-1d76cd638fa9?action=share&source=collection_link&creator=43880605"
+		"_exporter_id": "45781496",
+		"_collection_link": "https://felipe-7252269.postman.co/workspace/Felipe's-Workspace~c8e81a2a-0732-4194-8817-f5866ab4fbba/collection/45781496-0ea687dc-a713-4533-b8bd-27117d08f93d?action=share&source=collection_link&creator=45781496"
 	},
 	"item": [
 		{
@@ -78,7 +78,7 @@
 					},
 					"status": "Created",
 					"code": 201,
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [],
 					"cookie": [
 						{
@@ -117,17 +117,11 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "  {\r\n    \"id\": 1,\r\n    \"clientName\": \"Felipe Cardenas\",\r\n    \"coverageAreaName\": \"Chapinero\",\r\n    \"serviceName\": \"Asesoramiento de vestuarios para eventos\",\r\n    \"professionalName\": \"Arturo Torres\",\r\n    \"date\": \"2025-07-03T10:00:00\"\r\n  }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+						"url": {
+							"raw": ""
 						}
 					},
-					"_postman_previewlanguage": "",
+					"_postman_previewlanguage": "Text",
 					"header": [],
 					"cookie": [
 						{
@@ -137,6 +131,225 @@
 					"body": ""
 				}
 			]
+		},
+		{
+			"name": "Find all appointments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of appointments > 0', function () {",
+							"   var data = pm.response.json()",
+							"   pm.expect(data.length).to.greaterThan(0)",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/appointments",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"appointments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an appointment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 1,\n  \"coverageAreaName\": \"Chapinero Norte\",\n  \"scheduledAt\": \"2025-07-04T15:00:00\",\n  \"serviceId\": 1,\n  \"professionalId\": 1,\n  \"clientId\": 1,\n  \"agendaId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/appointments/{{appointment_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"appointments",
+						"{{appointment_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an appointment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/appointments/{{appointment_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"appointments",
+						"{{appointment_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find an invalid appointment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The appointment with the given id was not found: {{appointment_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/appointments/{{appointment_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"appointments",
+						"{{appointment_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update an invalid appointment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The appointment with the given id was not found: {{appointment_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 999,\n  \"coverageAreaName\": \"Invalid\",\n  \"scheduledAt\": \"2025-07-05T12:00:00\",\n  \"serviceId\": 999,\n  \"professionalId\": 999,\n  \"clientId\": 999,\n  \"agendaId\": 999\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/appointments/{{appointment_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"appointments",
+						"{{appointment_id_1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an invalid appointment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.apierror.message).to.eql(\"The appointment with the given id was not found: {{appointment_id_1}}\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/appointments/{{appointment_id_1}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"appointments",
+						"{{appointment_id_1}}"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
