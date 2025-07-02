@@ -8,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.udistrital.mdp.beautyathome.entities.ClientEntity;
 import co.edu.udistrital.mdp.beautyathome.entities.CoverageAreaEntity;
 import co.edu.udistrital.mdp.beautyathome.exceptions.EntityNotFoundException;
 import co.edu.udistrital.mdp.beautyathome.exceptions.IllegalOperationException;
 import co.edu.udistrital.mdp.beautyathome.repositories.CoverageAreaRepository;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 
@@ -38,7 +36,6 @@ public class CoverageAreaService{
         return coverageAreaRepository.findAll();
     }
 
-<<<<<<< HEAD
     @Transactional
     public CoverageAreaEntity getCArea(Long id) throws EntityNotFoundException{
         Optional<CoverageAreaEntity> coverageAreaEntity = coverageAreaRepository.findById(id);
@@ -46,9 +43,6 @@ public class CoverageAreaService{
     }
 
     /**
-=======
-        /**
->>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
      * Actualiza un área de cobertura existente.
      * 
      * @param coverageAreaId El ID del área de cobertura a actualizar.
@@ -59,10 +53,6 @@ public class CoverageAreaService{
      */
     @Transactional
     public CoverageAreaEntity updateCoverageArea(Long coverageAreaId, CoverageAreaEntity coverageArea) throws IllegalOperationException, EntityNotFoundException {
-<<<<<<< HEAD
-=======
-        log.info("Iniciando el proceso de actualización del área de cobertura con id: {}", coverageAreaId);
->>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
         Optional<CoverageAreaEntity> optionalCoverageAreaEntity = coverageAreaRepository.findById(coverageAreaId);
         optionalCoverageAreaEntity.orElseThrow(() -> new EntityNotFoundException("The coverage area with the given id was not found: " + coverageAreaId));
         coverageArea.setId(coverageAreaId);
@@ -75,10 +65,6 @@ public class CoverageAreaService{
         }
         
         CoverageAreaEntity updatedCoverageArea = coverageAreaRepository.save(coverageArea);
-<<<<<<< HEAD
-=======
-        log.info("Área de cobertura actualizada con éxito: {}", updatedCoverageArea);
->>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
         return updatedCoverageArea;
     }
     /**
@@ -90,15 +76,6 @@ public class CoverageAreaService{
     public void deleteCoverageArea(Long coverageAreaId) throws EntityNotFoundException {
         Optional<CoverageAreaEntity> optionalCoverageAreaEntity = coverageAreaRepository.findById(coverageAreaId);
         optionalCoverageAreaEntity.orElseThrow(() -> new EntityNotFoundException("The coverage area with the given id was not found: " + coverageAreaId));
-<<<<<<< HEAD
         coverageAreaRepository.deleteById(coverageAreaId);
     }
-=======
-        log.info("Iniciando el proceso de eliminación del área de cobertura con id: {}", coverageAreaId);
-        coverageAreaRepository.deleteById(coverageAreaId);
-    }
-
-
-
->>>>>>> bb3985135ae4ac0249b7691d83b801a74dc0283a
 }
